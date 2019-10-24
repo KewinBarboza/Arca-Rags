@@ -1,0 +1,19 @@
+body{
+    background: #fff;
+}
+
+
+/* login */
+.form-control{
+    padding: 25px;
+    border-radius: 0px;
+    font-size: 15px;
+}
+
+.form-control:focus {
+    /* box-shadow: 0 0 0 0.2rem rgba(0, 165, 80, 0.11); */
+}
+
+.app{
+    min-height: 92vh;
+}

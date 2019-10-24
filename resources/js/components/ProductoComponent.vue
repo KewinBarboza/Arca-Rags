@@ -1,0 +1,66 @@
+<template>
+    <div>
+        <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in productos" :key="index">
+            <div class="card card-sombra border-0">
+                <img :src="producto.image" class="img-fluid card-img-top p-3" :alt="producto.nombre">
+                <div class="card-body p-2">
+                    <h5 class="card-title mb-1"><b>{{producto.nombre}}</b></h5>
+                    <p class="card-text color-parrafo mb-1">{{producto.descripcion}}</p>
+                    <router-link class="text-decoration-none" :to="{name:'Producto'}"><b>Ver mas</b></router-link>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return{
+                productos:
+                [
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
+                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'}
+                ]
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    a{
+         color: #4CAF50;
+    }
+
+    .card{
+        background: #f1f1f1;
+    }
+
+    .card-body{
+        background: #fff;
+    }
+
+    .titulo-menu{
+        background: rgba(76, 175, 79, 0.336);
+        border-bottom: 2px solid #00ff08;
+    }
+    .card-text{
+        color: #868686;
+    }
+
+    .card-sombra{
+        transition: all 1s;
+    }
+
+    .card-sombra:hover{
+        box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);
+    }
+
+</style>
