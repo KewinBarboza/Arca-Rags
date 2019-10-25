@@ -45,10 +45,8 @@ class ProductoController extends Controller
     {
         if($request->file('imagen')){
             $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-            $urlImagen = asset($path);
+            $urlImagen = $path;
         }
-        // $imagen = request()->file('imagen');
-        // $urlImagen = $imagen->store('imagen');
 
         $productos = new Productos();
         $productos->nombre = $request->nombre;
@@ -94,31 +92,25 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // if($request->file('imagen')){
-        //     $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-        //     $urlImagen = asset($path);
-        // }
-        
-        if ($request->hasFile('imagen')){
-            $archivoFoto=$request->file('imagen');
-            $nombreFoto=time().$archivoFoto->getClientOriginalName(); 
-            $archivoFoto->move(public_path().'/images/', $nombreFoto);
-          }
+        if($request->file('imagen')){
+            $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
+            $urlImagen = $path;
+        }
  
-
         $productos = Productos::find($id);
-        $productos->nombre = 'hola';
-        $productos->talla = 'prueba';
-        $productos->tela = 'prueba';
-        $productos->modelo = 'prueba';
-        $productos->descripcion = 'prueba';
-        $productos->id_categoria = '1';
-
         
-        $productos->imagen = $nombreFoto;
+        Storage::disk('public')->delete($productos->imagen);
+
+        $productos->nombre       = $request->nombre;
+        $productos->modelo       = $request->modelo;
+        $productos->talla        = $request->talla;
+        $productos->tela         = $request->tela;
+        $productos->descripcion  = $request->descripcion;
+        $productos->id_categoria = $request->categoria;
+        $productos->imagen       = $urlImagen;
         $productos->save();
 
-        return ;
+        return $productos;
     }
 
     /**
@@ -130,6 +122,17 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Productos::find($id);
-        $producto->delete();
+
+        if (is_file($producto->imagen)) {
+
+            Storage::disk('public')->delete($producto->imagen);
+            $producto->delete();
+            return 'producto eliminado con éxito';
+        }
+        else
+        {
+            return 'este archivo no existe';
+        }
+
     }
 }

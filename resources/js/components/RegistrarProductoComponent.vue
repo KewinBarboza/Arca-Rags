@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="row h-form">
+      
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
-        
         <form @submit.prevent="modificar(producto)" v-if="modificarActivo" class="mt-3" enctype="multipart/form-data">
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
           
           <div class="form-group text-center imagen">
-              <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
+              <img :src="imageEditar" v-if="imgModificar" class="mx-auto d-block img-fluid" alt="foto">
+              <img :src="producto.imagen" v-else class="mx-auto d-block img-fluid" alt="foto">
               <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
               <label  for="inputGroupFile01" class="mt-2 btn btn-outline-success">Seleccione una imagen</label>
           </div>
@@ -52,14 +53,13 @@
           </div>
         </form>
 
-
         <div v-else> 
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
             <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
           
             <div class="form-group text-center imagen">
                 <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
-                <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" required>
+                <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                 <label  for="inputGroupFile01" class="mt-2 btn btn-outline-success">Seleccione una imagen</label>
             </div>
 
@@ -101,7 +101,6 @@
             <button class="btn verde-s text-white btn-block rounded-0 mt-2" type="submit">Guardar</button>
           </form>
         </div>
-        
       </div>
 
       <div class="col-sm-12 col-md-7 col-lg-7  pl-0 div-scroll">
@@ -135,6 +134,14 @@
             </div>
           </div>
       </div>
+
+    </div>
+
+    <div class="alert alert-dark rounded-0" style="position: absolute; top: 0; right: 80%;" role="alert" v-if="toast">
+      <p>{{mensaje}}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   </div>
 </template>
@@ -149,6 +156,11 @@ export default {
           categorias:[],
 
           modificarActivo:false,
+          imgModificar:false,
+          toast:false,
+
+          mensaje:'',
+
           imgProducto:'./images/logo.jpg',
           imgProductoNuevo:'./images/sin-foto.jpg',
           imgProductoModificar:''
@@ -161,13 +173,15 @@ export default {
     obtenerImagen(e){
       let file = e.target.files[0];
       this.producto.imagen = file;
-      this.cargarImagen(file);
+      // this.cargarImagen(file);
 
-      // if(this.modificarActivo){
-      //   this.cargarImagenEditada(file);
-      // }else{
-      //   this.cargarImagen(file);
-      // }
+      if(this.modificarActivo){
+        this.cargarImagenEditada(file);
+        this.imgModificar=true;
+
+      }else{
+        this.cargarImagen(file);
+      }
       
     },
 
@@ -187,8 +201,8 @@ export default {
 
       reader.onload = (e) => {
         console.log(e);
-        this.producto.imagen = e.target.result;
-
+        const img = this.imgProductoModificar = e.target.result;
+         
       }
 
       reader.readAsDataURL(file);
@@ -233,7 +247,8 @@ export default {
                 this.productos.push(res.data);
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''};
                 this.imgProductoNuevo = './images/sin-foto.jpg';
-                alert('Producto creado con éxito');
+                
+
 
             })
             .catch(function (error) {
@@ -247,11 +262,14 @@ export default {
 
     eliminar(producto, index ){
 
-      if (confirm("Desea eliminar este producto"+producto.id)) {
+      if (confirm("Desea eliminar este producto"+' '+producto.id)) {
         const url = `api/productos/${producto.id}`;
         axios.delete(url)
         .then(res => {
           this.consultar();
+          this.modificarActivo = false;
+          this.toast = true;
+          this.mensaje = res.data;
         })
         .catch(function (error) {
           console.log(error);
@@ -276,8 +294,10 @@ export default {
           formData.append('descripcion', this.producto.descripcion);
           formData.append('imagen',      this.producto.imagen);
           formData.append('categoria',   this.producto.categoria);
+          formData.append('_method', 'PUT');
+          console.log(this.producto.imagen);
 
-      axios.put(`api/productos/${producto.id}`, formData)
+      axios.post(`api/productos/${producto.id}`, formData)
         .then(res=>{
             this.modificarActivo = false;
             console.log(res.data);
@@ -289,7 +309,7 @@ export default {
             this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''}
             
             // alert('Producto modificado con éxito');
-            // this.consultar();
+            this.consultar();
 
         })
         .catch(function (error) {
@@ -341,7 +361,7 @@ export default {
     },
 
     imageEditar(){
-      return  this.imgProductoModificar;
+      return this.imgProductoModificar;
     }
   }
 
@@ -412,5 +432,9 @@ export default {
       height: auto;
     }
 
-
+    .alert-dark {
+      color: #ffffff;
+      background-color: #323232;
+      border-radius: 2px;
+    }
 </style>

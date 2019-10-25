@@ -2521,6 +2521,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2536,6 +2543,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       categorias: [],
       modificarActivo: false,
+      imgModificar: false,
+      toast: false,
+      mensaje: '',
       imgProducto: './images/logo.jpg',
       imgProductoNuevo: './images/sin-foto.jpg',
       imgProductoModificar: ''
@@ -2544,12 +2554,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     obtenerImagen: function obtenerImagen(e) {
       var file = e.target.files[0];
-      this.producto.imagen = file;
-      this.cargarImagen(file); // if(this.modificarActivo){
-      //   this.cargarImagenEditada(file);
-      // }else{
-      //   this.cargarImagen(file);
-      // }
+      this.producto.imagen = file; // this.cargarImagen(file);
+
+      if (this.modificarActivo) {
+        this.cargarImagenEditada(file);
+        this.imgModificar = true;
+      } else {
+        this.cargarImagen(file);
+      }
     },
     cargarImagen: function cargarImagen(file) {
       var _this = this;
@@ -2570,7 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.onload = function (e) {
         console.log(e);
-        _this2.producto.imagen = e.target.result;
+        var img = _this2.imgProductoModificar = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -2611,7 +2623,6 @@ __webpack_require__.r(__webpack_exports__);
             imagen: ''
           };
           _this4.imgProductoNuevo = './images/sin-foto.jpg';
-          alert('Producto creado con éxito');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -2620,10 +2631,14 @@ __webpack_require__.r(__webpack_exports__);
     eliminar: function eliminar(producto, index) {
       var _this5 = this;
 
-      if (confirm("Desea eliminar este producto" + producto.id)) {
+      if (confirm("Desea eliminar este producto" + ' ' + producto.id)) {
         var url = "api/productos/".concat(producto.id);
         axios["delete"](url).then(function (res) {
           _this5.consultar();
+
+          _this5.modificarActivo = false;
+          _this5.toast = true;
+          _this5.mensaje = res.data;
         })["catch"](function (error) {
           console.log(error);
         });
@@ -2642,7 +2657,9 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('descripcion', this.producto.descripcion);
       formData.append('imagen', this.producto.imagen);
       formData.append('categoria', this.producto.categoria);
-      axios.put("api/productos/".concat(producto.id), formData).then(function (res) {
+      formData.append('_method', 'PUT');
+      console.log(this.producto.imagen);
+      axios.post("api/productos/".concat(producto.id), formData).then(function (res) {
         _this6.modificarActivo = false;
         console.log(res.data);
 
@@ -2660,7 +2677,8 @@ __webpack_require__.r(__webpack_exports__);
           descripcion: '',
           imagen: ''
         }; // alert('Producto modificado con éxito');
-        // this.consultar();
+
+        _this6.consultar();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7679,7 +7697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-verde[data-v-1f0bd8bb]{\n    color: rgb(0, 165, 80);\n}\n.text-mt[data-v-1f0bd8bb]{\n  font-size: 13px;\n  color: rgb(63, 63, 63);\n}\n.text-m[data-v-1f0bd8bb]{\n  font-style:initial;\n  color: #575757ee;\n}\n.form-control[data-v-1f0bd8bb]{\n      padding: .375rem .75rem;\n}\n.media:hover .btn-delete[data-v-1f0bd8bb]{\n    display: block;\n}\n.media:hover .btn-edit[data-v-1f0bd8bb]{\n    display: block;\n}\n.h-form[data-v-1f0bd8bb]{\n  min-height: 92vh;\n}\n.btn-delete[data-v-1f0bd8bb], .btn-edit[data-v-1f0bd8bb]{\n  display: none;\n}\n.btn-delete[data-v-1f0bd8bb]:hover{\n  background:#ffb2b2;\n}\n.btn-edit[data-v-1f0bd8bb]:hover{\n  background:#00a5504a;\n}\n.div-scroll[data-v-1f0bd8bb]{\n    overflow-y: hidden;\n    min-height: 92vh;\n}\n.div-scroll[data-v-1f0bd8bb]:hover{\n    overflow-y: scroll;\n}\n.imagen[data-v-1f0bd8bb]{\n  max-height: auto;\n  max-width:  30%;\n  margin: auto;\n}\n.imagen img[data-v-1f0bd8bb]{\n  width: 100%;\n  height: auto;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.text-verde[data-v-1f0bd8bb]{\n    color: rgb(0, 165, 80);\n}\n.text-mt[data-v-1f0bd8bb]{\n  font-size: 13px;\n  color: rgb(63, 63, 63);\n}\n.text-m[data-v-1f0bd8bb]{\n  font-style:initial;\n  color: #575757ee;\n}\n.form-control[data-v-1f0bd8bb]{\n      padding: .375rem .75rem;\n}\n.media:hover .btn-delete[data-v-1f0bd8bb]{\n    display: block;\n}\n.media:hover .btn-edit[data-v-1f0bd8bb]{\n    display: block;\n}\n.h-form[data-v-1f0bd8bb]{\n  min-height: 92vh;\n}\n.btn-delete[data-v-1f0bd8bb], .btn-edit[data-v-1f0bd8bb]{\n  display: none;\n}\n.btn-delete[data-v-1f0bd8bb]:hover{\n  background:#ffb2b2;\n}\n.btn-edit[data-v-1f0bd8bb]:hover{\n  background:#00a5504a;\n}\n.div-scroll[data-v-1f0bd8bb]{\n    overflow-y: hidden;\n    min-height: 92vh;\n}\n.div-scroll[data-v-1f0bd8bb]:hover{\n    overflow-y: scroll;\n}\n.imagen[data-v-1f0bd8bb]{\n  max-height: auto;\n  max-width:  30%;\n  margin: auto;\n}\n.imagen img[data-v-1f0bd8bb]{\n  width: 100%;\n  height: auto;\n}\n.alert-dark[data-v-1f0bd8bb] {\n  color: #ffffff;\n  background-color: #323232;\n  border-radius: 2px;\n}\n", ""]);
 
 // exports
 
@@ -41062,10 +41080,15 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group text-center imagen" }, [
-                  _c("img", {
-                    staticClass: "mx-auto d-block img-fluid",
-                    attrs: { src: _vm.image, alt: "foto" }
-                  }),
+                  _vm.imgModificar
+                    ? _c("img", {
+                        staticClass: "mx-auto d-block img-fluid",
+                        attrs: { src: _vm.imageEditar, alt: "foto" }
+                      })
+                    : _c("img", {
+                        staticClass: "mx-auto d-block img-fluid",
+                        attrs: { src: _vm.producto.imagen, alt: "foto" }
+                      }),
                   _vm._v(" "),
                   _c("input", {
                     staticClass: "form-control-file",
@@ -41334,8 +41357,7 @@ var render = function() {
                         type: "file",
                         hidden: "",
                         id: "inputGroupFile01",
-                        "aria-describedby": "inputGroupFileAddon01",
-                        required: ""
+                        "aria-describedby": "inputGroupFileAddon01"
                       },
                       on: { change: _vm.obtenerImagen }
                     }),
@@ -41708,10 +41730,40 @@ var render = function() {
         }),
         0
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.toast
+      ? _c(
+          "div",
+          {
+            staticClass: "alert alert-dark rounded-0",
+            staticStyle: { position: "absolute", top: "0", right: "80%" },
+            attrs: { role: "alert" }
+          },
+          [_c("p", [_vm._v(_vm._s(_vm.mensaje))]), _vm._v(" "), _vm._m(0)]
+        )
+      : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 
