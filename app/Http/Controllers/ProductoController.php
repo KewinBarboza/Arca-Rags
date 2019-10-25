@@ -92,14 +92,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->file('imagen')){
-            $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-            $urlImagen = $path;
-        }
- 
         $productos = Productos::find($id);
-        
-        Storage::disk('public')->delete($productos->imagen);
 
         $productos->nombre       = $request->nombre;
         $productos->modelo       = $request->modelo;
@@ -107,10 +100,31 @@ class ProductoController extends Controller
         $productos->tela         = $request->tela;
         $productos->descripcion  = $request->descripcion;
         $productos->id_categoria = $request->categoria;
-        $productos->imagen       = $urlImagen;
+
+
+        if ($request->imagen == $productos->imagen) {
+            $productos->imagen = $request->imagen;
+
+        }else {
+            if($request->file('imagen')){
+                $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
+                $urlImagen = asset($path);
+            }
+
+            if (is_file($productos->imagen)) {
+                Storage::disk('public')->delete($productos->imagen);
+            }
+
+            $productos->imagen = $urlImagen;
+
+
+        }
+
         $productos->save();
 
         return $productos;
+
+
     }
 
     /**

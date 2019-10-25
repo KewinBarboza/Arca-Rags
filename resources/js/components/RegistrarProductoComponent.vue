@@ -136,13 +136,11 @@
       </div>
 
     </div>
-
-    <div class="alert alert-dark rounded-0" style="position: absolute; top: 0; right: 80%;" role="alert" v-if="toast">
-      <p>{{mensaje}}</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+    <transition name="fade" mode="out-in">
+      <div class="alert alert-dark" role="alert" v-if="toast" transition="expand">
+        <p class="mb-0">{{ mensaje }}</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -172,15 +170,20 @@ export default {
 
     obtenerImagen(e){
       let file = e.target.files[0];
-      this.producto.imagen = file;
-      // this.cargarImagen(file);
 
-      if(this.modificarActivo){
-        this.cargarImagenEditada(file);
-        this.imgModificar=true;
+      if (!(/\.(jpg|png|gif)$/i).test(file.name)) {
+        this.alertShow(true,'Puede seleccionar solo imagenes');
+      }
+      else
+      {
+        this.producto.imagen = file;
+        if(this.modificarActivo){
+          this.cargarImagenEditada(file);
+          this.imgModificar=true;
 
-      }else{
-        this.cargarImagen(file);
+        }else{
+          this.cargarImagen(file);
+        }
       }
       
     },
@@ -223,11 +226,10 @@ export default {
 
     registrar(){
 
-        if(this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
+        if(this.producto.imagen === '' ||this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
 
-          alert('Ninguno de los campos puede estar vacío intente de nuevo');
+          this.alertShow(true,'Ninguno de los campos puede estar vacío intente de nuevo');
           return;
-
         }
         else
         { 
@@ -240,15 +242,15 @@ export default {
           formData.append('descripcion', this.producto.descripcion);
           formData.append('categoria', this.producto.categoria);
           formData.append('imagen', this.producto.imagen);
-
+          console.log(this.producto.imagen)
           axios.post('api/productos', formData)
             .then((res) => {
 
                 this.productos.push(res.data);
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''};
                 this.imgProductoNuevo = './images/sin-foto.jpg';
-                
 
+                alertShow(true,'Producto registrado con  éxito')
 
             })
             .catch(function (error) {
@@ -267,9 +269,9 @@ export default {
         axios.delete(url)
         .then(res => {
           this.consultar();
+
           this.modificarActivo = false;
-          this.toast = true;
-          this.mensaje = res.data;
+          this.alertShow(true , res.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -278,43 +280,47 @@ export default {
       } else {
 
         console.log("producto no eliminado");
-
       }
       
     },
 
     modificar(producto){
+      if(this.producto.imagen === '' ||this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
 
-      let formData = new FormData();
+          this.alertShow(true,'Ninguno de los campos puede estar vacío intente de nuevo');
+          return;
+        }
+      else
+      { 
+          let formData = new FormData();
 
-          formData.append('nombre',      this.producto.nombre);
-          formData.append('modelo',      this.producto.modelo);
-          formData.append('talla',       this.producto.talla);
-          formData.append('tela',        this.producto.tela);
-          formData.append('descripcion', this.producto.descripcion);
-          formData.append('imagen',      this.producto.imagen);
-          formData.append('categoria',   this.producto.categoria);
-          formData.append('_method', 'PUT');
-          console.log(this.producto.imagen);
+              formData.append('nombre',      this.producto.nombre);
+              formData.append('modelo',      this.producto.modelo);
+              formData.append('talla',       this.producto.talla);
+              formData.append('tela',        this.producto.tela);
+              formData.append('descripcion', this.producto.descripcion);
+              formData.append('imagen',      this.producto.imagen);
+              formData.append('categoria',   this.producto.categoria);
+              formData.append('_method', 'PUT');
 
-      axios.post(`api/productos/${producto.id}`, formData)
-        .then(res=>{
-            this.modificarActivo = false;
-            console.log(res.data);
-            const index = this.productos.findIndex(
-              item => producto.id === res.data.id
-            )
-            console.log(res.data)
-            this.productos[index] = res.data;
-            this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''}
-            
-            // alert('Producto modificado con éxito');
-            this.consultar();
+          axios.post(`api/productos/${producto.id}`, formData)
+            .then(res=>{
+                this.modificarActivo = false;
+                const index = this.productos.findIndex(
+                  item => producto.id === res.data.id
+                )
+                console.log(res.data)
+                this.productos[index] = res.data;
+                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''}
+                
+                this.consultar();
+                this.alertShow(true,'Producto actualizado con éxito');
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      }
     },
 
     consultarCategorias(){
@@ -347,6 +353,12 @@ export default {
       this.imgProductoNuevo = './images/sin-foto.jpg';
       this.modificarActivo = false;
     },
+
+    alertShow(estado, mensaje){
+      this.toast = estado;
+      this.mensaje = mensaje;
+      setTimeout(() => this.toast = false , '5000');
+    }
 
   },
 
@@ -433,8 +445,28 @@ export default {
     }
 
     .alert-dark {
+      border-radius: 6px;
+      position: absolute;
+      top: 0;
+      right: 5%;
       color: #ffffff;
       background-color: #323232;
-      border-radius: 2px;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      min-height: 48px;
+      padding: 10px 25px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-top: 10px;
+      cursor: default;
     }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
 </style>

@@ -47,7 +47,6 @@
         data(){
 
             return{
-
                 categorias:[],
                 categoria:{nombre:''}
             }
@@ -62,7 +61,7 @@
                 axios.post('api/categorias', params)
                     .then((res)=>{
                         this.categorias.push(res.data);
-                        this.consultar();
+                        this.consultarCategoria();
                     })
             },
 
@@ -116,6 +115,10 @@
     .btn-delete, .btn-edit{
       visibility: hidden;
       
+    }
+    
+    .form-control{
+          padding: .375rem .75rem;
     }
 
     .div-scroll{
