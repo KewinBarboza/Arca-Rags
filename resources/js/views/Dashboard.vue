@@ -35,7 +35,11 @@
     import RegistrarProductoComponent from '../components/RegistrarProductoComponent.vue'
     import Categoria from '../components/Categoria.vue'
 export default {
-    components:{RegistrarProductoComponent,Categoria}
+
+    components:{
+        RegistrarProductoComponent,
+        Categoria
+    }
 }
 </script>
 

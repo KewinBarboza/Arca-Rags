@@ -1989,29 +1989,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categorias: [],
       categoria: {
         nombre: ''
-      }
+      },
+      modificarActivo: false,
+      toast: false
     };
   },
   methods: {
     registrar: function registrar() {
       var _this = this;
 
-      var params = {
-        nombre: this.categoria.nombre
-      };
-      axios.post('api/categorias', params).then(function (res) {
-        _this.categorias.push(res.data);
+      if (this.producto.trim() === '') {
+        this.alertShow(true, 'El campo categoría no puede estar vacío');
+        return;
+      } else {
+        var params = {
+          nombre: this.categoria.nombre
+        };
+        axios.post('api/categorias', params).then(function (res) {
+          _this.categorias.push(res.data);
 
-        _this.consultarCategoria();
-      });
+          _this.consultar();
+
+          _this.categoria = {
+            nombre: ''
+          };
+
+          _this.alertShow(true, 'Categoría registrada con exíto');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
     },
-    consultarCategoria: function consultarCategoria() {
+    consultar: function consultar() {
       var _this2 = this;
 
       axios.get('api/categorias').then(function (res) {
@@ -2020,10 +2056,59 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    modificar: function modificar() {},
-    created: function created() {
-      this.consultarCategoria();
+    modificar: function modificar(categoria) {
+      var _this3 = this;
+
+      if (this.producto.trim() === '') {
+        this.alertShow(true, 'El campo categoría no puede estar vacío');
+        return;
+      } else {
+        var params = {
+          nombre: this.categoria.nombre
+        };
+        axios.put("api/categorias/".concat(categoria.id), params).then(function (res) {
+          _this3.modificarActivo = false;
+
+          var index = _this3.categorias.findIndex(function (item) {
+            return categoria.id === res.data.id;
+          });
+
+          _this3.categorias[index] = res.data;
+          _this3.categoria = {
+            nombre: ''
+          };
+
+          _this3.consultar();
+
+          _this3.alertShow(true, 'Categoría modificada con exíto');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
+    modificarFormulario: function modificarFormulario(categoria) {
+      this.modificarActivo = true;
+      this.categoria.nombre = categoria.categoria;
+      this.categoria.id = categoria.id;
+    },
+    cancelarModificar: function cancelarModificar() {
+      this.categoria = {
+        nombre: ''
+      };
+      this.modificarActivo = false;
+    },
+    alertShow: function alertShow(estado, mensaje) {
+      var _this4 = this;
+
+      this.toast = estado;
+      this.mensaje = mensaje;
+      setTimeout(function () {
+        return _this4.toast = false;
+      }, '5000');
     }
+  },
+  created: function created() {
+    this.consultar();
   }
 });
 
@@ -2627,7 +2712,8 @@ __webpack_require__.r(__webpack_exports__);
             imagen: ''
           };
           _this4.imgProductoNuevo = './images/sin-foto.jpg';
-          alertShow(true, 'Producto registrado con  éxito');
+
+          _this4.alertShow(true, 'Producto registrado con éxito');
         })["catch"](function (error) {
           console.log(error);
         });
@@ -2712,6 +2798,7 @@ __webpack_require__.r(__webpack_exports__);
       this.producto.id = producto.id;
       this.producto.imagen = producto.imagen;
       this.producto.categoria = producto.id_categoria;
+      this.consultarCategorias();
     },
     cancelarMidificar: function cancelarMidificar() {
       this.producto = {
@@ -7583,7 +7670,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.h-form[data-v-26adb9d8]{\n  height: 92vh;\n}\n.table tbody tr:hover td .btn-delete[data-v-26adb9d8]{\n    color: #212529;\n    background-color: rgba(0, 0, 0, 0.075);\n    visibility: visible;\n}\n.table tbody tr:hover td .btn-edit[data-v-26adb9d8]{\n    color: #212529;\n    background-color: rgba(0, 0, 0, 0.075);\n    visibility: visible;\n}\n.table tbody tr td .btn-edit[data-v-26adb9d8]:hover{\n    background:#00a5504a;\n}\n.table tbody tr td .btn-delete[data-v-26adb9d8]:hover{\n    background:#ffb2b2;\n}\n.table tbody tr td[data-v-26adb9d8]{\n    cursor: pointer;\n}\n.btn-delete[data-v-26adb9d8], .btn-edit[data-v-26adb9d8]{\n  visibility: hidden;\n}\n.form-control[data-v-26adb9d8]{\n      padding: .375rem .75rem;\n}\n.div-scroll[data-v-26adb9d8]{\n    overflow-y: hidden;\n    height: 92vh;\n}\n.div-scroll[data-v-26adb9d8]:hover{\n    overflow-y: scroll;\n}\n\n", ""]);
+exports.push([module.i, "\n.text-verde[data-v-26adb9d8]{\n      color: rgb(0, 165, 80);\n}\n.h-form[data-v-26adb9d8]{\n    height: 92vh;\n}\n.table tbody tr:hover td .btn-delete[data-v-26adb9d8]{\n      color: #212529;\n      background-color: rgba(0, 0, 0, 0.075);\n      visibility: visible;\n}\n.table tbody tr:hover td .btn-edit[data-v-26adb9d8]{\n      color: #212529;\n      background-color: rgba(0, 0, 0, 0.075);\n      visibility: visible;\n}\n.table tbody tr td .btn-edit[data-v-26adb9d8]:hover{\n      background:#00a5504a;\n}\n.table tbody tr td .btn-delete[data-v-26adb9d8]:hover{\n      background:#ffb2b2;\n}\n.table tbody tr td[data-v-26adb9d8]{\n      cursor: pointer;\n}\n.btn-delete[data-v-26adb9d8], .btn-edit[data-v-26adb9d8]{\n    visibility: hidden;\n}\n.form-control[data-v-26adb9d8]{\n        padding: .375rem .75rem;\n}\n.div-scroll[data-v-26adb9d8]{\n      overflow-y: hidden;\n      height: 92vh;\n}\n.div-scroll[data-v-26adb9d8]:hover{\n      overflow-y: scroll;\n}\n.alert-dark[data-v-26adb9d8] {\n    border-radius: 6px;\n    position: absolute;\n    top: 0;\n    right: 5%;\n    color: #ffffff;\n    background-color: #323232;\n    width: auto;\n    height: auto;\n    max-width: 100%;\n    min-height: 48px;\n    padding: 10px 25px;\n    font-size: 1.1rem;\n    font-weight: 300;\n    margin-top: 10px;\n    cursor: default;\n}\n.fade-enter-active[data-v-26adb9d8], .fade-leave-active[data-v-26adb9d8] {\n  transition: opacity .5s;\n}\n.fade-enter[data-v-26adb9d8], .fade-leave-to[data-v-26adb9d8] /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -40031,121 +40118,233 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row h-form" }, [
-      _c("div", { staticClass: "col-sm-12 col-md-5 col-lg-5 border-right" }, [
-        _c("h2", { staticClass: "mt-2  pl-0 pr-0 pb-2" }, [
-          _vm._v("Crear categoría")
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "row h-form" }, [
+        _c("div", { staticClass: "col-sm-12 col-md-5 col-lg-5 border-right" }, [
+          _vm.modificarActivo
+            ? _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.modificar(_vm.categoria)
+                    }
+                  }
+                },
+                [
+                  _c("h2", { staticClass: "mt-2  pl-0 pr-0 pb-2" }, [
+                    _vm._v("Modificar categoría")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group mb-3" }, [
+                    _c("label", { attrs: { for: "nombre mb-0" } }, [
+                      _vm._v("Ingrese el nombre de la categoría")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.categoria.nombre,
+                          expression: "categoria.nombre"
+                        }
+                      ],
+                      staticClass: "form-control mb-5",
+                      attrs: {
+                        type: "text",
+                        required: "",
+                        placeholder: "Nombre de la categoria"
+                      },
+                      domProps: { value: _vm.categoria.nombre },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.categoria, "nombre", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-center" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn verde-s text-white rounded-0",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v("Guardar")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-light ml-3  text-verde rounded-0 ",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.cancelarModificar()
+                              }
+                            }
+                          },
+                          [_vm._v("Cancelar")]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            : _c("div", [
+                _c(
+                  "form",
+                  {
+                    staticClass: "mt-3",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.registrar($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("h2", { staticClass: "mt-2  pl-0 pr-0 pb-2" }, [
+                      _vm._v("Crear categoría")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group mb-3" }, [
+                      _c("label", { attrs: { for: "nombre mb-0" } }, [
+                        _vm._v("Ingrese el nombre de la categoría")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoria.nombre,
+                            expression: "categoria.nombre"
+                          }
+                        ],
+                        staticClass: "form-control mb-5",
+                        attrs: {
+                          type: "text",
+                          required: "",
+                          placeholder: "Nombre de la categoria"
+                        },
+                        domProps: { value: _vm.categoria.nombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.categoria,
+                              "nombre",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ])
+                  ]
+                )
+              ])
         ]),
         _vm._v(" "),
         _c(
-          "form",
-          {
-            staticClass: "mt-3",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.registrar($event)
-              }
-            }
-          },
+          "div",
+          { staticClass: "col-sm-12 col-md-7 col-lg-7 pl-0 div-scroll" },
           [
-            _c("div", { staticClass: "input-group mb-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.categoria.nombre,
-                    expression: "categoria.nombre"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Nombre de categoria",
-                  "aria-label": "Recipient's username",
-                  "aria-describedby": "button-addon2"
-                },
-                domProps: { value: _vm.categoria.nombre },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.categoria, "nombre", $event.target.value)
-                  }
-                }
-              }),
+            _c("table", { staticClass: "table" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "tbody",
+                _vm._l(_vm.categorias, function(categoria, index) {
+                  return _c("tr", { key: index }, [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v(_vm._s(categoria.id))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(categoria.categoria))]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "d-flex justify-content-end" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn rounded-circle btn-edit text-white",
+                          on: {
+                            click: function($event) {
+                              return _vm.modificarFormulario(categoria)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticStyle: { width: "20px", height: "20px" },
+                              attrs: { viewBox: "0 0 24 24" }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  fill: "#000000",
+                                  d:
+                                    "M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
             ])
           ]
         )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-sm-12 col-md-7 col-lg-7 pl-0 div-scroll" },
-        [
-          _c("table", { staticClass: "table" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.categorias, function(categoria, index) {
-                return _c("tr", { key: index }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(categoria.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(categoria.categoria))]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "d-flex justify-content-end" }, [
-                    _c(
-                      "button",
-                      { staticClass: "btn rounded-circle btn-edit text-white" },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            staticStyle: { width: "20px", height: "20px" },
-                            attrs: { viewBox: "0 0 24 24" }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                fill: "#000000",
-                                d:
-                                  "M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
+      _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+        _vm.toast
+          ? _c(
+              "div",
+              {
+                staticClass: "alert alert-dark",
+                attrs: { role: "alert", transition: "expand" }
+              },
+              [_c("p", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.mensaje))])]
             )
-          ])
-        ]
-      )
-    ])
-  ])
+          : _vm._e()
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
       _c(
         "button",
         {
-          staticClass: "btn verde-s text-white rounded-0 ",
-          attrs: { type: "submit", id: "button-addon2" }
+          staticClass: "btn verde-s text-white rounded-0 m-auto",
+          attrs: { type: "submit" }
         },
         [_vm._v("Guardar")]
       )
@@ -41461,6 +41660,9 @@ var render = function() {
                             staticClass: "custom-select mb-3 rounded-0",
                             attrs: { id: "inputGroupSelect", required: "" },
                             on: {
+                              click: function($event) {
+                                return _vm.consultarCategorias()
+                              },
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
                                   .call($event.target.options, function(o) {

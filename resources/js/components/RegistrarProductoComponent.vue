@@ -21,7 +21,7 @@
             
             <div class="form-group col-6">
               <label>Categoria</label>
-              <select class="custom-select rounded-0" id="inputGroupSelect" required v-model="producto.categoria" >
+              <select class="custom-select rounded-0"  id="inputGroupSelect" required v-model="producto.categoria" >
                 <option v-for="(categoria, index) in categorias" :key="index" v-bind:value="categoria.id">{{categoria.categoria}}</option>
               </select>
             </div>
@@ -71,7 +71,7 @@
 
               <div class="form-group col-6">
                 <label>Seleccione una categoría</label>
-                <select class="custom-select mb-3 rounded-0" id="inputGroupSelect" required v-model="producto.categoria" >
+                <select class="custom-select mb-3 rounded-0" @click="consultarCategorias()" id="inputGroupSelect" required v-model="producto.categoria" >
                   <option v-for="(categoria, index) in categorias" :key="index" v-bind:value="categoria.id">{{categoria.categoria}}</option>
                 </select>
               </div>
@@ -250,7 +250,7 @@ export default {
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''};
                 this.imgProductoNuevo = './images/sin-foto.jpg';
 
-                alertShow(true,'Producto registrado con  éxito')
+                this.alertShow(true,'Producto registrado con éxito');
 
             })
             .catch(function (error) {
@@ -302,13 +302,14 @@ export default {
               formData.append('imagen',      this.producto.imagen);
               formData.append('categoria',   this.producto.categoria);
               formData.append('_method', 'PUT');
-
+              
           axios.post(`api/productos/${producto.id}`, formData)
             .then(res=>{
                 this.modificarActivo = false;
                 const index = this.productos.findIndex(
                   item => producto.id === res.data.id
                 )
+
                 console.log(res.data)
                 this.productos[index] = res.data;
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''}
@@ -346,6 +347,8 @@ export default {
       this.producto.imagen      = producto.imagen;
       this.producto.categoria   = producto.id_categoria;
 
+      this.consultarCategorias();
+
     },
 
     cancelarMidificar(){
@@ -365,6 +368,7 @@ export default {
   created(){
     this.consultarCategorias();
     this.consultar();
+    
   },
 
   computed:{
