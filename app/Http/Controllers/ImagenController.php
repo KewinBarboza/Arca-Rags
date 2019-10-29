@@ -22,7 +22,7 @@ class ImagenController extends Controller
         
         $imagen = new Imagen();
         $imagen->url = $urlImagen;
-        $imagen->id_producto =  "1";
+        $imagen->id_producto =  $producto->id;
         $imagen->save();
 
         return $imagen;

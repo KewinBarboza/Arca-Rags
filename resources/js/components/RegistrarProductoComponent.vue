@@ -4,6 +4,7 @@
       
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
         <form @submit.prevent="modificar(producto)" v-if="modificarActivo" class="mt-3" enctype="multipart/form-data">
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
           
           <div class="form-group text-center imagen">
@@ -55,7 +56,7 @@
 
         <div v-else> 
           <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+          
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
             <!-- <div class="form-group text-center imagen">
                 <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
@@ -230,6 +231,12 @@ export default {
 
       reader.readAsDataURL(file);
     },
+
+    // sending(file, xhr, formData){
+    //   let formData = new FormData();
+
+    //   formData.append('nombre', this.producto.nombre);
+    // },
 
     consultar(){
 
