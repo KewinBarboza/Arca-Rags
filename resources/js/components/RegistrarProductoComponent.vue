@@ -104,21 +104,24 @@
       </div>
 
       <div class="col-sm-12 col-md-7 col-lg-7  pl-0 div-scroll">
-          <div class="media border-bottom" v-for="(producto, index) of productos" :key="index">
+        <form class="form-inline">
+          <input type="text" v-model="buscar"   class="form-control form-control-buscar w-100 border-left-0 border-top-0 border-right-0 form-control-lg"  placeholder="Buscar" aria-label="Buscar">
+        </form>
+          <div class="media border-bottom" v-for="(producto, index) of filtrarProductos" :key="index">
             <img :src="producto.imagen" class="align-self-center mr-3 pl-3 img-fluid" height="80" width="80" alt="...">
             <div class="media-body">
               <div class="row p-0">
-                <div class="col-8">
+                <div class="col-10">
                   <h5 class="mt-1 mb-0"><b>{{producto.nombre}}</b></h5>
                   <p class="font-weight-bold mb-1 text-mt"> 
                       Modelo:    <span class="text-m font-weight-normal">{{producto.modelo}}</span>  / 
                       Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span> / 
                       Tela:      <span class="text-m font-weight-normal">{{producto.tela}}</span>  / 
-                      Categoría: <span class="text-m font-weight-normal">{{producto.id_categoria}}</span> 
+                      Categoría: <span class="text-m font-weight-normal">{{producto.categoria.categoria}}</span> 
                   </p>
                   <p>{{producto.descripcion}}</p>
                 </div>
-                <div class="col-4 d-flex align-items-center d-flex justify-content-end">
+                <div class="col-2 d-flex align-items-center d-flex justify-content-center p-0 ">
                   <button @click="modificarFormulario(producto)" class="btn btn-light rounded-circle btn-edit mr-2">
                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                       <path fill="#000000" d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" />
@@ -145,7 +148,14 @@
 </template>
 
 <script>
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 export default {
+  components: {
+    vueDropzone: vue2Dropzone
+  },
+  
   data(){
       return{
           productos:[],
@@ -158,6 +168,7 @@ export default {
           toast:false,
 
           mensaje:'',
+          buscar:'',
 
           imgProducto:'./images/logo.jpg',
           imgProductoNuevo:'./images/sin-foto.jpg',
@@ -216,6 +227,7 @@ export default {
       axios.get('api/productos')
       .then(res => {
         this.productos = res.data;
+        console.log(res.data);
 
       }).catch(function (error) {
           console.log(error);
@@ -242,11 +254,12 @@ export default {
           formData.append('descripcion', this.producto.descripcion);
           formData.append('categoria', this.producto.categoria);
           formData.append('imagen', this.producto.imagen);
-          console.log(this.producto.imagen)
+
           axios.post('api/productos', formData)
             .then((res) => {
 
-                this.productos.push(res.data);
+                // this.productos.push(res.data);
+                this.consultar();
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''};
                 this.imgProductoNuevo = './images/sin-foto.jpg';
 
@@ -378,6 +391,12 @@ export default {
 
     imageEditar(){
       return this.imgProductoModificar;
+    },
+
+    filtrarProductos(){
+      return this.productos.filter((producto)=>{
+        return producto.nombre.match(this.buscar);
+      });
     }
   }
 
@@ -400,8 +419,15 @@ export default {
     }
 
     .form-control{
-          padding: .375rem .75rem;
+      padding: .375rem .75rem;
+
     }
+
+    .form-control-buscar:focus{
+      border-color: #ced4da;
+      box-shadow: none;
+    }
+
     .media:hover .btn-delete{
         display: block;
     }
@@ -429,7 +455,7 @@ export default {
 
     .div-scroll{
         overflow-y: hidden;
-        min-height: 92vh;
+        height: 92vh;
     }
 
     .div-scroll:hover{

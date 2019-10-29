@@ -21,7 +21,7 @@ class ProductoController extends Controller
         //     return view('home');
         // }
         
-        return Productos::all();
+        return Productos::with('categoria')->get();
         // return Productos::orderBy('id','DESC')->paginate();
     }
 
