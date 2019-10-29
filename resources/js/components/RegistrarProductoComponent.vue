@@ -54,14 +54,14 @@
         </form>
 
         <div v-else> 
+          <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
-            <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          
-            <div class="form-group text-center imagen">
+            <!-- <div class="form-group text-center imagen">
                 <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
                 <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                 <label  for="inputGroupFile01" class="mt-2 btn btn-outline-success">Seleccione una imagen</label>
-            </div>
+            </div> -->
 
             <div class="form-row">
               <div class="form-group col-12">
@@ -155,11 +155,11 @@ export default {
   components: {
     vueDropzone: vue2Dropzone
   },
-  
+
   data(){
       return{
           productos:[],
-          producto:{nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:'',categoria:''},
+          producto:{nombre:'', modelo:'', talla:'', tela:'', descripcion:'',categoria:''},
           
           categorias:[],
 
@@ -172,7 +172,16 @@ export default {
 
           imgProducto:'./images/logo.jpg',
           imgProductoNuevo:'./images/sin-foto.jpg',
-          imgProductoModificar:''
+          imgProductoModificar:'',
+
+          dropzoneOptions: {
+            url: 'api/imagenes',
+            dictDefaultMessage: "Arrastra las fotos aqui para subirlas",
+            acceptedFiles:'image/*',
+            paramName:'imagen',
+            maxFilesize: 2,
+            headers: {"X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content},
+          }
       }
   },
 
@@ -227,7 +236,6 @@ export default {
       axios.get('api/productos')
       .then(res => {
         this.productos = res.data;
-        console.log(res.data);
 
       }).catch(function (error) {
           console.log(error);
@@ -238,7 +246,7 @@ export default {
 
     registrar(){
 
-        if(this.producto.imagen === '' ||this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
+        if(this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
 
           this.alertShow(true,'Ninguno de los campos puede estar vacío intente de nuevo');
           return;
@@ -253,15 +261,14 @@ export default {
           formData.append('tela', this.producto.tela);
           formData.append('descripcion', this.producto.descripcion);
           formData.append('categoria', this.producto.categoria);
-          formData.append('imagen', this.producto.imagen);
+          // formData.append('imagen', this.producto.imagen);
 
           axios.post('api/productos', formData)
             .then((res) => {
 
                 // this.productos.push(res.data);
                 this.consultar();
-                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''};
-                this.imgProductoNuevo = './images/sin-foto.jpg';
+                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''};
 
                 this.alertShow(true,'Producto registrado con éxito');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Productos;
 use Illuminate\Support\Facades\Storage;
+use App\Imagen;
 
 class ProductoController extends Controller
 {
@@ -43,10 +44,6 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('imagen')){
-            $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-            $urlImagen = $path;
-        }
 
         $productos = new Productos();
         $productos->nombre = $request->nombre;
@@ -55,7 +52,7 @@ class ProductoController extends Controller
         $productos->tela = $request->tela;
         $productos->descripcion = $request->descripcion;
         $productos->id_categoria = $request->categoria;
-        $productos->imagen = $urlImagen;
+        $productos->imagen = "id";
         $productos->save();
         
         return $productos;
