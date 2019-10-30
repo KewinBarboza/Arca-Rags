@@ -4,7 +4,6 @@
       
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
         <form @submit.prevent="modificar(producto)" v-if="modificarActivo" class="mt-3" enctype="multipart/form-data">
-          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
           
           <div class="form-group text-center imagen">
@@ -56,7 +55,7 @@
 
         <div v-else> 
           <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"  v-on:vdropzone-sending="sendingEvent"></vue-dropzone>
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
             <!-- <div class="form-group text-center imagen">
                 <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
@@ -176,12 +175,13 @@ export default {
           imgProductoModificar:'',
 
           dropzoneOptions: {
-            url: 'api/imagenes',
+            url:'api/imagenes',
             dictDefaultMessage: "Arrastra las fotos aqui para subirlas",
             acceptedFiles:'image/*',
             paramName:'imagen',
             maxFilesize: 2,
             headers: {"X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content},
+            autoProcessQueue:false,
           }
       }
   },
@@ -232,11 +232,6 @@ export default {
       reader.readAsDataURL(file);
     },
 
-    // sending(file, xhr, formData){
-    //   let formData = new FormData();
-
-    //   formData.append('nombre', this.producto.nombre);
-    // },
 
     consultar(){
 
@@ -276,6 +271,8 @@ export default {
                 // this.productos.push(res.data);
                 this.consultar();
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''};
+                // this.dropzoneOptions = {};
+                this.$refs.myVueDropzone.processQueue();
 
                 this.alertShow(true,'Producto registrado con éxito');
 
@@ -388,6 +385,15 @@ export default {
       this.toast = estado;
       this.mensaje = mensaje;
       setTimeout(() => this.toast = false , '5000');
+    },
+
+    sendingEvent (file, xhr, formData) {
+
+      // let formData = new FormData();
+
+        formData.append('id_producto', this.producto.id);
+
+        console.log(formData)
     }
 
   },

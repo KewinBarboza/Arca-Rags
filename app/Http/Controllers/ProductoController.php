@@ -52,7 +52,6 @@ class ProductoController extends Controller
         $productos->tela = $request->tela;
         $productos->descripcion = $request->descripcion;
         $productos->id_categoria = $request->categoria;
-        $productos->imagen = "id";
         $productos->save();
         
         return $productos;

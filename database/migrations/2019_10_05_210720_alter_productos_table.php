@@ -16,9 +16,6 @@ class AlterProductosTable extends Migration
         Schema::table('productos', function (Blueprint $table) {
             $table->bigInteger('id_categoria')->unsigned();
             $table->foreign('id_categoria')->references('id')->on('categorias');
-
-            $table->bigInteger('id_imagen')->unsigned();
-            $table->foreign('id_imagen')->references('id')->on('imagens');
             
         });
     }
