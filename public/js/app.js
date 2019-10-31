@@ -2618,6 +2618,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2653,7 +2654,10 @@ __webpack_require__.r(__webpack_exports__);
         headers: {
           "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content
         },
-        autoProcessQueue: false
+        autoProcessQueue: false,
+        params: {
+          id_producto: ''
+        }
       }
     };
   },
@@ -2726,13 +2730,15 @@ __webpack_require__.r(__webpack_exports__);
           // this.productos.push(res.data);
           _this4.consultar();
 
+          console.log(_this4.categorias[0]);
           _this4.producto = {
             nombre: '',
             modelo: '',
             talla: '',
             tela: '',
             descripcion: ''
-          }; // this.dropzoneOptions = {};
+          };
+          _this4.dropzoneOptions.params.id_producto = '3';
 
           _this4.$refs.myVueDropzone.processQueue();
 
@@ -2790,8 +2796,7 @@ __webpack_require__.r(__webpack_exports__);
             modelo: '',
             talla: '',
             tela: '',
-            descripcion: '',
-            imagen: ''
+            descripcion: ''
           };
 
           _this6.consultar();
@@ -2843,12 +2848,12 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         return _this8.toast = false;
       }, '5000');
-    },
-    sendingEvent: function sendingEvent(file, xhr, formData) {
-      // let formData = new FormData();
-      formData.append('id_producto', this.producto.id);
-      console.log(formData);
-    }
+    } // sendingEvent (file, xhr, formData) {
+    //   // let formData = new FormData();
+    //     formData.append('id_producto', '1');
+    //     console.log( this.producto.id)
+    // }
+
   },
   created: function created() {
     this.consultarCategorias();
@@ -41627,8 +41632,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("vue-dropzone", {
                     ref: "myVueDropzone",
-                    attrs: { id: "dropzone", options: _vm.dropzoneOptions },
-                    on: { "vdropzone-sending": _vm.sendingEvent }
+                    attrs: { id: "dropzone", options: _vm.dropzoneOptions }
                   }),
                   _vm._v(" "),
                   _c(

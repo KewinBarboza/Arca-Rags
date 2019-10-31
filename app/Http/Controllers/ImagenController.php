@@ -10,7 +10,7 @@ use App\Imagen;
 
 class ImagenController extends Controller
 {
-    public function store(Productos $producto){
+    public function store(Request $request){
         $this->validate(request(),[
             'imagen' => 'required|image|max:2048'
         ]);
@@ -22,7 +22,7 @@ class ImagenController extends Controller
         
         $imagen = new Imagen();
         $imagen->url = $urlImagen;
-        $imagen->id_producto =  $producto->id;
+        $imagen->id_producto =  $request->id_producto;
         $imagen->save();
 
         return $imagen;

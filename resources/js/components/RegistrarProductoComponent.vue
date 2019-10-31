@@ -55,7 +55,8 @@
 
         <div v-else> 
           <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"  v-on:vdropzone-sending="sendingEvent"></vue-dropzone>
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+          <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"  v-on:vdropzone-sending="sendingEvent"></vue-dropzone> -->
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
             <!-- <div class="form-group text-center imagen">
                 <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
@@ -182,6 +183,7 @@ export default {
             maxFilesize: 2,
             headers: {"X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content},
             autoProcessQueue:false,
+            params:{id_producto:''}
           }
       }
   },
@@ -270,8 +272,9 @@ export default {
 
                 // this.productos.push(res.data);
                 this.consultar();
+                console.log(this.categorias[0]);
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''};
-                // this.dropzoneOptions = {};
+                this.dropzoneOptions.params.id_producto='3';
                 this.$refs.myVueDropzone.processQueue();
 
                 this.alertShow(true,'Producto registrado con éxito');
@@ -336,7 +339,7 @@ export default {
 
                 console.log(res.data)
                 this.productos[index] = res.data;
-                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:'',imagen:''}
+                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''}
                 
                 this.consultar();
                 this.alertShow(true,'Producto actualizado con éxito');
@@ -387,14 +390,14 @@ export default {
       setTimeout(() => this.toast = false , '5000');
     },
 
-    sendingEvent (file, xhr, formData) {
+    // sendingEvent (file, xhr, formData) {
 
-      // let formData = new FormData();
+    //   // let formData = new FormData();
 
-        formData.append('id_producto', this.producto.id);
+    //     formData.append('id_producto', '1');
 
-        console.log(formData)
-    }
+    //     console.log( this.producto.id)
+    // }
 
   },
 
