@@ -10,7 +10,14 @@ use App\Imagen;
 
 class ImagenController extends Controller
 {
+
+    public function index(Request $request){
+        // return Imagen::with('producto')->get();
+        return Imagen::all();
+    }
+
     public function store(Request $request){
+
         $this->validate(request(),[
             'imagen' => 'required|image|max:2048'
         ]);
@@ -26,6 +33,5 @@ class ImagenController extends Controller
         $imagen->save();
 
         return $imagen;
-
     }
 }

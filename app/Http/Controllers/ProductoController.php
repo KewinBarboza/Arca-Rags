@@ -22,7 +22,7 @@ class ProductoController extends Controller
         //     return view('home');
         // }
         
-        return Productos::with('categoria')->get();
+        return Productos::with(['categoria','imagen'])->get();
         // return Productos::orderBy('id','DESC')->paginate();
     }
 
@@ -90,33 +90,34 @@ class ProductoController extends Controller
     {
         $productos = Productos::find($id);
 
-        $productos->nombre       = $request->nombre;
-        $productos->modelo       = $request->modelo;
-        $productos->talla        = $request->talla;
-        $productos->tela         = $request->tela;
-        $productos->descripcion  = $request->descripcion;
+        $productos->nombre = $request->nombre;
+        $productos->modelo = $request->modelo;
+        $productos->talla = $request->talla;
+        $productos->tela = $request->tela;
+        $productos->descripcion = $request->descripcion;
         $productos->id_categoria = $request->categoria;
-
-
-        if ($request->imagen == $productos->imagen) {
-            $productos->imagen = $request->imagen;
-
-        }else {
-            if($request->file('imagen')){
-                $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-                $urlImagen = asset($path);
-            }
-
-            if (is_file($productos->imagen)) {
-                Storage::disk('public')->delete($productos->imagen);
-            }
-
-            $productos->imagen = $urlImagen;
-
-
-        }
-
         $productos->save();
+
+
+        // if ($request->imagen == $productos->imagen) {
+        //     $productos->imagen = $request->imagen;
+
+        // }else {
+        //     if($request->file('imagen')){
+        //         $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
+        //         $urlImagen = asset($path);
+        //     }
+
+        //     if (is_file($productos->imagen)) {
+        //         Storage::disk('public')->delete($productos->imagen);
+        //     }
+
+        //     $productos->imagen = $urlImagen;
+
+
+        // }
+
+        
 
         return $productos;
 

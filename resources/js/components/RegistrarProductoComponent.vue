@@ -5,12 +5,9 @@
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
         <form @submit.prevent="modificar(producto)" v-if="modificarActivo" class="mt-3" enctype="multipart/form-data">
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
-          
-          <div class="form-group text-center imagen">
-              <img :src="imageEditar" v-if="imgModificar" class="mx-auto d-block img-fluid" alt="foto">
-              <img :src="producto.imagen" v-else class="mx-auto d-block img-fluid" alt="foto">
-              <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-              <label  for="inputGroupFile01" class="mt-2 btn btn-outline-success">Seleccione una imagen</label>
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+          <div class=" text-center imagen">
+              <img v-for="(img , index) in producto.imagen" :key="index"   :src="img.url" :alt="producto.nombre">
           </div>
 
           <div class="form-row">
@@ -55,7 +52,6 @@
 
         <div v-else> 
           <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
           <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"  v-on:vdropzone-sending="sendingEvent"></vue-dropzone> -->
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
             <!-- <div class="form-group text-center imagen">
@@ -108,15 +104,15 @@
         <form class="form-inline">
           <input type="text" v-model="buscar"   class="form-control form-control-buscar w-100 border-left-0 border-top-0 border-right-0 form-control-lg"  placeholder="Buscar" aria-label="Buscar">
         </form>
-          <div class="media border-bottom" v-for="(producto, index) of filtrarProductos" :key="index">
-            <img :src="producto.imagen" class="align-self-center mr-3 pl-3 img-fluid" height="80" width="80" alt="...">
+          <div  v-for="(producto, index) of filtrarProductos" :key="index" class="media border-bottom">
+            <img v-for="(img, index) in producto.imagen" :src="img.url" :key="index" v-if="index === 0"  class="align-self-center mr-3 pl-3 img-fluid" height="80" width="80" :alt="producto.nombre">
             <div class="media-body">
               <div class="row p-0">
                 <div class="col-10">
                   <h5 class="mt-1 mb-0"><b>{{producto.nombre}}</b></h5>
                   <p class="font-weight-bold mb-1 text-mt"> 
                       Modelo:    <span class="text-m font-weight-normal">{{producto.modelo}}</span>  / 
-                      Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span> / 
+                      Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span>  / 
                       Tela:      <span class="text-m font-weight-normal">{{producto.tela}}</span>  / 
                       Categoría: <span class="text-m font-weight-normal">{{producto.categoria.categoria}}</span> 
                   </p>
@@ -234,7 +230,6 @@ export default {
       reader.readAsDataURL(file);
     },
 
-
     consultar(){
 
       axios.get('api/productos')
@@ -270,13 +265,8 @@ export default {
           axios.post('api/productos', formData)
             .then((res) => {
 
-                // this.productos.push(res.data);
                 this.consultar();
-                console.log(this.categorias[0]);
                 this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''};
-                this.dropzoneOptions.params.id_producto='3';
-                this.$refs.myVueDropzone.processQueue();
-
                 this.alertShow(true,'Producto registrado con éxito');
 
             })
@@ -319,35 +309,35 @@ export default {
         }
       else
       { 
-          let formData = new FormData();
+        let formData = new FormData();
 
-              formData.append('nombre',      this.producto.nombre);
-              formData.append('modelo',      this.producto.modelo);
-              formData.append('talla',       this.producto.talla);
-              formData.append('tela',        this.producto.tela);
-              formData.append('descripcion', this.producto.descripcion);
-              formData.append('imagen',      this.producto.imagen);
-              formData.append('categoria',   this.producto.categoria);
-              formData.append('_method', 'PUT');
+            formData.append('nombre',      this.producto.nombre);
+            formData.append('modelo',      this.producto.modelo);
+            formData.append('talla',       this.producto.talla);
+            formData.append('tela',        this.producto.tela);
+            formData.append('descripcion', this.producto.descripcion);
+            formData.append('categoria',   this.producto.categoria);
+            formData.append('_method', 'PUT');
+
+            this.dropzoneOptions.params.id_producto=this.producto.id;
+            this.$refs.myVueDropzone.processQueue();
+            
+        axios.post(`api/productos/${producto.id}`, formData)
+          .then(res=>{
+              this.modificarActivo = false;
+              const index = this.productos.findIndex(
+                item => producto.id === res.data.id
+              )
+
+              this.productos[index] = res.data;
+              this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''};
               
-          axios.post(`api/productos/${producto.id}`, formData)
-            .then(res=>{
-                this.modificarActivo = false;
-                const index = this.productos.findIndex(
-                  item => producto.id === res.data.id
-                )
-
-                console.log(res.data)
-                this.productos[index] = res.data;
-                this.producto = {nombre:'', modelo:'', talla:'', tela:'', descripcion:''}
-                
-                this.consultar();
-                this.alertShow(true,'Producto actualizado con éxito');
-
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+              this.consultar();
+              this.alertShow(true,'Producto actualizado con éxito');
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     },
 

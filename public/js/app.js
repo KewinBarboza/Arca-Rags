@@ -2615,10 +2615,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2727,10 +2723,8 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('categoria', this.producto.categoria); // formData.append('imagen', this.producto.imagen);
 
         axios.post('api/productos', formData).then(function (res) {
-          // this.productos.push(res.data);
           _this4.consultar();
 
-          console.log(_this4.categorias[0]);
           _this4.producto = {
             nombre: '',
             modelo: '',
@@ -2738,9 +2732,6 @@ __webpack_require__.r(__webpack_exports__);
             tela: '',
             descripcion: ''
           };
-          _this4.dropzoneOptions.params.id_producto = '3';
-
-          _this4.$refs.myVueDropzone.processQueue();
 
           _this4.alertShow(true, 'Producto registrado con éxito');
         })["catch"](function (error) {
@@ -2779,9 +2770,10 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('talla', this.producto.talla);
         formData.append('tela', this.producto.tela);
         formData.append('descripcion', this.producto.descripcion);
-        formData.append('imagen', this.producto.imagen);
         formData.append('categoria', this.producto.categoria);
         formData.append('_method', 'PUT');
+        this.dropzoneOptions.params.id_producto = this.producto.id;
+        this.$refs.myVueDropzone.processQueue();
         axios.post("api/productos/".concat(producto.id), formData).then(function (res) {
           _this6.modificarActivo = false;
 
@@ -2789,7 +2781,6 @@ __webpack_require__.r(__webpack_exports__);
             return producto.id === res.data.id;
           });
 
-          console.log(res.data);
           _this6.productos[index] = res.data;
           _this6.producto = {
             nombre: '',
@@ -41365,37 +41356,22 @@ var render = function() {
                     _vm._v("Modificar producto")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group text-center imagen" }, [
-                    _vm.imgModificar
-                      ? _c("img", {
-                          staticClass: "mx-auto d-block img-fluid",
-                          attrs: { src: _vm.imageEditar, alt: "foto" }
-                        })
-                      : _c("img", {
-                          staticClass: "mx-auto d-block img-fluid",
-                          attrs: { src: _vm.producto.imagen, alt: "foto" }
-                        }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control-file",
-                      attrs: {
-                        type: "file",
-                        hidden: "",
-                        id: "inputGroupFile01",
-                        "aria-describedby": "inputGroupFileAddon01"
-                      },
-                      on: { change: _vm.obtenerImagen }
+                  _c("vue-dropzone", {
+                    ref: "myVueDropzone",
+                    attrs: { id: "dropzone", options: _vm.dropzoneOptions }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: " text-center imagen" },
+                    _vm._l(_vm.producto.imagen, function(img, index) {
+                      return _c("img", {
+                        key: index,
+                        attrs: { src: img.url, alt: _vm.producto.nombre }
+                      })
                     }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "mt-2 btn btn-outline-success",
-                        attrs: { for: "inputGroupFile01" }
-                      },
-                      [_vm._v("Seleccione una imagen")]
-                    )
-                  ]),
+                    0
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-row" }, [
                     _c("div", { staticClass: "form-group col-12" }, [
@@ -41621,287 +41597,275 @@ var render = function() {
                       [_vm._v("Cancelar")]
                     )
                   ])
-                ]
-              )
-            : _c(
-                "div",
-                [
-                  _c("h2", { staticClass: "mt-2  pl-0 pr-0 pb-2" }, [
-                    _vm._v("Registrar producto")
-                  ]),
-                  _vm._v(" "),
-                  _c("vue-dropzone", {
-                    ref: "myVueDropzone",
-                    attrs: { id: "dropzone", options: _vm.dropzoneOptions }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      staticClass: "mt-3",
-                      attrs: { enctype: "multipart/form-data" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.registrar($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-group col-12" }, [
-                          _c("label", { attrs: { for: "nombre mb-0" } }, [
-                            _vm._v("Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto.nombre,
-                                expression: "producto.nombre"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Ingrese el nombre del producto",
-                              required: ""
-                            },
-                            domProps: { value: _vm.producto.nombre },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.producto,
-                                  "nombre",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-6" }, [
-                          _c("label", [_vm._v("Seleccione una categoría")]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.producto.categoria,
-                                  expression: "producto.categoria"
-                                }
-                              ],
-                              staticClass: "custom-select mb-3 rounded-0",
-                              attrs: { id: "inputGroupSelect", required: "" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.consultarCategorias()
-                                },
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.producto,
-                                    "categoria",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            _vm._l(_vm.categorias, function(categoria, index) {
-                              return _c(
-                                "option",
-                                {
-                                  key: index,
-                                  domProps: { value: categoria.id }
-                                },
-                                [_vm._v(_vm._s(categoria.categoria))]
-                              )
-                            }),
-                            0
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-6" }, [
-                          _c("label", { attrs: { for: "modelo" } }, [
-                            _vm._v("Modelo")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto.modelo,
-                                expression: "producto.modelo"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              id: "modelo",
-                              placeholder: "Ingrese el Modelo",
-                              required: ""
-                            },
-                            domProps: { value: _vm.producto.modelo },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.producto,
-                                  "modelo",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-6" }, [
-                          _c("label", { attrs: { for: "talla" } }, [
-                            _vm._v("Talla")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto.talla,
-                                expression: "producto.talla"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              id: "talla",
-                              placeholder: "Ingrese la talla",
-                              required: ""
-                            },
-                            domProps: { value: _vm.producto.talla },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.producto,
-                                  "talla",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-6" }, [
-                          _c("label", { attrs: { for: "tela" } }, [
-                            _vm._v("Tela")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto.tela,
-                                expression: "producto.tela"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              id: "tela",
-                              placeholder: "Ingrese el tipo de tela",
-                              required: ""
-                            },
-                            domProps: { value: _vm.producto.tela },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.producto,
-                                  "tela",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-12" }, [
-                          _c("label", { attrs: { for: "descripcion" } }, [
-                            _vm._v("Descripción")
-                          ]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto.descripcion,
-                                expression: "producto.descripcion"
-                              }
-                            ],
-                            staticClass: "form-control mb-2",
-                            attrs: {
-                              id: "descripcion",
-                              required: "",
-                              rows: "3",
-                              placeholder: "Descripción"
-                            },
-                            domProps: { value: _vm.producto.descripcion },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.producto,
-                                  "descripcion",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn verde-s text-white btn-block rounded-0 mt-2",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("Guardar")]
-                      )
-                    ]
-                  )
                 ],
                 1
               )
+            : _c("div", [
+                _c("h2", { staticClass: "mt-2  pl-0 pr-0 pb-2" }, [
+                  _vm._v("Registrar producto")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "mt-3",
+                    attrs: { enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.registrar($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "form-group col-12" }, [
+                        _c("label", { attrs: { for: "nombre mb-0" } }, [
+                          _vm._v("Nombre")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto.nombre,
+                              expression: "producto.nombre"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ingrese el nombre del producto",
+                            required: ""
+                          },
+                          domProps: { value: _vm.producto.nombre },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.producto,
+                                "nombre",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-6" }, [
+                        _c("label", [_vm._v("Seleccione una categoría")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.producto.categoria,
+                                expression: "producto.categoria"
+                              }
+                            ],
+                            staticClass: "custom-select mb-3 rounded-0",
+                            attrs: { id: "inputGroupSelect", required: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.consultarCategorias()
+                              },
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.producto,
+                                  "categoria",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.categorias, function(categoria, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: categoria.id } },
+                              [_vm._v(_vm._s(categoria.categoria))]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-6" }, [
+                        _c("label", { attrs: { for: "modelo" } }, [
+                          _vm._v("Modelo")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto.modelo,
+                              expression: "producto.modelo"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "modelo",
+                            placeholder: "Ingrese el Modelo",
+                            required: ""
+                          },
+                          domProps: { value: _vm.producto.modelo },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.producto,
+                                "modelo",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-6" }, [
+                        _c("label", { attrs: { for: "talla" } }, [
+                          _vm._v("Talla")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto.talla,
+                              expression: "producto.talla"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "talla",
+                            placeholder: "Ingrese la talla",
+                            required: ""
+                          },
+                          domProps: { value: _vm.producto.talla },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.producto,
+                                "talla",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-6" }, [
+                        _c("label", { attrs: { for: "tela" } }, [
+                          _vm._v("Tela")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto.tela,
+                              expression: "producto.tela"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "tela",
+                            placeholder: "Ingrese el tipo de tela",
+                            required: ""
+                          },
+                          domProps: { value: _vm.producto.tela },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.producto,
+                                "tela",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-12" }, [
+                        _c("label", { attrs: { for: "descripcion" } }, [
+                          _vm._v("Descripción")
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.producto.descripcion,
+                              expression: "producto.descripcion"
+                            }
+                          ],
+                          staticClass: "form-control mb-2",
+                          attrs: {
+                            id: "descripcion",
+                            required: "",
+                            rows: "3",
+                            placeholder: "Descripción"
+                          },
+                          domProps: { value: _vm.producto.descripcion },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.producto,
+                                "descripcion",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn verde-s text-white btn-block rounded-0 mt-2",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  ]
+                )
+              ])
         ]),
         _vm._v(" "),
         _c(
@@ -41942,14 +41906,19 @@ var render = function() {
                 "div",
                 { key: index, staticClass: "media border-bottom" },
                 [
-                  _c("img", {
-                    staticClass: "align-self-center mr-3 pl-3 img-fluid",
-                    attrs: {
-                      src: producto.imagen,
-                      height: "80",
-                      width: "80",
-                      alt: "..."
-                    }
+                  _vm._l(producto.imagen, function(img, index) {
+                    return index === 0
+                      ? _c("img", {
+                          key: index,
+                          staticClass: "align-self-center mr-3 pl-3 img-fluid",
+                          attrs: {
+                            src: img.url,
+                            height: "80",
+                            width: "80",
+                            alt: producto.nombre
+                          }
+                        })
+                      : _vm._e()
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "media-body" }, [
@@ -41975,7 +41944,7 @@ var render = function() {
                               { staticClass: "text-m font-weight-normal" },
                               [_vm._v(_vm._s(producto.talla))]
                             ),
-                            _vm._v(" / \n                    Tela:      "),
+                            _vm._v("  / \n                    Tela:      "),
                             _c(
                               "span",
                               { staticClass: "text-m font-weight-normal" },
@@ -42072,7 +42041,8 @@ var render = function() {
                       )
                     ])
                   ])
-                ]
+                ],
+                2
               )
             })
           ],
