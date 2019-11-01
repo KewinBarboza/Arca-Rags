@@ -12,7 +12,6 @@ class ImagenController extends Controller
 {
 
     public function index(Request $request){
-        // return Imagen::with('producto')->get();
         return Imagen::all();
     }
 

@@ -2,11 +2,15 @@
     <div>
         <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in productos" :key="index">
             <div class="card card-sombra border-0">
-                <img :src="producto.image" class="img-fluid card-img-top p-3" :alt="producto.nombre">
+                <div v-for="(img , index) of producto.imagen" :key="index">
+                    <div v-if="index === 1">
+                        <img :src="img.url" class="img-fluid card-img-top p-3" :alt="producto.nombre">
+                    </div>
+                </div>
                 <div class="card-body p-2">
-                    <h5 class="card-title mb-1"><b>{{producto.nombre}}</b></h5>
+                    <h5 class="card-title mb-1 text-uppercase"><b>{{producto.nombre}}</b></h5>
                     <p class="card-text color-parrafo mb-1">{{producto.descripcion}}</p>
-                    <router-link class="text-decoration-none" :to="{name:'Producto'}"><b>Ver mas</b></router-link>
+                    <router-link class="text-decoration-none" :to="{name:'Producto', params:{url: producto.id}}"><b>Ver mas</b></router-link>
                 </div>
             </div>
         </div>
@@ -17,19 +21,25 @@
     export default {
         data(){
             return{
-                productos:
-                [
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'},
-                    {image:'./images/catalogoProductos-1.png',nombre:'CHAQUETA MODELO -C-',descripcion:'Nuestra chaqueta unisex está confeccionada'}
-                ]
+                productos:[]
             }
+        },
+
+        methods:{
+            consultarProductos(){
+
+                axios.get('api/productos')
+                     .then((res)=>{
+                         this.productos = res.data;
+                     })
+                     .catch((error)=>{
+                         console.log(error)
+                     });
+            }
+        },
+
+        mounted(){
+            this.consultarProductos();
         }
     }
 </script>

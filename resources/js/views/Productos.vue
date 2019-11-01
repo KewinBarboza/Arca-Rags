@@ -7,11 +7,11 @@
         <!-- menu categorias -->
         <div class="container mb-5">
             <div class="row">
-                <div class="nav-categorias col-sm-12 col-md-2 col-lg-2">
+                <div class="nav-categorias col-sm-12 col-md-3 col-lg-3">
                     <ul class="list-group mt-2">
                         <li class="pl-4 list-group-item list-title rounded-0 border-0"><h3 class="border-bottom pb-2"><b>CATEGORIAS</b></h3></li>
                         <li v-for="(categoria, index) of categorias" :key="index" class="pl-4 list-group-item list-group-item-action list-group-item-light border-0">
-                            {{categoria}}
+                            {{categoria.categoria}}
                         </li>
                     </ul>
                 </div>
@@ -32,8 +32,25 @@
     export default {
         data(){
             return{
-                categorias:['Chemises ','Camisas','Franelas','Chaquetas','Chaleco','Gorras','Bolsos','Cava']
+                categorias:[]
             }
+        },
+
+        methods:{
+            consultarCategorias(){
+
+                axios.get('api/categorias')
+                     .then((res)=>{
+                         this.categorias = res.data;
+                     })
+                     .catch((error)=>{
+                         console.log(error);
+                     })
+            }
+        },
+
+        mounted(){
+            this.consultarCategorias();
         },
 
         components:{ProductoComponent,jumbotrom}

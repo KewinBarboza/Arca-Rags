@@ -2010,6 +2010,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2018,7 +2027,8 @@ __webpack_require__.r(__webpack_exports__);
         nombre: ''
       },
       modificarActivo: false,
-      toast: false
+      toast: false,
+      buscar: ''
     };
   },
   methods: {
@@ -2109,6 +2119,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.consultar();
+  },
+  computed: {
+    filtrarCategoria: function filtrarCategoria() {
+      var _this5 = this;
+
+      return this.categorias.filter(function (categoria) {
+        return categoria.categoria.match(_this5.buscar);
+      });
+    }
   }
 });
 
@@ -2255,17 +2274,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      producto: [],
       imagePrincipal: './images/catalogoProductos-1.png',
       imageCarrusel: './images/ProductosHome-3.png',
       modal: false
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // console.log();
+    axios.get("api/producto/".concat(this.$route.params.url)).then(function (res) {
+      _this.producto = res.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
   },
   components: {
     carousel: vue_owl_carousel__WEBPACK_IMPORTED_MODULE_0___default.a,
@@ -2362,47 +2390,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      productos: [{
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }, {
-        image: './images/catalogoProductos-1.png',
-        nombre: 'CHAQUETA MODELO -C-',
-        descripcion: 'Nuestra chaqueta unisex está confeccionada'
-      }]
+      productos: []
     };
+  },
+  methods: {
+    consultarProductos: function consultarProductos() {
+      var _this = this;
+
+      axios.get('api/productos').then(function (res) {
+        _this.productos = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.consultarProductos();
   }
 });
 
@@ -2617,6 +2627,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2626,6 +2651,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       productos: [],
+      categorias: [],
       producto: {
         nombre: '',
         modelo: '',
@@ -2634,7 +2660,6 @@ __webpack_require__.r(__webpack_exports__);
         descripcion: '',
         categoria: ''
       },
-      categorias: [],
       modificarActivo: false,
       imgModificar: false,
       toast: false,
@@ -2651,7 +2676,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         autoProcessQueue: false,
         addRemoveLinks: true,
-        dictFileTooBig: "Este archivo es demasiagrande",
+        dictFileTooBig: "Este archivo es excede el tamaño permitido",
         dictInvalidFileType: "Este tipo de archvio no esta permitido",
         params: {
           id_producto: ''
@@ -2718,20 +2743,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log("producto no eliminado");
       }
     },
-    eliminarImagen: function eliminarImagen(imagen) {
-      var _this4 = this;
-
-      imagen.estado = false;
-      axios["delete"]("api/imagenes/".concat(imagen.id)).then(function (res) {
-        _this4.consultar();
-
-        alertShow(true, 'Imagen eliminada');
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     modificar: function modificar(producto) {
-      var _this5 = this;
+      var _this4 = this;
 
       if (this.producto.imagen === '' || this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() === '' || this.producto.descripcion.trim() === '') {
         this.alertShow(true, 'Ninguno de los campos puede estar vacío intente de nuevo');
@@ -2748,14 +2761,14 @@ __webpack_require__.r(__webpack_exports__);
         this.dropzoneOptions.params.id_producto = this.producto.id;
         this.$refs.myVueDropzone.processQueue();
         axios.post("api/productos/".concat(producto.id), formData).then(function (res) {
-          _this5.modificarActivo = false;
+          _this4.modificarActivo = false;
 
-          var index = _this5.productos.findIndex(function (item) {
+          var index = _this4.productos.findIndex(function (item) {
             return producto.id === res.data.id;
           });
 
-          _this5.productos[index] = res.data;
-          _this5.producto = {
+          _this4.productos[index] = res.data;
+          _this4.producto = {
             nombre: '',
             modelo: '',
             talla: '',
@@ -2763,19 +2776,31 @@ __webpack_require__.r(__webpack_exports__);
             descripcion: ''
           };
 
-          _this5.consultar();
+          _this4.consultar();
 
-          _this5.alertShow(true, 'Producto actualizado con éxito');
+          _this4.alertShow(true, 'Producto actualizado con éxito');
         })["catch"](function (error) {
           console.log(error);
         });
       }
     },
     consultarCategorias: function consultarCategorias() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get('api/categorias').then(function (res) {
-        _this6.categorias = res.data;
+        _this5.categorias = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    eliminarImagen: function eliminarImagen(imagen) {
+      var _this6 = this;
+
+      imagen.estado = false;
+      axios["delete"]("api/imagenes/".concat(imagen.id)).then(function (res) {
+        _this6.consultar();
+
+        _this6.alertShow(true, 'Imagen eliminada');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2819,12 +2844,6 @@ __webpack_require__.r(__webpack_exports__);
     this.consultar();
   },
   computed: {
-    image: function image() {
-      return this.imgProductoNuevo;
-    },
-    imageEditar: function imageEditar() {
-      return this.imgProductoModificar;
-    },
     filtrarProductos: function filtrarProductos() {
       var _this8 = this;
 
@@ -3182,8 +3201,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categorias: ['Chemises ', 'Camisas', 'Franelas', 'Chaquetas', 'Chaleco', 'Gorras', 'Bolsos', 'Cava']
+      categorias: []
     };
+  },
+  methods: {
+    consultarCategorias: function consultarCategorias() {
+      var _this = this;
+
+      axios.get('api/categorias').then(function (res) {
+        _this.categorias = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.consultarCategorias();
   },
   components: {
     ProductoComponent: _components_ProductoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -7688,7 +7721,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-verde[data-v-26adb9d8]{\n      color: rgb(0, 165, 80);\n}\n.h-form[data-v-26adb9d8]{\n    height: 92vh;\n}\n.table tbody tr:hover td .btn-delete[data-v-26adb9d8]{\n      color: #212529;\n      background-color: rgba(0, 0, 0, 0.075);\n      visibility: visible;\n}\n.table tbody tr:hover td .btn-edit[data-v-26adb9d8]{\n      color: #212529;\n      background-color: rgba(0, 0, 0, 0.075);\n      visibility: visible;\n}\n.table tbody tr td .btn-edit[data-v-26adb9d8]:hover{\n      background:#00a5504a;\n}\n.table tbody tr td .btn-delete[data-v-26adb9d8]:hover{\n      background:#ffb2b2;\n}\n.table tbody tr td[data-v-26adb9d8]{\n      cursor: pointer;\n}\n.btn-delete[data-v-26adb9d8], .btn-edit[data-v-26adb9d8]{\n    visibility: hidden;\n}\n.form-control[data-v-26adb9d8]{\n        padding: .375rem .75rem;\n}\n.div-scroll[data-v-26adb9d8]{\n      overflow-y: hidden;\n      height: 92vh;\n}\n.div-scroll[data-v-26adb9d8]:hover{\n      overflow-y: scroll;\n}\n.alert-dark[data-v-26adb9d8] {\n    border-radius: 6px;\n    position: absolute;\n    top: 0;\n    right: 5%;\n    color: #ffffff;\n    background-color: #323232;\n    width: auto;\n    height: auto;\n    max-width: 100%;\n    min-height: 48px;\n    padding: 10px 25px;\n    font-size: 1.1rem;\n    font-weight: 300;\n    margin-top: 10px;\n    cursor: default;\n}\n.fade-enter-active[data-v-26adb9d8], .fade-leave-active[data-v-26adb9d8] {\n  transition: opacity .5s;\n}\n.fade-enter[data-v-26adb9d8], .fade-leave-to[data-v-26adb9d8] /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.text-verde[data-v-26adb9d8]{\n      color: rgb(0, 165, 80);\n}\n.h-form[data-v-26adb9d8]{\n    height: 92vh;\n}\n.form-control-buscar[data-v-26adb9d8]:focus{\n      border-color: #ced4da;\n      box-shadow: none;\n}\n.list-group-item:hover .btn-edit[data-v-26adb9d8]{\n      visibility: visible;\n}\n.btn-edit[data-v-26adb9d8]:hover{\n      background:#00a5504a;\n}\n.btn-delete[data-v-26adb9d8], .btn-edit[data-v-26adb9d8]{\n    visibility: hidden;\n}\n.form-control[data-v-26adb9d8]{\n      padding: .375rem .75rem;\n}\n.div-scroll[data-v-26adb9d8]{\n      overflow-y: hidden;\n      height: 92vh;\n}\n.div-scroll[data-v-26adb9d8]:hover{\n      overflow-y: scroll;\n}\n.alert-dark[data-v-26adb9d8] {\n    border-radius: 6px;\n    position: absolute;\n    top: 0;\n    right: 5%;\n    color: #ffffff;\n    background-color: #323232;\n    width: auto;\n    height: auto;\n    max-width: 100%;\n    min-height: 48px;\n    padding: 10px 25px;\n    font-size: 1.1rem;\n    font-weight: 300;\n    margin-top: 10px;\n    cursor: default;\n}\n.fade-enter-active[data-v-26adb9d8], .fade-leave-active[data-v-26adb9d8] {\n  transition: opacity .5s;\n}\n.fade-enter[data-v-26adb9d8], .fade-leave-to[data-v-26adb9d8] /* .fade-leave-active below version 2.1.8 */ {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -39962,7 +39995,7 @@ var render = function() {
                 _c("div", { staticClass: "text-white text-center" }, [
                   _c("img", {
                     staticClass: "mt-3 mb-3",
-                    attrs: { src: _vm.logo, width: "70", height: "80" }
+                    attrs: { src: _vm.logo, width: "80", height: "80" }
                   }),
                   _vm._v(" "),
                   _c("p", { staticClass: "teal" }, [
@@ -40283,41 +40316,25 @@ var render = function() {
           "div",
           { staticClass: "col-sm-12 col-md-7 col-lg-7 pl-0 div-scroll" },
           [
-            _c("table", { staticClass: "table" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.categorias, function(categoria, index) {
-                  return _c("tr", { key: index }, [
-                    _c("th", { attrs: { scope: "row p-0" } }, [
-                      _vm._v(_vm._s(categoria.id))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "pl-0 pr-0" }, [
-                      _vm._v(_vm._s(categoria.categoria))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "d-flex justify-content-end pl-0 pr-0" },
-                      [
+            _c(
+              "ul",
+              { staticClass: "list-group list-group-flush" },
+              [
+                _c("li", { staticClass: "list-group-item p-0" }, [
+                  _c("form", { staticClass: "form-row" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("div", { staticClass: "input-group-prepend" }, [
                         _c(
-                          "button",
+                          "span",
                           {
-                            staticClass:
-                              "btn rounded-circle btn-edit text-white",
-                            on: {
-                              click: function($event) {
-                                return _vm.modificarFormulario(categoria)
-                              }
-                            }
+                            staticClass: "input-group-text bg-light  border-0",
+                            attrs: { id: "inputGroupPrepend2" }
                           },
                           [
                             _c(
                               "svg",
                               {
-                                staticStyle: { width: "20px", height: "20px" },
+                                staticStyle: { width: "24px", height: "24px" },
                                 attrs: { viewBox: "0 0 24 24" }
                               },
                               [
@@ -40325,20 +40342,113 @@ var render = function() {
                                   attrs: {
                                     fill: "#000000",
                                     d:
-                                      "M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z"
+                                      "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
                                   }
                                 })
                               ]
                             )
                           ]
                         )
-                      ]
-                    )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.buscar,
+                            expression: "buscar"
+                          }
+                        ],
+                        staticClass:
+                          "form-control form-control-buscar  border-0 form-control-lg",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Buscar",
+                          "aria-describedby": "inputGroupPrepend2"
+                        },
+                        domProps: { value: _vm.buscar },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.buscar = $event.target.value
+                          }
+                        }
+                      })
+                    ])
                   ])
-                }),
-                0
-              )
-            ])
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.filtrarCategoria, function(categoria, index) {
+                  return _c(
+                    "li",
+                    { key: index, staticClass: "list-group-item" },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-10" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "badge badge-light badge-pill mr-5"
+                            },
+                            [
+                              _c("b", [_vm._v("id")]),
+                              _vm._v("-" + _vm._s(categoria.id))
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("b", [_vm._v(" Categoria: ")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(categoria.categoria) +
+                              "\n                       "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-2" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn rounded-circle btn-edit text-white ml-5",
+                              on: {
+                                click: function($event) {
+                                  return _vm.modificarFormulario(categoria)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticStyle: {
+                                    width: "20px",
+                                    height: "20px"
+                                  },
+                                  attrs: { viewBox: "0 0 24 24" }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      fill: "#000000",
+                                      d:
+                                        "M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                })
+              ],
+              2
+            )
           ]
         )
       ]),
@@ -40373,20 +40483,6 @@ var staticRenderFns = [
         },
         [_vm._v("Guardar")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col p-0" } }, [_vm._v("Categoría")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col pl-0 pr-0" } })
-      ])
     ])
   }
 ]
@@ -40579,256 +40675,291 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5"
-          },
-          [
-            _c("img", {
-              staticClass: "mx-auto d-block img-fluid",
-              attrs: { src: _vm.imagePrincipal, alt: "" }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5"
-          },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("p", { staticClass: "color-parrafo" }, [
-              _vm._v(
-                "Nuestra chaqueta unisex está confeccionada en tela impermeable, con forro de malla a juego con la tela de la capucha."
+  return _c(
+    "div",
+    [
+      _vm._l(_vm.producto, function(item, index) {
+        return _c("div", { key: index, staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5"
+            },
+            [
+              _c(
+                "carousel",
+                {
+                  attrs: {
+                    autoplay: true,
+                    nav: true,
+                    responsive: {
+                      0: { items: 1 },
+                      600: { items: 4 },
+                      1000: { items: 1 }
+                    }
+                  }
+                },
+                _vm._l(item.imagen, function(img, index) {
+                  return _c("div", { key: index, staticClass: "item" }, [
+                    _c("img", {
+                      staticClass: "mx-auto d-block img-fluid",
+                      attrs: { src: img.url, alt: _vm.producto.nombre }
+                    })
+                  ])
+                }),
+                0
               )
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "border-bottom mt-2" }),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c("p", { staticClass: "border-bottom mt-2" }),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _c("p", { staticClass: "color-parrafo" }, [
-              _vm._v("S, M, L, XL, XXL")
-            ]),
-            _vm._v(" "),
-            _c(
-              "bottom",
-              {
-                staticClass: "btn verde-s text-white rounded-0 mt-2",
-                on: {
-                  click: function($event) {
-                    _vm.modal = true
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5"
+            },
+            [
+              _c("h2", { staticClass: "title" }, [
+                _c("b", [_vm._v(_vm._s(item.nombre))])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "border-bottom mt-2" }),
+              _vm._v(" "),
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("p", { staticClass: "color-parrafo" }, [
+                _vm._v(_vm._s(item.descripcion))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "border-bottom mt-2" }),
+              _vm._v(" "),
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("p", { staticClass: "color-parrafo" }, [
+                _vm._v(_vm._s(item.talla))
+              ]),
+              _vm._v(" "),
+              _c(
+                "bottom",
+                {
+                  staticClass: "btn verde-s text-white rounded-0 mt-2",
+                  on: {
+                    click: function($event) {
+                      _vm.modal = true
+                    }
                   }
-                }
-              },
-              [_vm._v("Consultar precio")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-12 mt-5 p-0" },
-          [
-            _vm._m(4),
-            _vm._v(" "),
-            _c(
-              "carousel",
-              {
-                attrs: {
-                  autoplay: true,
-                  dots: false,
-                  nav: false,
-                  responsive: {
-                    0: { items: 1, nav: false },
-                    600: { items: 4, nav: false },
-                    1000: { items: 4, nav: false }
+                },
+                [_vm._v("Consultar precio")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12 mt-5 p-0" },
+            [
+              _vm._m(2, true),
+              _vm._v(" "),
+              _c(
+                "carousel",
+                {
+                  attrs: {
+                    autoplay: true,
+                    dots: false,
+                    nav: false,
+                    responsive: {
+                      0: { items: 1, nav: false },
+                      600: { items: 4, nav: false },
+                      1000: { items: 4, nav: false }
+                    }
                   }
-                }
-              },
-              [
-                _c("div", { staticClass: "item" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card card-sombra border-0",
-                      staticStyle: { width: "17rem" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "mx-auto d-block card-img-top p-3",
-                        attrs: { src: _vm.imageCarrusel, alt: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body p-2" }, [
-                        _c("h5", { staticClass: "card-title mb-1" }, [
-                          _vm._v("CAMISAS OXFORD")
-                        ]),
+                },
+                [
+                  _c("div", { staticClass: "item" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card card-sombra border-0",
+                        staticStyle: { width: "17rem" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "mx-auto d-block card-img-top p-3",
+                          attrs: { src: _vm.imageCarrusel, alt: "" }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "card-text color-parrafo mb-1" },
-                          [_vm._v("Camisa de vestir para caballeros y damas.")]
-                        ),
+                        _c("div", { staticClass: "card-body p-2" }, [
+                          _c("h5", { staticClass: "card-title mb-1" }, [
+                            _vm._v("CAMISAS OXFORD")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "card-text color-parrafo mb-1" },
+                            [
+                              _vm._v(
+                                "Camisa de vestir para caballeros y damas."
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-decoration-none",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Ver mas")]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "item" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card card-sombra border-0",
+                        staticStyle: { width: "17rem" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "mx-auto d-block card-img-top p-3",
+                          attrs: { src: _vm.imageCarrusel, alt: "" }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-decoration-none",
-                            attrs: { href: "#" }
-                          },
-                          [_vm._v("Ver mas")]
-                        )
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "item" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card card-sombra border-0",
-                      staticStyle: { width: "17rem" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "mx-auto d-block card-img-top p-3",
-                        attrs: { src: _vm.imageCarrusel, alt: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body p-2" }, [
-                        _c("h5", { staticClass: "card-title mb-1" }, [
-                          _vm._v("CAMISAS OXFORD")
-                        ]),
+                        _c("div", { staticClass: "card-body p-2" }, [
+                          _c("h5", { staticClass: "card-title mb-1" }, [
+                            _vm._v("CAMISAS OXFORD")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "card-text color-parrafo mb-1" },
+                            [
+                              _vm._v(
+                                "Camisa de vestir para caballeros y damas."
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-decoration-none",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Ver mas")]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "item" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card card-sombra border-0",
+                        staticStyle: { width: "17rem" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "mx-auto d-block card-img-top p-3",
+                          attrs: { src: _vm.imageCarrusel, alt: "" }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "card-text color-parrafo mb-1" },
-                          [_vm._v("Camisa de vestir para caballeros y damas.")]
-                        ),
+                        _c("div", { staticClass: "card-body p-2" }, [
+                          _c("h5", { staticClass: "card-title mb-1" }, [
+                            _vm._v("CAMISAS OXFORD")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "card-text color-parrafo mb-1" },
+                            [
+                              _vm._v(
+                                "Camisa de vestir para caballeros y damas."
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-decoration-none",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Ver mas")]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "item" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card card-sombra border-0",
+                        staticStyle: { width: "17rem" }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "mx-auto d-block card-img-top p-3",
+                          attrs: { src: _vm.imageCarrusel, alt: "" }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-decoration-none",
-                            attrs: { href: "#" }
-                          },
-                          [_vm._v("Ver mas")]
-                        )
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "item" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card card-sombra border-0",
-                      staticStyle: { width: "17rem" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "mx-auto d-block card-img-top p-3",
-                        attrs: { src: _vm.imageCarrusel, alt: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body p-2" }, [
-                        _c("h5", { staticClass: "card-title mb-1" }, [
-                          _vm._v("CAMISAS OXFORD")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "card-text color-parrafo mb-1" },
-                          [_vm._v("Camisa de vestir para caballeros y damas.")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-decoration-none",
-                            attrs: { href: "#" }
-                          },
-                          [_vm._v("Ver mas")]
-                        )
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "item" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card card-sombra border-0",
-                      staticStyle: { width: "17rem" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "mx-auto d-block card-img-top p-3",
-                        attrs: { src: _vm.imageCarrusel, alt: "" }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body p-2" }, [
-                        _c("h5", { staticClass: "card-title mb-1" }, [
-                          _vm._v("CAMISAS OXFORD")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "card-text color-parrafo mb-1" },
-                          [_vm._v("Camisa de vestir para caballeros y damas.")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-decoration-none",
-                            attrs: { href: "#" }
-                          },
-                          [_vm._v("Ver mas")]
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("ModalCorreo", {
-          attrs: { showModal: _vm.modal },
-          on: {
-            hiddenModal: function($event) {
-              _vm.modal = $event
-            }
+                        _c("div", { staticClass: "card-body p-2" }, [
+                          _c("h5", { staticClass: "card-title mb-1" }, [
+                            _vm._v("CAMISAS OXFORD")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "card-text color-parrafo mb-1" },
+                            [
+                              _vm._v(
+                                "Camisa de vestir para caballeros y damas."
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-decoration-none",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Ver mas")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      }),
+      _vm._v(" "),
+      _c("ModalCorreo", {
+        attrs: { showModal: _vm.modal },
+        on: {
+          hiddenModal: function($event) {
+            _vm.modal = $event
           }
-        })
-      ],
-      1
-    )
-  ])
+        }
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
@@ -40836,45 +40967,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h2", { staticClass: "title" }, [
-      _c("b", [_vm._v("CHAQUETA MODELO -C-")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", { staticClass: "title" }, [
-      _c("b", [_vm._v("CARACTERÍSTICAS")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", {}, [
-      _c("li", { staticClass: "color-parrafo" }, [
-        _vm._v("Tela: taslán impermeable. ")
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "color-parrafo" }, [
-        _vm._v("Con logos empresariales estampados. ")
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "color-parrafo" }, [
-        _vm._v(
-          "Bolsillos laterales y uno en el pecho con cierres automáticos invisibles. "
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "color-parrafo" }, [
-        _vm._v("Gomas y cierres mágicos en las muñecas. ")
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "color-parrafo" }, [
-        _vm._v(
-          "La capucha se enrolla y se cierra con cierre mágico formando un cuello acolchado."
-        )
-      ])
+      _c("b", [_vm._v("DESCRIPCIÓN")])
     ])
   },
   function() {
@@ -41101,36 +41194,51 @@ var render = function() {
           staticClass: "col-sm-12 col-md-4 col-lg-4 float-left mb-5"
         },
         [
-          _c("div", { staticClass: "card card-sombra border-0" }, [
-            _c("img", {
-              staticClass: "img-fluid card-img-top p-3",
-              attrs: { src: producto.image, alt: producto.nombre }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body p-2" },
-              [
-                _c("h5", { staticClass: "card-title mb-1" }, [
-                  _c("b", [_vm._v(_vm._s(producto.nombre))])
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text color-parrafo mb-1" }, [
-                  _vm._v(_vm._s(producto.descripcion))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "text-decoration-none",
-                    attrs: { to: { name: "Producto" } }
-                  },
-                  [_c("b", [_vm._v("Ver mas")])]
-                )
-              ],
-              1
-            )
-          ])
+          _c(
+            "div",
+            { staticClass: "card card-sombra border-0" },
+            [
+              _vm._l(producto.imagen, function(img, index) {
+                return _c("div", { key: index }, [
+                  index === 1
+                    ? _c("div", [
+                        _c("img", {
+                          staticClass: "img-fluid card-img-top p-3",
+                          attrs: { src: img.url, alt: producto.nombre }
+                        })
+                      ])
+                    : _vm._e()
+                ])
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-body p-2" },
+                [
+                  _c("h5", { staticClass: "card-title mb-1 text-uppercase" }, [
+                    _c("b", [_vm._v(_vm._s(producto.nombre))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text color-parrafo mb-1" }, [
+                    _vm._v(_vm._s(producto.descripcion))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "text-decoration-none",
+                      attrs: {
+                        to: { name: "Producto", params: { url: producto.id } }
+                      }
+                    },
+                    [_c("b", [_vm._v("Ver mas")])]
+                  )
+                ],
+                1
+              )
+            ],
+            2
+          )
         ]
       )
     }),
@@ -41321,13 +41429,13 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: " form-row mt-3 mb-3 border scroll-x" },
+                    { staticClass: "form-row mt-3 mb-3 border" },
                     _vm._l(_vm.producto.imagen, function(img, index) {
                       return _c(
                         "div",
                         {
                           key: index,
-                          staticClass: " col-md-2 imagen p-3  btn-hidden"
+                          staticClass: " col-md-2 imagen btn-hidden p-3"
                         },
                         [
                           img.estado
@@ -41347,7 +41455,7 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c("img", {
-                                  staticClass: "img-fluit float-left",
+                                  staticClass: "img-fluit",
                                   attrs: {
                                     src: img.url,
                                     alt: _vm.producto.nombre
@@ -41898,33 +42006,64 @@ var render = function() {
           "div",
           { staticClass: "col-sm-12 col-md-7 col-lg-7  pl-0 div-scroll" },
           [
-            _c("form", { staticClass: "form-inline" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.buscar,
-                    expression: "buscar"
-                  }
-                ],
-                staticClass:
-                  "form-control form-control-buscar w-100 border-left-0 border-top-0 border-right-0 form-control-lg",
-                attrs: {
-                  type: "text",
-                  placeholder: "Buscar",
-                  "aria-label": "Buscar"
-                },
-                domProps: { value: _vm.buscar },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c("form", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "input-group" }, [
+                _c("div", { staticClass: "input-group-prepend" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "input-group-text bg-light  border-left-0 border-top-0 border-right-0",
+                      attrs: { id: "inputGroupPrepend2" }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticStyle: { width: "24px", height: "24px" },
+                          attrs: { viewBox: "0 0 24 24" }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              fill: "#000000",
+                              d:
+                                "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.buscar,
+                      expression: "buscar"
                     }
-                    _vm.buscar = $event.target.value
+                  ],
+                  staticClass:
+                    "form-control form-control-buscar  border-left-0 border-top-0 border-right-0 form-control-lg",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Buscar",
+                    "aria-describedby": "inputGroupPrepend2"
+                  },
+                  domProps: { value: _vm.buscar },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.buscar = $event.target.value
+                    }
                   }
-                }
-              })
+                })
+              ])
             ]),
             _vm._v(" "),
             _vm._l(_vm.filtrarProductos, function(producto, index) {
@@ -41933,18 +42072,22 @@ var render = function() {
                 { key: index, staticClass: "media border-bottom" },
                 [
                   _vm._l(producto.imagen, function(img, index) {
-                    return index === 0
-                      ? _c("img", {
-                          key: index,
-                          staticClass: "align-self-center mr-3 pl-3 img-fluid ",
-                          attrs: {
-                            src: img.url,
-                            height: "80",
-                            width: "80",
-                            alt: producto.nombre
-                          }
-                        })
-                      : _vm._e()
+                    return _c("div", { key: index }, [
+                      index === 0
+                        ? _c("div", [
+                            _c("img", {
+                              staticClass:
+                                "align-self-center mr-3 pl-3 img-fluid ",
+                              attrs: {
+                                src: img.url,
+                                height: "80",
+                                width: "80",
+                                alt: producto.nombre
+                              }
+                            })
+                          ])
+                        : _vm._e()
+                    ])
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "media-body" }, [
@@ -41958,25 +42101,25 @@ var render = function() {
                           "p",
                           { staticClass: "font-weight-bold mb-1 text-mt ml-2" },
                           [
-                            _vm._v(" \n                    Modelo:    "),
+                            _vm._v(" \n                  Modelo:    "),
                             _c(
                               "span",
                               { staticClass: "text-m font-weight-normal" },
                               [_vm._v(_vm._s(producto.modelo))]
                             ),
-                            _vm._v("  / \n                    Tallas:    "),
+                            _vm._v("  / \n                  Tallas:    "),
                             _c(
                               "span",
                               { staticClass: "text-m font-weight-normal" },
                               [_vm._v(_vm._s(producto.talla))]
                             ),
-                            _vm._v("  / \n                    Tela:      "),
+                            _vm._v("  / \n                  Tela:      "),
                             _c(
                               "span",
                               { staticClass: "text-m font-weight-normal" },
                               [_vm._v(_vm._s(producto.tela))]
                             ),
-                            _vm._v("  / \n                    Categoría: "),
+                            _vm._v("  / \n                  Categoría: "),
                             _c(
                               "span",
                               { staticClass: "text-m font-weight-normal" },
@@ -41994,7 +42137,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "col-2 d-flex align-items-center d-flex justify-content-center p-0 "
+                            "col-2 d-flex align-items-center justify-content-center p-0 "
                         },
                         [
                           _c(
@@ -42764,7 +42907,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "nav-categorias col-sm-12 col-md-2 col-lg-2" },
+          { staticClass: "nav-categorias col-sm-12 col-md-3 col-lg-3" },
           [
             _c(
               "ul",
@@ -42783,7 +42926,7 @@ var render = function() {
                     [
                       _vm._v(
                         "\n                        " +
-                          _vm._s(categoria) +
+                          _vm._s(categoria.categoria) +
                           "\n                    "
                       )
                     ]
@@ -58813,7 +58956,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: 'Productos',
     component: __webpack_require__(/*! ./views/Productos */ "./resources/js/views/Productos.vue")["default"]
   }, {
-    path: '/Producto',
+    path: '/Producto/:url',
     name: 'Producto',
     component: __webpack_require__(/*! ./views/Producto */ "./resources/js/views/Producto.vue")["default"]
   }, {

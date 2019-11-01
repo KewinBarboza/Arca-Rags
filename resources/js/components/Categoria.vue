@@ -30,28 +30,37 @@
                 </div>
              </div>
              <div class="col-sm-12 col-md-7 col-lg-7 pl-0 div-scroll">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col p-0">Categoría</th>
-                            <th scope="col pl-0 pr-0"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(categoria , index) in categorias" :key="index">
-                            <th scope="row p-0">{{categoria.id}}</th>
-                            <td class="pl-0 pr-0">{{categoria.categoria}}</td>
-                            <td class="d-flex justify-content-end pl-0 pr-0">
-                                <button class="btn rounded-circle btn-edit text-white" @click="modificarFormulario(categoria)">
+                 <ul class="list-group list-group-flush">
+                     <li class="list-group-item p-0">
+                         <form class="form-row">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-light  border-0" id="inputGroupPrepend2">
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="#000000" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <input type="text" v-model="buscar" class="form-control form-control-buscar  border-0 form-control-lg" placeholder="Buscar" aria-describedby="inputGroupPrepend2">
+                            </div>
+                        </form>
+                     </li>
+                    <li v-for="(categoria , index) in filtrarCategoria" :key="index" class="list-group-item">
+                       <div class="row">
+                           <div class="col-10">
+                                <span class="badge badge-light badge-pill mr-5"> <b>id</b>-{{categoria.id}}</span>  <b> Categoria: </b> {{categoria.categoria}}
+                           </div>
+                        
+                            <div class="col-2">
+                                <button class="btn rounded-circle btn-edit text-white ml-5" @click="modificarFormulario(categoria)">
                                     <svg style="width:20px;height:20px" viewBox="0 0 24 24">
                                         <path fill="#000000" d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" />
                                     </svg>
                                 </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                       </div>
+                    </li>
+                </ul>
              </div>
         </div>
         <transition name="fade" mode="out-in">
@@ -70,8 +79,11 @@
             return{
                 categorias:[],
                 categoria:{nombre:''},
+
                 modificarActivo:false,
                 toast:false,
+
+                buscar:''
             }
 
         },
@@ -158,9 +170,16 @@
         },
 
         created(){
-            this.consultar();
-                
+            this.consultar(); 
         },
+
+        computed:{
+            filtrarCategoria(){
+                return this.categorias.filter((categoria)=>{
+                    return categoria.categoria.match(this.buscar);
+                });
+            }
+        }
    }
 
 </script>
@@ -175,37 +194,25 @@
       height: 92vh;
     }
 
-    .table tbody tr:hover td .btn-delete{
-        color: #212529;
-        background-color: rgba(0, 0, 0, 0.075);
-        visibility: visible;
+    .form-control-buscar:focus{
+        border-color: #ced4da;
+        box-shadow: none;
     }
 
-    .table tbody tr:hover td .btn-edit{
-        color: #212529;
-        background-color: rgba(0, 0, 0, 0.075);
+    .list-group-item:hover .btn-edit{
         visibility: visible;
     }
-
-    .table tbody tr td .btn-edit:hover{
+      
+    .btn-edit:hover{
         background:#00a5504a;
-    }
-
-    .table tbody tr td .btn-delete:hover{
-        background:#ffb2b2;
-    }
-
-    .table tbody tr td{
-        cursor: pointer;
     }
 
     .btn-delete, .btn-edit{
       visibility: hidden;
-      
     }
     
     .form-control{
-          padding: .375rem .75rem;
+        padding: .375rem .75rem;
     }
 
     .div-scroll{

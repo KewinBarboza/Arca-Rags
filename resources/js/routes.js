@@ -19,7 +19,7 @@ export default new Router({
             component: require('./views/Productos').default
         },
         {
-            path:'/Producto',
+            path:'/Producto/:url',
             name:'Producto',
             component: require('./views/Producto').default
         },

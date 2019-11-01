@@ -50,7 +50,7 @@
               </div>
               <div class="col-sm-12  col-md-6 col-lg-6 col-xl-6 ">
                   <div class="text-white text-center">
-                      <img :src="logo" width="70" height="80" class="mt-3 mb-3" />
+                      <img :src="logo" width="80" height="80" class="mt-3 mb-3" />
                       <p class="teal">
                          Somos una empresa orientada a su mercado. Es decir, su compromiso fundamental es ofrecer productos de óptima calidad a las empresas clientes. Para ello se dedica a la procura, diseño, corte, confección y distribución directa de prendas de vestir de excelente calidad, sin olvidar la relación costo-beneficio, frente al precio al detal, existente en el mercado nacional de la confección.
                       </p>

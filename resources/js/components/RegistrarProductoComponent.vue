@@ -1,17 +1,16 @@
 <template>
   <div>
     <div class="row h-form">
-      
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
         <div v-if="modificarActivo">
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
           <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
           
-          <div class=" form-row mt-3 mb-3 border scroll-x">
-            <div class=" col-md-2 imagen p-3  btn-hidden" v-for="(img , index) in producto.imagen" :key="index">
+          <div class="form-row mt-3 mb-3 border">
+            <div v-for="(img , index) in producto.imagen" :key="index" class=" col-md-2 imagen btn-hidden p-3">
                 <div v-if="img.estado">
                   <button class="btn btn-danger rounded-circle position-absolute btn-sm" @click="eliminarImagen(img)"><span>&times;</span></button>
-                  <img :src="img.url" :alt="producto.nombre" class="img-fluit float-left">
+                  <img :src="img.url" :alt="producto.nombre" class="img-fluit">
                 </div>
             </div>
           </div>
@@ -103,40 +102,56 @@
       </div>
 
       <div class="col-sm-12 col-md-7 col-lg-7  pl-0 div-scroll">
-        <form class="form-inline">
-          <input type="text" v-model="buscar"   class="form-control form-control-buscar w-100 border-left-0 border-top-0 border-right-0 form-control-lg"  placeholder="Buscar" aria-label="Buscar">
+        
+        <form class="form-row">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-light  border-left-0 border-top-0 border-right-0" id="inputGroupPrepend2">
+                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                  <path fill="#000000" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                </svg>
+              </span>
+            </div>
+            <input type="text" v-model="buscar" class="form-control form-control-buscar  border-left-0 border-top-0 border-right-0 form-control-lg" placeholder="Buscar" aria-describedby="inputGroupPrepend2">
+          </div>
         </form>
-          <div  v-for="(producto, index) of filtrarProductos" :key="index" class="media border-bottom">
-            <img v-for="(img, index) in producto.imagen" :src="img.url" :key="index" v-if="index === 0"  class="align-self-center mr-3 pl-3 img-fluid " height="80" width="80" :alt="producto.nombre">
-            <div class="media-body">
-              <div class="row p-0">
-                <div class="col-10">
-                  <h5 class="mt-1 mb-0 ml-2"><b>{{producto.nombre}}</b></h5>
-                  <p class="font-weight-bold mb-1 text-mt ml-2"> 
-                      Modelo:    <span class="text-m font-weight-normal">{{producto.modelo}}</span>  / 
-                      Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span>  / 
-                      Tela:      <span class="text-m font-weight-normal">{{producto.tela}}</span>  / 
-                      Categoría: <span class="text-m font-weight-normal">{{producto.categoria.categoria}}</span> 
-                  </p>
-                  <p class="ml-2">{{producto.descripcion}}</p>
-                </div>
-                <div class="col-2 d-flex align-items-center d-flex justify-content-center p-0 ">
-                  <button @click="modificarFormulario(producto)" class="btn btn-light rounded-circle btn-edit mr-2">
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                      <path fill="#000000" d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" />
-                    </svg>
-                  </button>
-                  <button @click.prevent="eliminar(producto, index)" class="btn btn-light rounded-circle btn-delete mr-2">
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                      <path fill="#000000" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
-                    </svg>
-                  </button>
-                </div>
+
+        <div  v-for="(producto, index) of filtrarProductos" :key="index" class="media border-bottom">
+          <div v-for="(img, index) in producto.imagen" :key="index">
+            <div v-if="index === 0">
+              <img  :src="img.url"    class="align-self-center mr-3 pl-3 img-fluid " height="80" width="80" :alt="producto.nombre">
+            </div>
+          </div>
+
+          <div class="media-body">
+            <div class="row p-0">
+              <div class="col-10">
+                <h5 class="mt-1 mb-0 ml-2"><b>{{producto.nombre}}</b></h5>
+                <p class="font-weight-bold mb-1 text-mt ml-2"> 
+                    Modelo:    <span class="text-m font-weight-normal">{{producto.modelo}}</span>  / 
+                    Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span>  / 
+                    Tela:      <span class="text-m font-weight-normal">{{producto.tela}}</span>  / 
+                    Categoría: <span class="text-m font-weight-normal">{{producto.categoria.categoria}}</span> 
+                </p>
+                <p class="ml-2">{{producto.descripcion}}</p>
+              </div>
+
+              <div class="col-2 d-flex align-items-center justify-content-center p-0 ">
+                <button @click="modificarFormulario(producto)" class="btn btn-light rounded-circle btn-edit mr-2">
+                  <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#000000" d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" />
+                  </svg>
+                </button>
+                <button @click.prevent="eliminar(producto, index)" class="btn btn-light rounded-circle btn-delete mr-2">
+                  <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#000000" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
+        </div>
       </div>
-
     </div>
     <transition name="fade" mode="out-in">
       <div class="alert alert-dark" role="alert" v-if="toast" transition="expand">
@@ -151,17 +166,15 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
-  components: {
-    vueDropzone: vue2Dropzone
-  },
+  components: {vueDropzone: vue2Dropzone},
 
   data(){
       return{
           productos:[],
-          producto:{nombre:'', modelo:'', talla:'', tela:'', descripcion:'',categoria:''},
-          
           categorias:[],
 
+          producto:{nombre:'', modelo:'', talla:'', tela:'', descripcion:'',categoria:''},
+          
           modificarActivo:false,
           imgModificar:false,
           toast:false,
@@ -178,14 +191,13 @@ export default {
             headers: {"X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content},
             autoProcessQueue:false,
             addRemoveLinks:true,
-            dictFileTooBig:"Este archivo es demasiagrande",
+            dictFileTooBig:"Este archivo es excede el tamaño permitido",
             dictInvalidFileType:"Este tipo de archvio no esta permitido",
             params:{id_producto:''}
           }
       }
   },
 
- 
   methods:{
 
     consultar(){
@@ -258,19 +270,6 @@ export default {
       
     },
 
-    eliminarImagen(imagen){      
-      imagen.estado = false;
-
-      axios.delete(`api/imagenes/${imagen.id}`)
-        .then(res=>{
-          this.consultar();
-          alertShow(true,'Imagen eliminada');
-        })
-        .catch((error)=>{
-          console.log(error);
-        });
-    },
-
     modificar(producto){
       if(this.producto.imagen === '' ||this.producto.nombre.trim() === '' || this.producto.modelo.trim() === '' || this.producto.talla.trim() === '' || this.producto.tela.trim() ===''|| this.producto.descripcion.trim() === ''){
 
@@ -321,6 +320,19 @@ export default {
       });
     },
 
+    eliminarImagen(imagen){      
+      imagen.estado = false;
+
+      axios.delete(`api/imagenes/${imagen.id}`)
+        .then(res=>{
+          this.consultar();
+          this.alertShow(true,'Imagen eliminada');
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+    },
+
     modificarFormulario(producto){
 
       this.modificarActivo = true;
@@ -354,23 +366,16 @@ export default {
   created(){
     this.consultarCategorias();
     this.consultar();
-    
   },
 
   computed:{
-    image(){
-      return this.imgProductoNuevo;
-    },
-
-    imageEditar(){
-      return this.imgProductoModificar;
-    },
 
     filtrarProductos(){
       return this.productos.filter((producto)=>{
         return producto.nombre.match(this.buscar);
       });
     }
+
   }
 
 };

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Productos;
 use Illuminate\Support\Facades\Storage;
+use App\Productos;
 use App\Imagen;
 
 class ProductoController extends Controller
@@ -23,17 +23,15 @@ class ProductoController extends Controller
         // }
         
         return Productos::with(['categoria','imagen'])->get();
-        // return Productos::orderBy('id','DESC')->paginate();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function show($id){
+
+        if (request()->wantsJson()) {
+            $producto = Productos::find($id)->with(['categoria','imagen'])->get();
+           
+            return $producto;
+        }
     }
 
     /**
@@ -44,6 +42,14 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(request(),[
+            'nombre' => 'required|max:255',
+            'modelo' => 'required|max:255',
+            'talla' => 'required|max:255',
+            'tela' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'categoria' => 'required|max:255',
+        ]);
 
         $productos = new Productos();
         $productos->nombre = $request->nombre;
@@ -58,28 +64,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -88,6 +72,15 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate(request(),[
+            'nombre' => 'required|max:255',
+            'modelo' => 'required|max:255',
+            'talla' => 'required|max:255',
+            'tela' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'categoria' => 'required|max:255',
+        ]);
+        
         $productos = Productos::find($id);
 
         $productos->nombre = $request->nombre;
@@ -98,30 +91,7 @@ class ProductoController extends Controller
         $productos->id_categoria = $request->categoria;
         $productos->save();
 
-
-        // if ($request->imagen == $productos->imagen) {
-        //     $productos->imagen = $request->imagen;
-
-        // }else {
-        //     if($request->file('imagen')){
-        //         $path = Storage::disk('public')->put('imagen', $request->file('imagen'));
-        //         $urlImagen = asset($path);
-        //     }
-
-        //     if (is_file($productos->imagen)) {
-        //         Storage::disk('public')->delete($productos->imagen);
-        //     }
-
-        //     $productos->imagen = $urlImagen;
-
-
-        // }
-
-        
-
         return $productos;
-
-
     }
 
     /**
@@ -133,11 +103,8 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Productos::find($id);
-
-
         $producto->delete();
-        return 'producto eliminado con éxito';
-        
 
+        return 'producto eliminado con éxito';
     }
 }

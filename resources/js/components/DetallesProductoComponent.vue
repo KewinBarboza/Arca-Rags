@@ -1,32 +1,31 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5">
-                <img :src="imagePrincipal" alt="" class="mx-auto d-block img-fluid">
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5">
-                <h2 class="title"><b>CHAQUETA MODELO -C-</b></h2>
-                <p class="color-parrafo">Nuestra chaqueta unisex está confeccionada en tela impermeable, con forro de malla a juego con la tela de la capucha.</p>
-                
-                <p class="border-bottom mt-2"></p>
-                
-                <h2 class="title"><b>CARACTERÍSTICAS</b></h2>
-                <ul class="">
-                    <li class="color-parrafo">Tela: taslán impermeable. </li>
-                    <li class="color-parrafo">Con logos empresariales estampados. </li>
-                    <li class="color-parrafo">Bolsillos laterales y uno en el pecho con cierres automáticos invisibles. </li>
-                    <li class="color-parrafo">Gomas y cierres mágicos en las muñecas. </li>
-                    <li class="color-parrafo">La capucha se enrolla y se cierra con cierre mágico formando un cuello acolchado.</li>
-                </ul>
+        <div class="row" v-for="(item , index) of producto" :key="index">
 
-                <p class="border-bottom mt-2"></p>
+                <div class="col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5" >
+                    <carousel :autoplay="true"  :nav="true" :responsive="{0:{items:1},600:{items:4},1000:{items:1}}">
+                        <div class="item" v-for="(img , index) of item.imagen" :key="index">
+                            <img :src="img.url" :alt="producto.nombre" class="mx-auto d-block img-fluid">
+                        </div>
+                    </carousel>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5">
+                    <h2 class="title"><b>{{item.nombre}}</b></h2>
+                    <!-- <p class="color-parrafo">Nuestra chaqueta unisex está confeccionada en tela impermeable, con forro de malla a juego con la tela de la capucha.</p> -->
+                    
+                    <p class="border-bottom mt-2"></p>
+                    
+                    <h2 class="title"><b>DESCRIPCIÓN</b></h2>
+                    <p class="color-parrafo">{{item.descripcion}}</p>
 
-                <h2 class="title"><b>TALLAS</b></h2>
-                <p class="color-parrafo">S, M, L, XL, XXL</p>
+                    <p class="border-bottom mt-2"></p>
+
+                    <h2 class="title"><b>TALLAS</b></h2>
+                    <p class="color-parrafo">{{item.talla}}</p>
+                    
+                    <bottom  @click="modal=true" class="btn verde-s text-white rounded-0 mt-2">Consultar precio</bottom>
                 
-                <bottom  @click="modal=true" class="btn verde-s text-white rounded-0 mt-2">Consultar precio</bottom>
-               
-            </div>
+                </div>
             <div class="col-12 mt-5 p-0">
                 <div class="mb-5 text-center">
                     <h3 class="">Productos <span class="text-verde">Relacionados</span></h3>
@@ -74,9 +73,8 @@
                     </div>
                 </carousel>
             </div>
-
-            <ModalCorreo :showModal="modal" @hiddenModal="modal = $event"></ModalCorreo>
         </div>
+        <ModalCorreo :showModal="modal" @hiddenModal="modal = $event"></ModalCorreo>
     </div>
 </template>
 
@@ -89,6 +87,8 @@ export default {
     
     data(){
         return{
+            producto:[],
+
             imagePrincipal:'./images/catalogoProductos-1.png',
             imageCarrusel:'./images/ProductosHome-3.png',
 
@@ -96,9 +96,18 @@ export default {
         }
     },
 
+    mounted(){
+        // console.log();
+        axios.get(`api/producto/${this.$route.params.url}`)
+             .then(res=>{
+                 this.producto = res.data;
+             })
+             .catch(error =>{
+                 console.log(error);
+             });
+    },
     
-    components:{carousel,ModalCorreo,}
-    
+    components:{carousel,ModalCorreo,}    
 }
 
 </script>
