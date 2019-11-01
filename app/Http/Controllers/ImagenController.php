@@ -30,7 +30,17 @@ class ImagenController extends Controller
         $imagen = new Imagen();
         $imagen->url = $urlImagen;
         $imagen->id_producto =  $request->id_producto;
+        $imagen->estado = true;
         $imagen->save();
+
+        return $imagen;
+    }
+
+    public function destroy($id){
+        
+        $imagen = Imagen::find($id);
+        Storage::disk('public')->delete($imagen->url);
+        $imagen->delete();
 
         return $imagen;
     }

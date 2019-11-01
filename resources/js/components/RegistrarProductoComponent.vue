@@ -3,63 +3,65 @@
     <div class="row h-form">
       
       <div class="col-sm-12 col-md-5 col-lg-5 border-right">
-        <form @submit.prevent="modificar(producto)" v-if="modificarActivo" class="mt-3" enctype="multipart/form-data">
+        <div v-if="modificarActivo">
           <h2 class="mt-2  pl-0 pr-0 pb-2">Modificar producto</h2>
           <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
-          <div class=" text-center imagen">
-              <img v-for="(img , index) in producto.imagen" :key="index"   :src="img.url" :alt="producto.nombre">
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-12">
-              <label for="nombre mb-0">Nombre</label>
-              <input type="text" class="form-control" id="nombre"  required v-model="producto.nombre">
-            </div>
-            
-            <div class="form-group col-6">
-              <label>Categoria</label>
-              <select class="custom-select rounded-0"  id="inputGroupSelect" required v-model="producto.categoria" >
-                <option v-for="(categoria, index) in categorias" :key="index" v-bind:value="categoria.id">{{categoria.categoria}}</option>
-              </select>
-            </div>
-
-            <div class="form-group col-6">
-              <label for="modelo">Modelo</label>
-              <input type="text" class="form-control" id="modelo"  required v-model="producto.modelo">
-            </div>
-
-            <div class="form-group col-6">
-              <label for="talla">Talla</label>
-              <input type="text" class="form-control" id="talla"  required v-model="producto.talla">
-            </div>
-
-            <div class="form-group col-6">
-              <label for="tela">Tela</label>
-              <input type="text" class="form-control" id="tela"  required v-model="producto.tela">
-            </div>
-
-            <div class="form-group col-12">
-              <label for="descripcion">Descripción</label>
-              <textarea class="form-control mb-2"    id="descripcion" required rows="3" v-model="producto.descripcion"></textarea>
+          
+          <div class=" form-row mt-3 mb-3 border scroll-x">
+            <div class=" col-md-2 imagen p-3  btn-hidden" v-for="(img , index) in producto.imagen" :key="index">
+                <div v-if="img.estado">
+                  <button class="btn btn-danger rounded-circle position-absolute btn-sm" @click="eliminarImagen(img)"><span>&times;</span></button>
+                  <img :src="img.url" :alt="producto.nombre" class="img-fluit float-left">
+                </div>
             </div>
           </div>
 
-          <div class="d-flex justify-content-center">
-            <button class="btn verde-s   text-white  rounded-0 mt-2 mr-3" type="submit">Guardar</button>
-            <button class="btn btn-light text-verde  rounded-0 mt-2" @click="cancelarMidificar()" type="submit">Cancelar</button>
-          </div>
-        </form>
+          <form @submit.prevent="modificar(producto)"  class="mt-3" enctype="multipart/form-data">
+
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="nombre mb-0">Nombre</label>
+                <input type="text" class="form-control" id="nombre"  required v-model="producto.nombre">
+              </div>
+              
+              <div class="form-group col-6">
+                <label>Categoria</label>
+                <select class="custom-select rounded-0"  id="inputGroupSelect" required v-model="producto.categoria" >
+                  <option v-for="(categoria, index) in categorias" :key="index" v-bind:value="categoria.id">{{categoria.categoria}}</option>
+                </select>
+              </div>
+
+              <div class="form-group col-6">
+                <label for="modelo">Modelo</label>
+                <input type="text" class="form-control" id="modelo"  required v-model="producto.modelo">
+              </div>
+
+              <div class="form-group col-6">
+                <label for="talla">Talla</label>
+                <input type="text" class="form-control" id="talla"  required v-model="producto.talla">
+              </div>
+
+              <div class="form-group col-6">
+                <label for="tela">Tela</label>
+                <input type="text" class="form-control" id="tela"  required v-model="producto.tela">
+              </div>
+
+              <div class="form-group col-12">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control mb-2"    id="descripcion" required rows="3" v-model="producto.descripcion"></textarea>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button class="btn verde-s   text-white  rounded-0 mt-2 mr-3" type="submit">Guardar</button>
+              <button class="btn btn-light text-verde  rounded-0 mt-2" @click="cancelarMidificar()" type="submit">Cancelar</button>
+            </div>
+          </form>
+        </div>
 
         <div v-else> 
           <h2 class="mt-2  pl-0 pr-0 pb-2">Registrar producto</h2>
-          <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"  v-on:vdropzone-sending="sendingEvent"></vue-dropzone> -->
           <form @submit.prevent="registrar"  class="mt-3" enctype="multipart/form-data">
-            <!-- <div class="form-group text-center imagen">
-                <img :src="image" class="mx-auto d-block img-fluid" alt="foto">
-                <input @change="obtenerImagen" type="file" hidden  class="form-control-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                <label  for="inputGroupFile01" class="mt-2 btn btn-outline-success">Seleccione una imagen</label>
-            </div> -->
-
             <div class="form-row">
               <div class="form-group col-12">
                 <label for="nombre mb-0">Nombre</label>
@@ -105,18 +107,18 @@
           <input type="text" v-model="buscar"   class="form-control form-control-buscar w-100 border-left-0 border-top-0 border-right-0 form-control-lg"  placeholder="Buscar" aria-label="Buscar">
         </form>
           <div  v-for="(producto, index) of filtrarProductos" :key="index" class="media border-bottom">
-            <img v-for="(img, index) in producto.imagen" :src="img.url" :key="index" v-if="index === 0"  class="align-self-center mr-3 pl-3 img-fluid" height="80" width="80" :alt="producto.nombre">
+            <img v-for="(img, index) in producto.imagen" :src="img.url" :key="index" v-if="index === 0"  class="align-self-center mr-3 pl-3 img-fluid " height="80" width="80" :alt="producto.nombre">
             <div class="media-body">
               <div class="row p-0">
                 <div class="col-10">
-                  <h5 class="mt-1 mb-0"><b>{{producto.nombre}}</b></h5>
-                  <p class="font-weight-bold mb-1 text-mt"> 
+                  <h5 class="mt-1 mb-0 ml-2"><b>{{producto.nombre}}</b></h5>
+                  <p class="font-weight-bold mb-1 text-mt ml-2"> 
                       Modelo:    <span class="text-m font-weight-normal">{{producto.modelo}}</span>  / 
                       Tallas:    <span class="text-m font-weight-normal">{{producto.talla}}</span>  / 
                       Tela:      <span class="text-m font-weight-normal">{{producto.tela}}</span>  / 
                       Categoría: <span class="text-m font-weight-normal">{{producto.categoria.categoria}}</span> 
                   </p>
-                  <p>{{producto.descripcion}}</p>
+                  <p class="ml-2">{{producto.descripcion}}</p>
                 </div>
                 <div class="col-2 d-flex align-items-center d-flex justify-content-center p-0 ">
                   <button @click="modificarFormulario(producto)" class="btn btn-light rounded-circle btn-edit mr-2">
@@ -167,18 +169,17 @@ export default {
           mensaje:'',
           buscar:'',
 
-          imgProducto:'./images/logo.jpg',
-          imgProductoNuevo:'./images/sin-foto.jpg',
-          imgProductoModificar:'',
-
           dropzoneOptions: {
             url:'api/imagenes',
-            dictDefaultMessage: "Arrastra las fotos aqui para subirlas",
+            dictDefaultMessage: "Click aqui para seleccionar las fotos",
             acceptedFiles:'image/*',
             paramName:'imagen',
             maxFilesize: 2,
             headers: {"X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content},
             autoProcessQueue:false,
+            addRemoveLinks:true,
+            dictFileTooBig:"Este archivo es demasiagrande",
+            dictInvalidFileType:"Este tipo de archvio no esta permitido",
             params:{id_producto:''}
           }
       }
@@ -186,49 +187,6 @@ export default {
 
  
   methods:{
-
-    obtenerImagen(e){
-      let file = e.target.files[0];
-
-      if (!(/\.(jpg|png|gif)$/i).test(file.name)) {
-        this.alertShow(true,'Puede seleccionar solo imagenes');
-      }
-      else
-      {
-        this.producto.imagen = file;
-        if(this.modificarActivo){
-          this.cargarImagenEditada(file);
-          this.imgModificar=true;
-
-        }else{
-          this.cargarImagen(file);
-        }
-      }
-      
-    },
-
-    cargarImagen(file){
-      let reader = new FileReader();
-
-      reader.onload = (e) => {
-        console.log(e);
-        this.imgProductoNuevo = e.target.result;
-      }
-
-      reader.readAsDataURL(file);
-    },
-
-    cargarImagenEditada(file){
-      let reader = new FileReader();
-
-      reader.onload = (e) => {
-        console.log(e);
-        const img = this.imgProductoModificar = e.target.result;
-         
-      }
-
-      reader.readAsDataURL(file);
-    },
 
     consultar(){
 
@@ -260,7 +218,6 @@ export default {
           formData.append('tela', this.producto.tela);
           formData.append('descripcion', this.producto.descripcion);
           formData.append('categoria', this.producto.categoria);
-          // formData.append('imagen', this.producto.imagen);
 
           axios.post('api/productos', formData)
             .then((res) => {
@@ -299,6 +256,19 @@ export default {
         console.log("producto no eliminado");
       }
       
+    },
+
+    eliminarImagen(imagen){      
+      imagen.estado = false;
+
+      axios.delete(`api/imagenes/${imagen.id}`)
+        .then(res=>{
+          this.consultar();
+          alertShow(true,'Imagen eliminada');
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
     },
 
     modificar(producto){
@@ -365,7 +335,6 @@ export default {
       this.producto.categoria   = producto.id_categoria;
 
       this.consultarCategorias();
-
     },
 
     cancelarMidificar(){
@@ -379,15 +348,6 @@ export default {
       this.mensaje = mensaje;
       setTimeout(() => this.toast = false , '5000');
     },
-
-    // sendingEvent (file, xhr, formData) {
-
-    //   // let formData = new FormData();
-
-    //     formData.append('id_producto', '1');
-
-    //     console.log( this.producto.id)
-    // }
 
   },
 
@@ -417,93 +377,91 @@ export default {
 </script>
 
 <style scoped>
-    .text-verde{
-        color: rgb(0, 165, 80);
-    }
+  .text-verde{
+      color: rgb(0, 165, 80);
+  }
 
-    .text-mt{
-      font-size: 13px;
-      color: rgb(63, 63, 63);
-    }
+  .text-mt{
+    font-size: 13px;
+    color: rgb(63, 63, 63);
+  }
 
-    .text-m{
-      font-style:initial;
-      color: #575757ee;
-    }
+  .text-m{
+    font-style:initial;
+    color: #575757ee;
+  }
 
-    .form-control{
-      padding: .375rem .75rem;
+  .form-control{
+    padding: .375rem .75rem;
 
-    }
+  }
 
-    .form-control-buscar:focus{
-      border-color: #ced4da;
-      box-shadow: none;
-    }
+  .form-control-buscar:focus{
+    border-color: #ced4da;
+    box-shadow: none;
+  }
 
-    .media:hover .btn-delete{
-        display: block;
-    }
+  .media:hover .btn-delete{
+      display: block;
+  }
 
-    .media:hover .btn-edit{
-        display: block;
-    }
+  .media:hover .btn-edit{
+      display: block;
+  }
 
-    .h-form{
-      min-height: 92vh;
-    }
+  .h-form{
+    min-height: 92vh;
+  }
 
-    .btn-delete, .btn-edit{
-      display: none;
-    }
+  .btn-delete, .btn-edit{
+    display: none;
+  }
 
-    .btn-delete:hover{
-      background:#ffb2b2;
-      
-    }
+  .btn-delete:hover{
+    background:#ffb2b2;
+    
+  }
 
-    .btn-edit:hover{
-      background:#00a5504a;
-    }
+  .btn-edit:hover{
+    background:#00a5504a;
+  }
 
-    .div-scroll{
-        overflow-y: hidden;
-        height: 92vh;
-    }
+  .div-scroll{
+      overflow-y: hidden;
+      height: 92vh;
+  }
 
-    .div-scroll:hover{
-        overflow-y: scroll;
-    }
+  .div-scroll:hover{
+      overflow-y: scroll;
+  }
 
-    .imagen{
-      max-height: auto;
-      max-width:  30%;
-      margin: auto;
+  .imagen{
+    max-height: auto;
+    max-width:  50%;
+  }
 
-    }
+  .imagen img{
+    width: 100%;
+    height: 100%;
+  }
 
-    .imagen img{
-      width: 100%;
-      height: auto;
-    }
-
-    .alert-dark {
-      border-radius: 6px;
-      position: absolute;
-      top: 0;
-      right: 5%;
-      color: #ffffff;
-      background-color: #323232;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      min-height: 48px;
-      padding: 10px 25px;
-      font-size: 1.1rem;
-      font-weight: 300;
-      margin-top: 10px;
-      cursor: default;
-    }
+  .alert-dark {
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    color: #ffffff;
+    background-color: #323232;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-top: 10px;
+    cursor: default;
+  }
 
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
@@ -511,5 +469,13 @@ export default {
   
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+  }
+
+  .btn-hidden button{
+    visibility: hidden;
+  }
+
+  .btn-hidden:hover button{
+    visibility: visible;
   }
 </style>

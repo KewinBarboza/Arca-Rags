@@ -17,6 +17,7 @@ class CreateImagensTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('id_producto')->nullable();
             $table->string('url');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

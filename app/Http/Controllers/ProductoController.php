@@ -134,16 +134,10 @@ class ProductoController extends Controller
     {
         $producto = Productos::find($id);
 
-        if (is_file($producto->imagen)) {
 
-            Storage::disk('public')->delete($producto->imagen);
-            $producto->delete();
-            return 'producto eliminado con éxito';
-        }
-        else
-        {
-            return 'este archivo no existe';
-        }
+        $producto->delete();
+        return 'producto eliminado con éxito';
+        
 
     }
 }
