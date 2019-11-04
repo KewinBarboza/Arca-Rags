@@ -16,21 +16,20 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        // if($request->ajax()){
-        //     return Productos::where('id', auth()->id())->get();
-        // }else{
-        //     return view('home');
-        // }
-        
-        return Productos::with(['categoria','imagen'])->get();
+        if (request()->wantsJson()) {
+            return Productos::latest('id')->with(['categoria','imagen'])->get();
+        }else{
+            return view('home');
+        }
     }
 
     public function show($id){
 
         if (request()->wantsJson()) {
-            $producto = Productos::find($id)->with(['categoria','imagen'])->get();
-           
+
+            $producto = Productos::where('id',$id)->with(['categoria','imagen'])->get();
             return $producto;
+            
         }
     }
 

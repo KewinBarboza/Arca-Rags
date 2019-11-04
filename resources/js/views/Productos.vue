@@ -72,7 +72,7 @@
         color:#888888;
     }
 
-    .list-group-item:hover{
+    .list-group-item-light:hover{
         color: rgb(0, 165, 80);
         background-color: #fff;
     }

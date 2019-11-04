@@ -10,8 +10,7 @@
                     </carousel>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5">
-                    <h2 class="title"><b>{{item.nombre}}</b></h2>
-                    <!-- <p class="color-parrafo">Nuestra chaqueta unisex está confeccionada en tela impermeable, con forro de malla a juego con la tela de la capucha.</p> -->
+                    <h2 class="title text-uppercase"><b>{{item.nombre}}</b></h2>
                     
                     <p class="border-bottom mt-2"></p>
                     

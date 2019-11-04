@@ -2273,7 +2273,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2397,7 +2396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      productos: []
+      productos: [],
+      buscar: ''
     };
   },
   methods: {
@@ -2409,10 +2409,23 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    filtrarCategoria: function filtrarCategoria(categoria) {
+      this.buscar = categoria;
     }
   },
   mounted: function mounted() {
     this.consultarProductos();
+  },
+  computed: {
+    filtrarProductos: function filtrarProductos() {
+      var _this2 = this;
+
+      console.log(this.buscar);
+      return this.productos.filter(function (producto) {
+        return producto.categoria.categoria.match(_this2.buscar);
+      });
+    }
   }
 });
 
@@ -7816,7 +7829,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na[data-v-515483bc]{\n     color: #4CAF50;\n}\n.card[data-v-515483bc]{\n    background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n    background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n    color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n    transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n\n", ""]);
+exports.push([module.i, "\na[data-v-515483bc]{\n    color: #4CAF50;\n}\n.card[data-v-515483bc]{\n    background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n    background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n    color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n    transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}  \n\n", ""]);
 
 // exports
 
@@ -7968,7 +7981,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.verde-s[data-v-f067a8f8]{\n    background-color: rgb(0, 165, 80);\n}\n.list-title[data-v-f067a8f8]{\n    color:rgb(34, 31, 31);\n}\n.list-group-item[data-v-f067a8f8]{\n    padding: 0.30rem 1.10rem;\n    cursor:pointer;\n    color:#888888;\n}\n.list-group-item[data-v-f067a8f8]:hover{\n    color: rgb(0, 165, 80);\n    background-color: #fff;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.verde-s[data-v-f067a8f8]{\n    background-color: rgb(0, 165, 80);\n}\n.list-title[data-v-f067a8f8]{\n    color:rgb(34, 31, 31);\n}\n.list-group-item[data-v-f067a8f8]{\n    padding: 0.30rem 1.10rem;\n    cursor:pointer;\n    color:#888888;\n}\n.list-group-item-light[data-v-f067a8f8]:hover{\n    color: rgb(0, 165, 80);\n    background-color: #fff;\n}\n\n\n", ""]);
 
 // exports
 
@@ -40721,7 +40734,7 @@ var render = function() {
                 "col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5"
             },
             [
-              _c("h2", { staticClass: "title" }, [
+              _c("h2", { staticClass: "title text-uppercase" }, [
                 _c("b", [_vm._v(_vm._s(item.nombre))])
               ]),
               _vm._v(" "),
@@ -41186,63 +41199,81 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.productos, function(producto, index) {
-      return _c(
-        "div",
+    [
+      _c(
+        "button",
         {
-          key: index,
-          staticClass: "col-sm-12 col-md-4 col-lg-4 float-left mb-5"
+          on: {
+            click: function($event) {
+              return _vm.filtrarCategoria("camisa")
+            }
+          }
         },
-        [
-          _c(
-            "div",
-            { staticClass: "card card-sombra border-0" },
-            [
-              _vm._l(producto.imagen, function(img, index) {
-                return _c("div", { key: index }, [
-                  index === 1
-                    ? _c("div", [
-                        _c("img", {
+        [_vm._v("bus")]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.filtrarProductos, function(producto, index) {
+        return _c(
+          "div",
+          {
+            key: index,
+            staticClass: "col-sm-12 col-md-4 col-lg-4 float-left mb-5"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "card card-sombra border-0" },
+              [
+                _vm._l(producto.imagen, function(img, index) {
+                  return _c("div", { key: index }, [
+                    index === 0
+                      ? _c("img", {
                           staticClass: "img-fluid card-img-top p-3",
                           attrs: { src: img.url, alt: producto.nombre }
                         })
-                      ])
-                    : _vm._e()
-                ])
-              }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body p-2" },
-                [
-                  _c("h5", { staticClass: "card-title mb-1 text-uppercase" }, [
-                    _c("b", [_vm._v(_vm._s(producto.nombre))])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text color-parrafo mb-1" }, [
-                    _vm._v(_vm._s(producto.descripcion))
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "text-decoration-none",
-                      attrs: {
-                        to: { name: "Producto", params: { url: producto.id } }
-                      }
-                    },
-                    [_c("b", [_vm._v("Ver mas")])]
-                  )
-                ],
-                1
-              )
-            ],
-            2
-          )
-        ]
-      )
-    }),
-    0
+                      : _vm._e()
+                  ])
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body p-2" },
+                  [
+                    _c(
+                      "h5",
+                      { staticClass: "card-title mb-1 text-uppercase" },
+                      [_c("b", [_vm._v(_vm._s(producto.nombre))])]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text color-parrafo mb-1" }, [
+                      _vm._v(_vm._s(producto.descripcion))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text color-parrafo mb-1" }, [
+                      _vm._v(_vm._s(producto.categoria.categoria))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "text-decoration-none",
+                        attrs: {
+                          to: { name: "Producto", params: { url: producto.id } }
+                        }
+                      },
+                      [_c("b", [_vm._v("Ver mas")])]
+                    )
+                  ],
+                  1
+                )
+              ],
+              2
+            )
+          ]
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []

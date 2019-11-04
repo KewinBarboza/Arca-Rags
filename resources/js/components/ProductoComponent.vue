@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in productos" :key="index">
+        <button @click="filtrarCategoria('camisa')">bus</button>
+        <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in filtrarProductos" :key="index">
             <div class="card card-sombra border-0">
                 <div v-for="(img , index) of producto.imagen" :key="index">
-                    <div v-if="index === 1">
-                        <img :src="img.url" class="img-fluid card-img-top p-3" :alt="producto.nombre">
-                    </div>
+                    <img :src="img.url" class="img-fluid card-img-top p-3" :alt="producto.nombre" v-if="index === 0">
                 </div>
                 <div class="card-body p-2">
                     <h5 class="card-title mb-1 text-uppercase"><b>{{producto.nombre}}</b></h5>
                     <p class="card-text color-parrafo mb-1">{{producto.descripcion}}</p>
+                    <p class="card-text color-parrafo mb-1">{{producto.categoria.categoria}}</p>
                     <router-link class="text-decoration-none" :to="{name:'Producto', params:{url: producto.id}}"><b>Ver mas</b></router-link>
                 </div>
             </div>
@@ -21,7 +21,9 @@
     export default {
         data(){
             return{
-                productos:[]
+                productos:[],
+
+                buscar:''
             }
         },
 
@@ -35,18 +37,31 @@
                      .catch((error)=>{
                          console.log(error)
                      });
+            },
+
+            filtrarCategoria(categoria){
+                this.buscar = categoria;
             }
         },
 
         mounted(){
             this.consultarProductos();
+        },
+
+        computed:{
+            filtrarProductos(){
+                console.log(this.buscar)
+                return this.productos.filter((producto)=>{
+                    return producto.categoria.categoria.match(this.buscar);
+                });
+            }
         }
     }
 </script>
 
 <style scoped>
     a{
-         color: #4CAF50;
+        color: #4CAF50;
     }
 
     .card{
@@ -71,6 +86,6 @@
 
     .card-sombra:hover{
         box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);
-    }
+    }  
 
 </style>
