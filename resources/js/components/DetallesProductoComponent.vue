@@ -73,7 +73,7 @@
                 </carousel>
             </div>
         </div>
-        <ModalCorreo :showModal="modal" @hiddenModal="modal = $event"></ModalCorreo>
+        <ModalCorreo :showModal="modal" @hiddenModal="modal = $event"></ModalCorreo> 
     </div>
 </template>
 

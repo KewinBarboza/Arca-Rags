@@ -2393,11 +2393,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['categoria'],
   data: function data() {
     return {
       productos: [],
-      buscar: ''
+      busquedaSinResultado: false
     };
   },
   methods: {
@@ -2411,7 +2418,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     filtrarCategoria: function filtrarCategoria(categoria) {
-      this.buscar = categoria;
+      this.categoria = categoria;
     }
   },
   mounted: function mounted() {
@@ -2421,9 +2428,16 @@ __webpack_require__.r(__webpack_exports__);
     filtrarProductos: function filtrarProductos() {
       var _this2 = this;
 
-      console.log(this.buscar);
       return this.productos.filter(function (producto) {
-        return producto.categoria.categoria.match(_this2.buscar);
+        var productoPorCategoria = producto.categoria.categoria.match(_this2.categoria);
+        console.log(productoPorCategoria);
+
+        if (productoPorCategoria) {
+          _this2.busquedaSinResultado = false;
+          return productoPorCategoria;
+        } else {
+          _this2.busquedaSinResultado = true;
+        }
       });
     }
   }
@@ -3209,12 +3223,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categorias: []
+      categorias: [],
+      Listcategoria: ''
     };
   },
   methods: {
@@ -3226,6 +3242,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    filtrarCategoria: function filtrarCategoria(nomCategoria) {
+      this.Listcategoria = nomCategoria;
+      console.log(this.Listcategoria);
     }
   },
   mounted: function mounted() {
@@ -41200,17 +41220,13 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              return _vm.filtrarCategoria("camisa")
-            }
-          }
-        },
-        [_vm._v("bus")]
-      ),
+      _vm.busquedaSinResultado
+        ? _c("div", {}, [
+            _c("h1", { staticClass: "text-center mt-5 mb-5 text-muted" }, [
+              _vm._v("No hay productos disponibles")
+            ])
+          ])
+        : _c("div"),
       _vm._v(" "),
       _vm._l(_vm.filtrarProductos, function(producto, index) {
         return _c(
@@ -42952,7 +42968,12 @@ var render = function() {
                     {
                       key: index,
                       staticClass:
-                        "pl-4 list-group-item list-group-item-action list-group-item-light border-0"
+                        "pl-4 list-group-item list-group-item-action list-group-item-light border-0",
+                      on: {
+                        click: function($event) {
+                          return _vm.filtrarCategoria(categoria.categoria)
+                        }
+                      }
                     },
                     [
                       _vm._v(
@@ -42972,7 +42993,9 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-sm-12 col-md-9 col-lg-9" },
-          [_c("ProductoComponent")],
+          [
+            _c("ProductoComponent", { attrs: { categoria: _vm.Listcategoria } })
+          ],
           1
         )
       ])

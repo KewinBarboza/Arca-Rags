@@ -1,6 +1,12 @@
 <template>
     <div>
-        <button @click="filtrarCategoria('camisa')">bus</button>
+        <div v-if="busquedaSinResultado" class="">
+            <!-- <div class="row "> -->
+                <h1 class="text-center mt-5 mb-5 text-muted">No hay productos disponibles</h1>
+            <!-- </div> -->
+        </div>
+
+        <div v-else></div>
         <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in filtrarProductos" :key="index">
             <div class="card card-sombra border-0">
                 <div v-for="(img , index) of producto.imagen" :key="index">
@@ -19,11 +25,13 @@
 
 <script>
     export default {
+        props:['categoria'],
+
         data(){
             return{
                 productos:[],
 
-                buscar:''
+                busquedaSinResultado:false
             }
         },
 
@@ -40,7 +48,7 @@
             },
 
             filtrarCategoria(categoria){
-                this.buscar = categoria;
+                this.categoria = categoria;
             }
         },
 
@@ -50,9 +58,19 @@
 
         computed:{
             filtrarProductos(){
-                console.log(this.buscar)
                 return this.productos.filter((producto)=>{
-                    return producto.categoria.categoria.match(this.buscar);
+                    const productoPorCategoria = producto.categoria.categoria.match(this.categoria);
+                    console.log(productoPorCategoria);    
+                    if (productoPorCategoria) {
+                        
+                        this.busquedaSinResultado=false;
+                        return productoPorCategoria;
+
+                    }else{
+
+                        this.busquedaSinResultado=true;
+                    }
+
                 });
             }
         }

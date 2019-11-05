@@ -39,7 +39,7 @@
 <script>
 export default {
     
-    props:['showModal'],
+    props:['showModal'], 
 
     data(){
 

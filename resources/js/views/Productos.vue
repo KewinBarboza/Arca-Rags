@@ -5,22 +5,23 @@
             <jumbotrom></jumbotrom>
         </header>
         <!-- menu categorias -->
+        <!-- {{ categorias[0].categoria }} -->
+
         <div class="container mb-5">
             <div class="row">
                 <div class="nav-categorias col-sm-12 col-md-3 col-lg-3">
                     <ul class="list-group mt-2">
                         <li class="pl-4 list-group-item list-title rounded-0 border-0"><h3 class="border-bottom pb-2"><b>CATEGORIAS</b></h3></li>
-                        <li v-for="(categoria, index) of categorias" :key="index" class="pl-4 list-group-item list-group-item-action list-group-item-light border-0">
+                        <li v-for="(categoria, index) of categorias" :key="index"  @click="filtrarCategoria(categoria.categoria)" class="pl-4 list-group-item list-group-item-action list-group-item-light border-0">
                             {{categoria.categoria}}
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <ProductoComponent></ProductoComponent>
+                <div class="col-sm-12 col-md-9 col-lg-9" >
+                    <ProductoComponent :categoria="Listcategoria"></ProductoComponent>
                 </div>
             </div>
         </div>
-        <!-- footer -->
     </div>
 </template>
 
@@ -32,7 +33,9 @@
     export default {
         data(){
             return{
-                categorias:[]
+                categorias:[],
+
+                Listcategoria:''
             }
         },
 
@@ -46,6 +49,12 @@
                      .catch((error)=>{
                          console.log(error);
                      })
+            },
+
+            filtrarCategoria(nomCategoria){
+
+                this.Listcategoria = nomCategoria;
+                console.log(this.Listcategoria);
             }
         },
 
