@@ -43,16 +43,6 @@
         },
 
         methods:{
-            // consultarProductos(){
-
-            //     axios.get('api/productos')
-            //          .then((res)=>{
-            //              this.productos = res.data;
-            //          })
-            //          .catch((error)=>{
-            //              console.log(error)
-            //          });
-            // },
 
             infiniteHandler($state){
                 this.pages++
@@ -135,5 +125,16 @@
     .card-sombra:hover{
         box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);
     }  
+
+.owl-theme .owl-nav [class*='owl-'] {
+    color: #FFF;
+    font-size: 14px;
+    margin: 5px;
+    padding: 4px 7px;
+    background: rgb(49, 49, 49);
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+}
 
 </style>

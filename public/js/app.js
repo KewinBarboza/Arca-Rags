@@ -2273,6 +2273,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2415,15 +2429,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // consultarProductos(){
-    //     axios.get('api/productos')
-    //          .then((res)=>{
-    //              this.productos = res.data;
-    //          })
-    //          .catch((error)=>{
-    //              console.log(error)
-    //          });
-    // },
     infiniteHandler: function infiniteHandler($state) {
       var _this = this;
 
@@ -7840,7 +7845,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na[data-v-f4c6feb4]{\n    color: rgb(0, 165, 80);\n}\nh3[data-v-f4c6feb4]{\n    font-size:45px;\n}\n.verde-s[data-v-f4c6feb4]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-f4c6feb4]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-f4c6feb4]{\n    color: #fff;\n}\n.color-parrafo[data-v-f4c6feb4]{\n    color:#888888;\n}\n.card[data-v-f4c6feb4]{\n    background: #f1f1f1;\n}\n.card-body[data-v-f4c6feb4]{\n    background: #fff;\n}\n.titulo-menu[data-v-f4c6feb4]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid rgb(0, 165, 80);\n}\n.card-text[data-v-f4c6feb4]{\n    color: #868686;\n}\n.card-sombra[data-v-f4c6feb4]{\n    transition: all 1s;\n}\n.card-sombra[data-v-f4c6feb4]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n", ""]);
+exports.push([module.i, "\na[data-v-f4c6feb4]{\n    color: rgb(0, 165, 80);\n}\nh3[data-v-f4c6feb4]{\n    font-size:45px;\n}\n.verde-s[data-v-f4c6feb4]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-f4c6feb4]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-f4c6feb4]{\n    color: #fff;\n}\n.color-parrafo[data-v-f4c6feb4]{\n    color:#888888;\n}\n.card[data-v-f4c6feb4]{\n    background: #f1f1f1;\n}\n.card-body[data-v-f4c6feb4]{\n    background: #fff;\n}\n.titulo-menu[data-v-f4c6feb4]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid rgb(0, 165, 80);\n}\n.card-text[data-v-f4c6feb4]{\n    color: #868686;\n}\n.card-sombra[data-v-f4c6feb4]{\n    transition: all 1s;\n}\n.card-sombra[data-v-f4c6feb4]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n.next[data-v-f4c6feb4]{\n    position: absolute;\n    top: 45%;\n    z-index: 5;\n    cursor: pointer;\n    /* background: #d8d8d8; */\n}\n.prev[data-v-f4c6feb4]{\n    position: absolute;\n    top: 45%;\n    left: 86.5%;\n    z-index: 5;\n    cursor: pointer;\n}\n.next[data-v-f4c6feb4]:hover, .prev[data-v-f4c6feb4]:hover{\n    background: #d8d8d871;\n}\n\n", ""]);
 
 // exports
 
@@ -7897,7 +7902,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na[data-v-515483bc]{\n    color: #4CAF50;\n}\n.card[data-v-515483bc]{\n    background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n    background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n    color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n    transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}  \n\n", ""]);
+exports.push([module.i, "\na[data-v-515483bc]{\n        color: #4CAF50;\n}\n.card[data-v-515483bc]{\n        background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n        background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n        background: rgba(76, 175, 79, 0.336);\n        border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n        color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n        transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n        box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n.owl-theme .owl-nav [class*='owl-'][data-v-515483bc] {\n    color: #FFF;\n    font-size: 14px;\n    margin: 5px;\n    padding: 4px 7px;\n    background: rgb(49, 49, 49);\n    display: inline-block;\n    cursor: pointer;\n    border-radius: 3px;\n}\n\n", ""]);
 
 // exports
 
@@ -40789,23 +40794,67 @@ var render = function() {
                 {
                   attrs: {
                     autoplay: true,
-                    nav: true,
+                    nav: false,
                     responsive: {
                       0: { items: 1 },
-                      600: { items: 4 },
+                      600: { items: 1 },
                       1000: { items: 1 }
                     }
                   }
                 },
-                _vm._l(item.imagen, function(img, index) {
-                  return _c("div", { key: index, staticClass: "item" }, [
-                    _c("img", {
-                      staticClass: "mx-auto d-block img-fluid",
-                      attrs: { src: img.url, alt: _vm.producto.nombre }
-                    })
+                [
+                  _c("template", { slot: "next" }, [
+                    _c("span", { staticClass: "next" }, [
+                      _c(
+                        "svg",
+                        {
+                          staticStyle: { width: "34px", height: "44px" },
+                          attrs: { viewBox: "0 0 24 24" }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              fill: "#000000",
+                              d:
+                                "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(item.imagen, function(img, index) {
+                    return _c("div", { key: index, staticClass: "item" }, [
+                      _c("img", {
+                        staticClass: "mx-auto d-block img-fluid",
+                        attrs: { src: img.url, alt: _vm.producto.nombre }
+                      })
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("template", { slot: "prev" }, [
+                    _c("span", { staticClass: "prev" }, [
+                      _c(
+                        "svg",
+                        {
+                          staticStyle: { width: "34px", height: "44px" },
+                          attrs: { viewBox: "0 0 24 24" }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              fill: "#000000",
+                              d:
+                                "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                            }
+                          })
+                        ]
+                      )
+                    ])
                   ])
-                }),
-                0
+                ],
+                2
               )
             ],
             1

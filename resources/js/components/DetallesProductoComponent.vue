@@ -3,10 +3,24 @@
         <div class="row" v-for="(item , index) of producto" :key="index">
 
                 <div class="col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5" >
-                    <carousel :autoplay="true"  :nav="true" :responsive="{0:{items:1},600:{items:4},1000:{items:1}}">
+                    <carousel :autoplay="true"  :nav="false" :responsive="{0:{items:1},600:{items:1},1000:{items:1}}">
+                        <template slot="next">
+                            <span class="next">
+                                <svg style="width:34px;height:44px" viewBox="0 0 24 24">
+                                    <path fill="#000000" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+                                </svg>
+                            </span>
+                        </template>
                         <div class="item" v-for="(img , index) of item.imagen" :key="index">
                             <img :src="img.url" :alt="producto.nombre" class="mx-auto d-block img-fluid">
                         </div>
+                         <template slot="prev">
+                             <span class="prev">
+                                <svg style="width:34px;height:44px" viewBox="0 0 24 24">
+                                    <path fill="#000000" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                                </svg>
+                            </span>
+                        </template>
                     </carousel>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5">
@@ -161,4 +175,26 @@ export default {
     .card-sombra:hover{
         box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);
     }
+
+    .next{
+        position: absolute;
+        top: 45%;
+        z-index: 5;
+        cursor: pointer;
+        /* background: #d8d8d8; */
+    }
+
+    .prev{
+        position: absolute;
+        top: 45%;
+        left: 86.5%;
+        z-index: 5;
+        cursor: pointer;
+        
+    }
+
+    .next:hover, .prev:hover{
+        background: #d8d8d871;
+    }
+
 </style>
