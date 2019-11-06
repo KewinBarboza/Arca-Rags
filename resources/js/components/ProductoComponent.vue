@@ -1,9 +1,7 @@
 <template>
     <div>
         <div v-if="busquedaSinResultado" class="">
-            <!-- <div class="row "> -->
-                <h1 class="text-center mt-5 mb-5 text-muted">No hay productos disponibles</h1>
-            <!-- </div> -->
+            <h1 class="text-center mt-5 mb-5 text-muted">No hay productos disponibles</h1>
         </div>
 
         <div v-else></div>
@@ -48,7 +46,6 @@
                 this.pages++
                 let url = 'api/productos?page=' + this.pages;
 
-                // console.log(url)
                 axios.get(url)
                      .then((res)=>{
                          let product = res.data.data;
@@ -66,34 +63,28 @@
                      });
             },
 
-
             filtrarCategoria(categoria){
                 this.categoria = categoria;
             }
-        },
-
-        mounted(){
-            // this.consultarProductos();
         },
 
         computed:{
             filtrarProductos(){
                 return this.productos.filter((producto)=>{
                     const productoPorCategoria = producto.categoria.categoria.match(this.categoria);
-                    console.log(productoPorCategoria);    
-                    if (productoPorCategoria) {
-                        
-                        this.busquedaSinResultado=false;
-                        return productoPorCategoria;
+                    console.log(productoPorCategoria);   
 
+                    if (productoPorCategoria === null) {
+                        this.busquedaSinResultado = true;
                     }else{
-
-                        this.busquedaSinResultado=true;
+                        return productoPorCategoria;
+                        this.busquedaSinResultado=false;
                     }
 
                 });
             }
         }
+
     }
 </script>
 

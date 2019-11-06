@@ -2178,7 +2178,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      sent: false,
+      enviando: false,
+      infoCorreo: {
+        nombre: 'prueba',
+        correo: 'prueba@gmail.com',
+        asunto: 'preuba',
+        mensaje: 'preuba'
+      }
+    };
+  },
+  methods: {
+    datosCorreo: function datosCorreo() {
+      var _this = this;
+
+      this.enviando = true;
+      axios.post('api/ ', this.infoCorreo).then(function () {
+        _this.sent = true;
+        _this.enviando = false;
+      })["catch"](function (error) {
+        console.log(error);
+        _this.infoCorreo = false;
+        _this.enviando = false;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2367,10 +2399,20 @@ __webpack_require__.r(__webpack_exports__);
   props: ['showModal'],
   data: function data() {
     return {
-      ocultar: false
+      ocultar: false,
+      infoCorreo: {
+        nombre: 'kewin',
+        correo: 'kewin@gmail.com',
+        consulta: 'producto camisa'
+      }
     };
   },
   methods: {
+    enviarCorreo: function enviarCorreo() {
+      axios.post('api/correo.cotizacion', this.infoCorreo).then(function () {})["catch"](function (error) {
+        console.log(error);
+      });
+    },
     hidden: function hidden() {
       return this.$emit('hiddenModal', this.ocultar);
     }
@@ -2417,8 +2459,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoria'],
   data: function data() {
@@ -2433,8 +2473,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.pages++;
-      var url = 'api/productos?page=' + this.pages; // console.log(url)
-
+      var url = 'api/productos?page=' + this.pages;
       axios.get(url).then(function (res) {
         var product = res.data.data;
         console.log(res.data.data);
@@ -2453,8 +2492,6 @@ __webpack_require__.r(__webpack_exports__);
       this.categoria = categoria;
     }
   },
-  mounted: function mounted() {// this.consultarProductos();
-  },
   computed: {
     filtrarProductos: function filtrarProductos() {
       var _this2 = this;
@@ -2463,11 +2500,11 @@ __webpack_require__.r(__webpack_exports__);
         var productoPorCategoria = producto.categoria.categoria.match(_this2.categoria);
         console.log(productoPorCategoria);
 
-        if (productoPorCategoria) {
-          _this2.busquedaSinResultado = false;
-          return productoPorCategoria;
-        } else {
+        if (productoPorCategoria === null) {
           _this2.busquedaSinResultado = true;
+        } else {
+          return productoPorCategoria;
+          _this2.busquedaSinResultado = false;
         }
       });
     }
@@ -3298,7 +3335,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     filtrarCategoria: function filtrarCategoria(nomCategoria) {
       this.Listcategoria = nomCategoria;
-      console.log(this.Listcategoria);
     }
   },
   mounted: function mounted() {
@@ -40614,46 +40650,170 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-12 col-md-6 col-lg-6 mb-5" }, [
-        _c("form", {}, [
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "mx-auto d-block btn verde-s text-white btn-lg rounded-0",
-              attrs: { type: "submit" }
-            },
-            [
-              _c(
-                "svg",
-                {
-                  staticStyle: { width: "24px", height: "24px" },
-                  attrs: { viewBox: "0 0 24 24" }
-                },
-                [
-                  _c("path", {
+        _vm.sent
+          ? _c("p", [
+              _vm._v("Tu mensaje ha sido enviado, te contactaremos pronto.")
+            ])
+          : _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.datosCorreo($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.infoCorreo.nombre,
+                        expression: "infoCorreo.nombre"
+                      }
+                    ],
+                    staticClass: "form-control",
                     attrs: {
-                      fill: "#ffffff",
-                      d:
-                        "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                      type: "text",
+                      id: "exampleFormControlInput1",
+                      placeholder: "nombre"
+                    },
+                    domProps: { value: _vm.infoCorreo.nombre },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.infoCorreo, "nombre", $event.target.value)
+                      }
                     }
                   })
-                ]
-              ),
-              _vm._v("\n                    Enviar Mensaje\n                ")
-            ]
-          )
-        ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.infoCorreo.correo,
+                        expression: "infoCorreo.correo"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "exampleFormControlInput1",
+                      placeholder: "correo"
+                    },
+                    domProps: { value: _vm.infoCorreo.correo },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.infoCorreo, "correo", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.infoCorreo.asunto,
+                        expression: "infoCorreo.asunto"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "exampleFormControlInput1",
+                      placeholder: "asunto"
+                    },
+                    domProps: { value: _vm.infoCorreo.asunto },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.infoCorreo, "asunto", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.infoCorreo.mensaje,
+                        expression: "infoCorreo.mensaje"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      id: "exampleFormControlTextarea1",
+                      rows: "6",
+                      placeholder: "mensaje"
+                    },
+                    domProps: { value: _vm.infoCorreo.mensaje },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.infoCorreo, "mensaje", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mx-auto d-block btn verde-s text-white btn-lg rounded-0",
+                    attrs: { type: "submit", disabled: _vm.enviando }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticStyle: { width: "24px", height: "24px" },
+                        attrs: { viewBox: "0 0 24 24" }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            fill: "#ffffff",
+                            d:
+                              "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.enviando
+                      ? _c("span", [_vm._v("Enviando...")])
+                      : _c("span", [_vm._v("Enviar Mensaje")])
+                  ]
+                )
+              ]
+            )
       ]),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(1),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.infoCorreo))])
     ])
   ])
 }
@@ -40662,7 +40822,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 mb-5" }, [
+    return _c("div", { staticClass: "col-12 mb-5 mt-5" }, [
       _c("h2", {}, [
         _c("span", { staticClass: "text-verde" }, [_vm._v("Contáctanos")])
       ]),
@@ -40674,66 +40834,6 @@ var staticRenderFns = [
         _c("br"),
         _vm._v("Gracias por su interés en nuestros productos.")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "email",
-          id: "exampleFormControlInput1",
-          placeholder: "nombre"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "email",
-          id: "exampleFormControlInput1",
-          placeholder: "correo"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "email",
-          id: "exampleFormControlInput1",
-          placeholder: "asunto"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: {
-          id: "exampleFormControlTextarea1",
-          rows: "6",
-          placeholder: "mensaje"
-        }
-      })
     ])
   },
   function() {
@@ -41204,103 +41304,171 @@ var render = function() {
       _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
         _vm.showModal
           ? _c("div", [
-              _c("form", { staticClass: "modal-mask" }, [
-                _c("div", { staticClass: "modal-wrapper" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "modal-dialog",
-                      attrs: { role: "document" }
-                    },
-                    [
-                      _c("div", { staticClass: "modal-content" }, [
-                        _c("div", { staticClass: "modal-header" }, [
-                          _c("h5", { staticClass: "modal-title" }, [
-                            _vm._v("Consultar precio")
+              _c(
+                "form",
+                {
+                  staticClass: "modal-mask",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.enviarCorreo($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-wrapper" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _c("div", { staticClass: "modal-header" }, [
+                            _c("h5", { staticClass: "modal-title" }, [
+                              _vm._v("Consultar precio")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "close",
+                                attrs: {
+                                  type: "button",
+                                  "data-dismiss": "modal",
+                                  "aria-label": "Close"
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    attrs: { "aria-hidden": "true" },
+                                    on: { click: _vm.hidden }
+                                  },
+                                  [_vm._v("×")]
+                                )
+                              ]
+                            )
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "close",
-                              attrs: {
-                                type: "button",
-                                "data-dismiss": "modal",
-                                "aria-label": "Close"
-                              }
-                            },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  attrs: { "aria-hidden": "true" },
-                                  on: { click: _vm.hidden }
+                          _c("div", { staticClass: "modal-body p-5" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.infoCorreo.nombre,
+                                    expression: "infoCorreo.nombre"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text", placeholder: "nombre" },
+                                domProps: { value: _vm.infoCorreo.nombre },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.infoCorreo,
+                                      "nombre",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.infoCorreo.correo,
+                                    expression: "infoCorreo.correo"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "email", placeholder: "correo" },
+                                domProps: { value: _vm.infoCorreo.correo },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.infoCorreo,
+                                      "correo",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.infoCorreo.consulta,
+                                    expression: "infoCorreo.consulta"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  id: "exampleFormControlTextarea1",
+                                  rows: "6",
+                                  placeholder: "Tu consulta"
                                 },
-                                [_vm._v("×")]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "modal-body p-5" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                id: "",
-                                placeholder: "nombre"
-                              }
-                            })
+                                domProps: { value: _vm.infoCorreo.consulta },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.infoCorreo,
+                                      "consulta",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "email",
-                                id: "",
-                                placeholder: "correo"
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("textarea", {
-                              staticClass: "form-control",
-                              attrs: {
-                                id: "exampleFormControlTextarea1",
-                                rows: "6",
-                                placeholder: "Tu consulta"
-                              }
-                            })
+                          _c("div", { staticClass: "modal-footer" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-verde mr-4",
+                                on: { click: _vm.hidden }
+                              },
+                              [_vm._v("Cerrar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn verde-s text-blanco rounded-0",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Enviar")]
+                            )
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "modal-footer" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "text-verde mr-4",
-                              on: { click: _vm.hidden }
-                            },
-                            [_vm._v("Cerrar")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn verde-s text-blanco rounded-0",
-                              attrs: { type: "submit" }
-                            },
-                            [_vm._v("Enviar")]
-                          )
                         ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
+                      ]
+                    )
+                  ])
+                ]
+              )
             ])
           : _vm._e()
       ])

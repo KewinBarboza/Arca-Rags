@@ -2,7 +2,7 @@
     <div>
         <transition  name="fade" mode="out-in">
             <div v-if="showModal">
-                <form class="modal-mask">
+                <form class="modal-mask" @submit.prevent="enviarCorreo">
                     <div class="modal-wrapper">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -14,13 +14,13 @@
                                 </div>
                                 <div class="modal-body p-5">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="" placeholder="nombre">
+                                        <input v-model="infoCorreo.nombre" type="text" class="form-control"  placeholder="nombre">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="" placeholder="correo">
+                                        <input v-model="infoCorreo.correo" type="email" class="form-control"  placeholder="correo">
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Tu consulta"></textarea>
+                                        <textarea v-model="infoCorreo.consulta" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Tu consulta"></textarea>
                                     </div>
                                 </div>
                             <div class="modal-footer">
@@ -44,17 +44,26 @@ export default {
     data(){
 
        return{
-            ocultar:false
+            ocultar:false,
+            infoCorreo:{nombre:'kewin',correo:'kewin@gmail.com',consulta:'producto camisa'}
        }
 
     },
     
     methods:{
 
+        enviarCorreo(){
+            axios.post('api/correo.cotizacion', this.infoCorreo)
+                 .then(()=>{
+
+                 })
+                 .catch((error)=>{
+                     console.log(error);
+                 })
+        },
+
         hidden(){
-
           return  this.$emit('hiddenModal',this.ocultar);
-
         }
 
     }

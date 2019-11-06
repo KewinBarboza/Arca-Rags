@@ -50,9 +50,7 @@
             },
 
             filtrarCategoria(nomCategoria){
-
                 this.Listcategoria = nomCategoria;
-                console.log(this.Listcategoria);
             }
         },
 
