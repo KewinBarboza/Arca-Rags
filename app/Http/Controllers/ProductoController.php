@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Response;
 use App\Productos;
 use App\Imagen;
 
@@ -17,7 +19,9 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if (request()->wantsJson()) {
-            return Productos::latest('id')->with(['categoria','imagen'])->get();
+            $productos =  Productos::latest('id')->with(['categoria','imagen'])->paginate(8);
+            return Response::json($productos);
+            // return Productos::latest('id')->with(['categoria','imagen'])->get();
         }else{
             return view('home');
         }

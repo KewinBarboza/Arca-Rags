@@ -4,8 +4,6 @@
         <header>
             <jumbotrom></jumbotrom>
         </header>
-        <!-- menu categorias -->
-        <!-- {{ categorias[0].categoria }} -->
 
         <div class="container mb-5">
             <div class="row">

@@ -20,6 +20,12 @@
                 </div>
             </div>
         </div>
+
+        <infinite-loading @infinite="infiniteHandler">
+            <div slot="spiral">Loading...</div>
+            <div slot="no-more"></div>
+            <div slot="no-results">No se encontraron resultados</div>
+        </infinite-loading>
     </div>
 </template>
 
@@ -31,21 +37,45 @@
             return{
                 productos:[],
 
-                busquedaSinResultado:false
+                busquedaSinResultado:false,
+                pages:0
             }
         },
 
         methods:{
-            consultarProductos(){
+            // consultarProductos(){
 
-                axios.get('api/productos')
+            //     axios.get('api/productos')
+            //          .then((res)=>{
+            //              this.productos = res.data;
+            //          })
+            //          .catch((error)=>{
+            //              console.log(error)
+            //          });
+            // },
+
+            infiniteHandler($state){
+                this.pages++
+                let url = 'api/productos?page=' + this.pages;
+
+                // console.log(url)
+                axios.get(url)
                      .then((res)=>{
-                         this.productos = res.data;
+                         let product = res.data.data;
+                         console.log(res.data.data);
+
+                        if (product.length) {
+                            this.productos = this.productos.concat(product)
+                            $state.loaded()
+                        }else{
+                            $state.complete()
+                        }
                      })
                      .catch((error)=>{
                          console.log(error)
                      });
             },
+
 
             filtrarCategoria(categoria){
                 this.categoria = categoria;
@@ -53,7 +83,7 @@
         },
 
         mounted(){
-            this.consultarProductos();
+            // this.consultarProductos();
         },
 
         computed:{

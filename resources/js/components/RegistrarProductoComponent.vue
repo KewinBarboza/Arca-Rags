@@ -151,6 +151,11 @@
             </div>
           </div>
         </div>
+        <infinite-loading @infinite="infiniteHandler">
+            <div slot="spiral">Loading...</div>
+            <div slot="no-more"></div>
+            <div slot="no-results">No se encontraron resultados</div>
+        </infinite-loading>
       </div>
     </div>
     <transition name="fade" mode="out-in">
@@ -181,6 +186,7 @@ export default {
 
           mensaje:'',
           buscar:'',
+          pages:'',
 
           dropzoneOptions: {
             url:'api/imagenes',
@@ -200,18 +206,40 @@ export default {
 
   methods:{
 
-    consultar(){
+    // consultar(){
 
-      axios.get('api/productos')
-      .then(res => {
-        this.productos = res.data;
+    //   axios.get('api/productos')
+    //   .then(res => {
+    //     this.productos = res.data;
 
-      }).catch(function (error) {
-          console.log(error);
-      });
+    //   }).catch(function (error) {
+    //       console.log(error);
+    //   });
 
       
-    },
+    // },
+
+    infiniteHandler($state){
+                this.pages++
+                let url = 'api/productos?page=' + this.pages;
+
+                // console.log(url)
+                axios.get(url)
+                     .then((res)=>{
+                         let product = res.data.data;
+                         console.log(res.data.data);
+
+                        if (product.length) {
+                            this.productos = this.productos.concat(product)
+                            $state.loaded()
+                        }else{
+                            $state.complete()
+                        }
+                     })
+                     .catch((error)=>{
+                         console.log(error)
+                     });
+            },
 
     registrar(){
 
@@ -365,7 +393,7 @@ export default {
 
   created(){
     this.consultarCategorias();
-    this.consultar();
+    // this.consultar();
   },
 
   computed:{
