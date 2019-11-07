@@ -22,10 +22,18 @@
                                     <div class="form-group">
                                         <textarea v-model="infoCorreo.consulta" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Tu consulta"></textarea>
                                     </div>
+                                    <p class="text-center" v-if="sent" >Tu mensaje ha sido enviado, te contactaremos pronto.</p>
                                 </div>
                             <div class="modal-footer">
                                 <a class="text-verde mr-4" @click="hidden">Cerrar</a>
-                                <button type="submit" class="btn verde-s text-blanco rounded-0">Enviar</button>
+                                <button type="submit" class="btn verde-s text-blanco rounded-0">
+                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="#ffffff" d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z" />
+                                    </svg>
+                                    
+                                    <span v-if="enviando">Enviando...</span> 
+                                    <span v-else>Enviar Mensaje</span>
+                                </button>
                             </div>
                             </div>
                         </div>
@@ -45,7 +53,9 @@ export default {
 
        return{
             ocultar:false,
-            infoCorreo:{nombre:'kewin',correo:'kewin@gmail.com',consulta:'producto camisa'}
+            sent:false, 
+            enviando:false,
+            infoCorreo:{nombre:'',correo:'',consulta:''}
        }
 
     },
@@ -55,10 +65,13 @@ export default {
         enviarCorreo(){
             axios.post('api/correo.cotizacion', this.infoCorreo)
                  .then(()=>{
-
+                     this.sent = true;
+                     this.enviando = false;
                  })
                  .catch((error)=>{
                      console.log(error);
+                     this.sent = false;
+                     this.enviando = false;
                  })
         },
 

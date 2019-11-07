@@ -2181,17 +2181,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       sent: false,
       enviando: false,
       infoCorreo: {
-        nombre: 'prueba',
-        correo: 'prueba@gmail.com',
-        asunto: 'preuba',
-        mensaje: 'preuba'
+        nombre: '',
+        correo: '',
+        asunto: '',
+        mensaje: ''
       }
     };
   },
@@ -2200,7 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.enviando = true;
-      axios.post('api/ ', this.infoCorreo).then(function () {
+      axios.post('api/correos', this.infoCorreo).then(function () {
         _this.sent = true;
         _this.enviando = false;
       })["catch"](function (error) {
@@ -2395,22 +2394,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['showModal'],
   data: function data() {
     return {
       ocultar: false,
+      sent: false,
+      enviando: false,
       infoCorreo: {
-        nombre: 'kewin',
-        correo: 'kewin@gmail.com',
-        consulta: 'producto camisa'
+        nombre: '',
+        correo: '',
+        consulta: ''
       }
     };
   },
   methods: {
     enviarCorreo: function enviarCorreo() {
-      axios.post('api/correo.cotizacion', this.infoCorreo).then(function () {})["catch"](function (error) {
+      var _this = this;
+
+      axios.post('api/correo.cotizacion', this.infoCorreo).then(function () {
+        _this.sent = true;
+        _this.enviando = false;
+      })["catch"](function (error) {
         console.log(error);
+        _this.sent = false;
+        _this.enviando = false;
       });
     },
     hidden: function hidden() {
@@ -40811,9 +40827,7 @@ var render = function() {
             )
       ]),
       _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.infoCorreo))])
+      _vm._m(1)
     ])
   ])
 }
@@ -41440,7 +41454,15 @@ var render = function() {
                                   }
                                 }
                               })
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.sent
+                              ? _c("p", { staticClass: "text-center" }, [
+                                  _vm._v(
+                                    "Tu mensaje ha sido enviado, te contactaremos pronto."
+                                  )
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "modal-footer" }, [
@@ -41460,7 +41482,31 @@ var render = function() {
                                   "btn verde-s text-blanco rounded-0",
                                 attrs: { type: "submit" }
                               },
-                              [_vm._v("Enviar")]
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticStyle: {
+                                      width: "24px",
+                                      height: "24px"
+                                    },
+                                    attrs: { viewBox: "0 0 24 24" }
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        fill: "#ffffff",
+                                        d:
+                                          "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm.enviando
+                                  ? _c("span", [_vm._v("Enviando...")])
+                                  : _c("span", [_vm._v("Enviar Mensaje")])
+                              ]
                             )
                           ])
                         ])

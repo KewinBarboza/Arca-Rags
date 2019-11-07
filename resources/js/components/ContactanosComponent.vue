@@ -33,7 +33,6 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
                 <iframe class="responsi" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1961.5051981509328!2d-66.84251404187104!3d10.499846135425344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59b1ac9c680f%3A0x69b47c0b20075ff4!2sResidencias%20Romar%2C%20Av%20Sta%20Eduvigis%2C%20Caracas%2C%20Distrito%20Capital!5e0!3m2!1ses!2sve!4v1570766360414!5m2!1ses!2sve" width="500" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
             </div>
-            <pre>{{infoCorreo}}</pre>
         </div>
     </div>
 </template>
@@ -45,7 +44,7 @@ export default {
         return{
             sent:false, 
             enviando:false,
-            infoCorreo:{nombre:'prueba',correo:'prueba@gmail.com',asunto:'preuba',mensaje:'preuba'}
+            infoCorreo:{nombre:'',correo:'',asunto:'',mensaje:''}
         }
     },
 
@@ -53,7 +52,7 @@ export default {
         datosCorreo(){
             this.enviando = true;
 
-            axios.post('api/ ', this.infoCorreo)
+            axios.post('api/correos', this.infoCorreo)
                  .then(()=>{
                      this.sent = true;
                      this.enviando = false;
