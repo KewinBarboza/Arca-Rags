@@ -9,6 +9,13 @@ class CorreosController extends Controller
 {
     public function correoContacto(Request $request){
         
+        $this->validate(request(),[
+            'nombre' => 'required',
+            'asunto' => 'required',
+            'correo' => 'required',
+            'mensaje' => 'required',
+        ]);
+
         $subject = request()->asunto;
         $for = "nueva3922@gmail.com";
         Mail::send('correos.contacto',request()->all(), function($msj) use($subject,$for){
@@ -24,6 +31,12 @@ class CorreosController extends Controller
 
     public function correoCotizacion(Request $request){
         
+        $this->validate(request(),[
+            'nombre' => 'required',
+            'correo' => 'required',
+            'consulta' => 'required',
+        ]);
+
         $subject = "cotización de producto";
         $for = "nueva3922@gmail.com";
         Mail::send('correos.cotizacion',request()->all(), function($msj) use($subject,$for){

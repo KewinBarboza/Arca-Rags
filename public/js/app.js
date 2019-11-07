@@ -2181,6 +2181,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2475,6 +2477,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categoria'],
   data: function data() {
@@ -2491,8 +2495,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pages++;
       var url = 'api/productos?page=' + this.pages;
       axios.get(url).then(function (res) {
-        var product = res.data.data;
-        console.log(res.data.data);
+        var product = res.data.data; //  console.log(res.data.data);
 
         if (product.length) {
           _this.productos = _this.productos.concat(product);
@@ -2514,14 +2517,13 @@ __webpack_require__.r(__webpack_exports__);
 
       return this.productos.filter(function (producto) {
         var productoPorCategoria = producto.categoria.categoria.match(_this2.categoria);
-        console.log(productoPorCategoria);
-
-        if (productoPorCategoria === null) {
-          _this2.busquedaSinResultado = true;
-        } else {
-          return productoPorCategoria;
-          _this2.busquedaSinResultado = false;
-        }
+        return productoPorCategoria; // console.log(productoPorCategoria);   
+        // if (productoPorCategoria === null) {
+        //     this.busquedaSinResultado = true;
+        // }else{
+        //     return productoPorCategoria;
+        //     this.busquedaSinResultado=false;
+        // }
       });
     }
   }
@@ -7878,7 +7880,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh2[data-v-7a00aff7]{\n    font-size: 50px;\n    text-align: center;\n}\np[data-v-7a00aff7]{\n    font-size: 20px;\n}\n.color-parrafo[data-v-7a00aff7]{\n   color: #9b9b9b;\n}\n.verde-s[data-v-7a00aff7]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-7a00aff7]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-7a00aff7]{\n    color: #ffffff;\n}\n.form-control[data-v-7a00aff7]{\n    padding: 25px;\n    border-radius: 0px;\n    border: 1px solid rgb(0, 165, 80);\n    font-size: 15px;\n}\n.form-control[data-v-7a00aff7]:focus {\n    box-shadow: 0 0 0 0.2rem rgba(0, 165, 80, 0.11);\n}\n.responsi[data-v-7a00aff7]{\n    max-width:100%;\n}\n\n\n", ""]);
+exports.push([module.i, "\nh2[data-v-7a00aff7]{\n    font-size: 50px;\n    text-align: center;\n}\np[data-v-7a00aff7]{\n    font-size: 20px;\n}\n.color-parrafo[data-v-7a00aff7]{\n   color: #9b9b9b;\n}\n.verde-s[data-v-7a00aff7]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-7a00aff7]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-7a00aff7]{\n    color: #ffffff;\n}\n.form-control[data-v-7a00aff7]{\n    padding: 25px;\n    border-radius: 0px;\n    border: 1px solid rgb(0, 165, 80);\n    font-size: 15px;\n}\n.form-control[data-v-7a00aff7]:focus {\n    box-shadow: 0 0 0 0.2rem rgba(0, 165, 80, 0.11);\n}\n.responsi[data-v-7a00aff7]{\n    max-width:100%;\n}\n.fade-enter-active[data-v-7a00aff7], .fade-leave-active[data-v-7a00aff7] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7a00aff7], .fade-leave-to[data-v-7a00aff7] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n}\n\n\n", ""]);
 
 // exports
 
@@ -7954,7 +7956,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na[data-v-515483bc]{\n        color: #4CAF50;\n}\n.card[data-v-515483bc]{\n        background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n        background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n        background: rgba(76, 175, 79, 0.336);\n        border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n        color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n        transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n        box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n.owl-theme .owl-nav [class*='owl-'][data-v-515483bc] {\n    color: #FFF;\n    font-size: 14px;\n    margin: 5px;\n    padding: 4px 7px;\n    background: rgb(49, 49, 49);\n    display: inline-block;\n    cursor: pointer;\n    border-radius: 3px;\n}\n\n", ""]);
+exports.push([module.i, "\na[data-v-515483bc]{\n    color: #4CAF50;\n}\n.card[data-v-515483bc]{\n    background: #f1f1f1;\n}\n.card-body[data-v-515483bc]{\n    background: #fff;\n}\n.titulo-menu[data-v-515483bc]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid #00ff08;\n}\n.card-text[data-v-515483bc]{\n    color: #868686;\n}\n.card-sombra[data-v-515483bc]{\n    transition: all 1s;\n}\n.card-sombra[data-v-515483bc]:hover{\n    box-shadow: 0 2px 30px -2px rgba(0, 0, 0, 0.281);\n}\n.owl-theme .owl-nav [class*='owl-'][data-v-515483bc] {\n    color: #FFF;\n    font-size: 14px;\n    margin: 5px;\n    padding: 4px 7px;\n    background: rgb(49, 49, 49);\n    display: inline-block;\n    cursor: pointer;\n    border-radius: 3px;\n}\n.fade-enter-active[data-v-515483bc], .fade-leave-active[data-v-515483bc] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-515483bc], .fade-leave-to[data-v-515483bc] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -40665,167 +40667,190 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "col-sm-12 col-md-6 col-lg-6 mb-5" }, [
-        _vm.sent
-          ? _c("p", [
-              _vm._v("Tu mensaje ha sido enviado, te contactaremos pronto.")
-            ])
-          : _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.datosCorreo($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.infoCorreo.nombre,
-                        expression: "infoCorreo.nombre"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "exampleFormControlInput1",
-                      placeholder: "nombre"
-                    },
-                    domProps: { value: _vm.infoCorreo.nombre },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.infoCorreo, "nombre", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.infoCorreo.correo,
-                        expression: "infoCorreo.correo"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "email",
-                      id: "exampleFormControlInput1",
-                      placeholder: "correo"
-                    },
-                    domProps: { value: _vm.infoCorreo.correo },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.infoCorreo, "correo", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.infoCorreo.asunto,
-                        expression: "infoCorreo.asunto"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "exampleFormControlInput1",
-                      placeholder: "asunto"
-                    },
-                    domProps: { value: _vm.infoCorreo.asunto },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.infoCorreo, "asunto", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.infoCorreo.mensaje,
-                        expression: "infoCorreo.mensaje"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      id: "exampleFormControlTextarea1",
-                      rows: "6",
-                      placeholder: "mensaje"
-                    },
-                    domProps: { value: _vm.infoCorreo.mensaje },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.infoCorreo, "mensaje", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
+      _c(
+        "div",
+        { staticClass: "col-sm-12 col-md-6 col-lg-6 mb-5" },
+        [
+          _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+            _vm.sent
+              ? _c("p", [
+                  _vm._v("Tu mensaje ha sido enviado, te contactaremos pronto.")
+                ])
+              : _c(
+                  "form",
                   {
-                    staticClass:
-                      "mx-auto d-block btn verde-s text-white btn-lg rounded-0",
-                    attrs: { type: "submit", disabled: _vm.enviando }
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.datosCorreo($event)
+                      }
+                    }
                   },
                   [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.infoCorreo.nombre,
+                            expression: "infoCorreo.nombre"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "exampleFormControlInput1",
+                          placeholder: "nombre"
+                        },
+                        domProps: { value: _vm.infoCorreo.nombre },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.infoCorreo,
+                              "nombre",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.infoCorreo.correo,
+                            expression: "infoCorreo.correo"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "email",
+                          id: "exampleFormControlInput1",
+                          placeholder: "correo"
+                        },
+                        domProps: { value: _vm.infoCorreo.correo },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.infoCorreo,
+                              "correo",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.infoCorreo.asunto,
+                            expression: "infoCorreo.asunto"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "exampleFormControlInput1",
+                          placeholder: "asunto"
+                        },
+                        domProps: { value: _vm.infoCorreo.asunto },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.infoCorreo,
+                              "asunto",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.infoCorreo.mensaje,
+                            expression: "infoCorreo.mensaje"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "exampleFormControlTextarea1",
+                          rows: "6",
+                          placeholder: "mensaje"
+                        },
+                        domProps: { value: _vm.infoCorreo.mensaje },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.infoCorreo,
+                              "mensaje",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "svg",
+                      "button",
                       {
-                        staticStyle: { width: "24px", height: "24px" },
-                        attrs: { viewBox: "0 0 24 24" }
+                        staticClass:
+                          "mx-auto d-block btn verde-s text-white btn-lg rounded-0",
+                        attrs: { type: "submit", disabled: _vm.enviando }
                       },
                       [
-                        _c("path", {
-                          attrs: {
-                            fill: "#ffffff",
-                            d:
-                              "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
-                          }
-                        })
+                        _c(
+                          "svg",
+                          {
+                            staticStyle: { width: "24px", height: "24px" },
+                            attrs: { viewBox: "0 0 24 24" }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                fill: "#ffffff",
+                                d:
+                                  "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.enviando
+                          ? _c("span", [_vm._v("Enviando...")])
+                          : _c("span", [_vm._v("Enviar Mensaje")])
                       ]
-                    ),
-                    _vm._v(" "),
-                    _vm.enviando
-                      ? _c("span", [_vm._v("Enviando...")])
-                      : _c("span", [_vm._v("Enviar Mensaje")])
+                    )
                   ]
                 )
-              ]
-            )
-      ]),
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _vm._m(1)
     ])
@@ -41547,14 +41572,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.busquedaSinResultado
-        ? _c("div", {}, [
-            _c("h1", { staticClass: "text-center mt-5 mb-5 text-muted" }, [
-              _vm._v("No hay productos disponibles")
-            ])
-          ])
-        : _c("div"),
-      _vm._v(" "),
       _vm._l(_vm.filtrarProductos, function(producto, index) {
         return _c(
           "div",
