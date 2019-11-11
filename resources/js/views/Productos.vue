@@ -9,10 +9,11 @@
             <div class="row">
                 <div class="nav-categorias col-sm-12 col-md-3 col-lg-3">
                     <ul class="list-group mt-2">
-                        <li class="pl-4 list-group-item list-title rounded-0 border-0"><h3 class="border-bottom pb-2"><b>CATEGORIAS</b></h3></li>
+                        <li class="pl-4 list-group-item list-title rounded-0 border-0"><h3 class="border-bottom pb-2"><b>PRODUCTOS</b></h3></li>
                         <li v-for="(categoria, index) of categorias" :key="index"  @click="filtrarCategoria(categoria.categoria)" class="pl-4 list-group-item list-group-item-action list-group-item-light border-0">
                             {{categoria.categoria}}
                         </li>
+                        <li class="pl-4 list-group-item list-group-item-action list-group-item-light border-0" @click="recargar()">Ver todos</li>
                     </ul>
                 </div>
                 <div class="col-sm-12 col-md-9 col-lg-9" >
@@ -51,6 +52,10 @@
 
             filtrarCategoria(nomCategoria){
                 this.Listcategoria = nomCategoria;
+            },
+
+            recargar(){
+               location.reload();
             }
         },
 

@@ -37,6 +37,12 @@ class ProductoController extends Controller
         }
     }
 
+    public function obtenerProductos(Request $request){
+
+        return Productos::latest('id')->with(['categoria','imagen'])->get();
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *

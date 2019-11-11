@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::resource('/productos','ProductoController');
+Route::get('/productosGet','ProductoController@obtenerProductos');
 Route::resource('/categorias','CategoriaController');
 Route::resource('/imagenes','ImagenController');
 

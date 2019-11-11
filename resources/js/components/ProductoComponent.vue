@@ -1,11 +1,6 @@
 <template>
     <div>
-        <!-- <div v-if="busquedaSinResultado" class="">
-            <h1 class="text-center mt-5 mb-5 text-muted">No hay productos disponibles</h1>
-        </div>
-
-        <div v-else></div> -->
-        <!-- <transition name="fade" mode="out-in"> -->
+        <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4 float-left mb-5" v-for="(producto,index) in filtrarProductos" :key="index">
                 <div class="card card-sombra border-0">
                     <div v-for="(img , index) of producto.imagen" :key="index">
@@ -14,12 +9,11 @@
                     <div class="card-body p-2">
                         <h5 class="card-title mb-1 text-uppercase"><b>{{producto.nombre}}</b></h5>
                         <p class="card-text color-parrafo mb-1">{{producto.descripcion}}</p>
-                        <p class="card-text color-parrafo mb-1">{{producto.categoria.categoria}}</p>
                         <router-link class="text-decoration-none" :to="{name:'Producto', params:{url: producto.id}}"><b>Ver mas</b></router-link>
                     </div>
                 </div>
             </div>
-        <!-- </transition> -->
+        </div>
 
         <infinite-loading @infinite="infiniteHandler">
             <div slot="spiral">Loading...</div>
@@ -51,7 +45,6 @@
                 axios.get(url)
                      .then((res)=>{
                          let product = res.data.data;
-                        //  console.log(res.data.data);
 
                         if (product.length) {
                             this.productos = this.productos.concat(product)
@@ -75,15 +68,6 @@
                 return this.productos.filter((producto)=>{
                     const productoPorCategoria = producto.categoria.categoria.match(this.categoria);
                     return productoPorCategoria;
-                   // console.log(productoPorCategoria);   
-
-                    // if (productoPorCategoria === null) {
-                    //     this.busquedaSinResultado = true;
-                    // }else{
-                    //     return productoPorCategoria;
-                    //     this.busquedaSinResultado=false;
-                    // }
-
                 });
             }
         }
@@ -135,7 +119,7 @@
         transition: opacity .5s;
     }
   
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    .fade-enter, .fade-leave-to{
         opacity: 0;
     }
 

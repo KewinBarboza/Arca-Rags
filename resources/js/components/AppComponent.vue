@@ -36,16 +36,11 @@
           <div class="row p-4">
               <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 border-right">
                   <div class="rs text-white mt-3">
-                      <h3 class="pb-2"><b>Catálogo</b></h3>
-                      <p class="teal">
-                          <a href="" class="ml-2">Camisas</a>
-                      </p>
-                      <p class="teal">
-                         <a href="" class="ml-2">Bolsos</a>
-                      </p>
-                      <p class="teal">
-                         <a href="" class="ml-2">Chaquetas</a
-                      ></p>
+                      <h3 class="pb-2"><b>adquirir productos</b></h3>
+                      <p class="teal">1- Escoge las prendas del catálogo.</p>
+                      <p class="teal">2- Ponte en contacto con nosotros.</p>
+                      <p class="teal">3- Pide las prendas y productos.</p>
+                      <p class="teal">4- Confeccionamos y entregamos.</p>
                   </div>
               </div>
               <div class="col-sm-12  col-md-6 col-lg-6 col-xl-6 ">

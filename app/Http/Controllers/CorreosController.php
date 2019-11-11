@@ -25,8 +25,6 @@ class CorreosController extends Controller
         });
         
         return response()->json(['correo enviado']);
-
-        // return response()->json([request()->asunto]);
     }
 
     public function correoCotizacion(Request $request){
