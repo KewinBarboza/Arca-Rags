@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container"> 
     <div class="row d-flex justify-content-center">
         <div class="col-md-8">
             <img src="./images/logo-grande.jpg" alt="logo" class="mx-auto d-block img-fluid mt-5">

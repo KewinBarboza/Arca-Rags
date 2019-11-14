@@ -11,18 +11,8 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
-
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Route::resource('/productos', 'ProductoController')->middleware('auth');
-// Route::resource('/categorias', 'CategoriaController')->middleware('auth');

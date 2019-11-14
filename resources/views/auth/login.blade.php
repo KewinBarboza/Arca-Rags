@@ -47,13 +47,6 @@
                                 {{ __('Olvidó su contraseña') }}
                             </a>
                         @endif
-                        <br>
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                        <label class="form-check-label" for="remember">
-                            {{ __('Recordar contraseña') }}
-                        </label>
-                        
                     </div>
                 </div>
             </form>

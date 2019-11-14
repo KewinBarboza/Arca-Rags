@@ -4,9 +4,7 @@
         <header>
             <carousel :autoplay="true" :dots="false"  :nav="false" :responsive="{0:{items:1,nav:false},600:{items:1,nav:false},1000:{items:1,nav:false}}">
                 <div class="item">
-                    <!-- <div class="hero-image-1"> -->
-                    <!-- <img src="/images/slider-header-2.jpg" alt="">                     -->
-                    <div class="hero-image-1" style="background-image: url('./images/slider-header-2.jpg')">
+                    <div class="hero-image-1" style="background-image: url('./images/slider-header-1.jpg')">
                         <div class="hero-text container">
                             <h1>LA BUENA IMAGEN DE SUS PRODUCTOS COMIENZA EN CASA </h1>
                             <h3>La imagen que sus empleados proyectan es más importante que un llamativo empaque</h3>
@@ -15,9 +13,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <!-- <div class="hero-image-2"> -->
-                    <!-- <img src="/images/slider-header-1.jpg" alt="">                     -->
-                    <div class="hero-image-2" style="background-image: url('./images/slider-header-1.jpg')">
+                    <div class="hero-image-2" style="background-image: url('./images/slider-header-2.jpg')">
                         <div class="hero-text container">
                             <h1>LA MEJOR CALIDAD EN PRENDAS</h1>
                             <h3>Ayude a su negocio. Vista a su equipo con nuestra exclusiva línea de camisas, chemises, franelas y chaquetas.</h3>
@@ -26,8 +22,6 @@
                     </div>
                 </div>
                 <div class="item">
-                    <!-- <div class="hero-image-3"> -->
-                    <!-- <img src="/images/slider-header-3.jpg" alt="">                     -->
                     <div class="hero-image-3" style="background-image: url('./images/slider-header-3.jpg')">
                         <div class="hero-text container">
                             <h1>LA GENTE BIEN VESTIDA VENDE MÁS </h1>
@@ -186,7 +180,6 @@ export default {
         position: relative;
     }
 
-
      @media (max-width: 500px) {
         .hero-image-1, .hero-image-2, .hero-image-3 {
             height: 350px;
@@ -223,7 +216,6 @@ export default {
         }
     }
 
-
     .hero-text {
         text-align: center;
         position: absolute;
@@ -232,7 +224,5 @@ export default {
         transform: translate(-50%, -50%);
         color: white; 
     }
-
-
 
 </style>

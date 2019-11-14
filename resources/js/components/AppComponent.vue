@@ -1,5 +1,4 @@
 <template>
-  
   <div>
     <nav class="navbar navbar-expand-lg negro-s fixed-top p-1">
       <div class="container">
@@ -36,7 +35,7 @@
           <div class="row p-4">
               <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 border-right">
                   <div class="rs text-white mt-3">
-                      <h3 class="pb-2"><b>adquirir productos</b></h3>
+                      <h3 class="pb-2"><b>Adquirir productos</b></h3>
                       <p class="teal">1- Escoge las prendas del catálogo.</p>
                       <p class="teal">2- Ponte en contacto con nosotros.</p>
                       <p class="teal">3- Pide las prendas y productos.</p>
@@ -88,13 +87,8 @@ export default {
       }
     },
     mounted(){
-      // this.handleScroll();
+
     },
-    
-    methods:{
-
-    }
-
 }
 </script>
 
@@ -116,7 +110,6 @@ export default {
   }
 
   .navbar{
-    /* height: 90px; */
     position: relative;
   }
 
@@ -140,9 +133,10 @@ export default {
     transition: opacity .5s;
   }
   
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  .fade-enter, .fade-leave-to {
     opacity: 0;
   }
+
 </style>
 
 
