@@ -1,8 +1,7 @@
 <template>
     <div>
-        <transition  name="fade" mode="out-in">
-            <div v-if="showModal">
-                <form class="modal-mask" @submit.prevent="enviarCorreo">
+        <transition  name="modal">
+                <form class="modal-mask" @submit.prevent="enviarCorreo" v-if="showModal">
                     <div class="modal-wrapper">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -39,7 +38,6 @@
                         </div>
                     </div>
                 </form>
-            </div>
         </transition>
     </div>
 </template>
@@ -116,14 +114,18 @@ export default {
         vertical-align: middle;
     }
 
-    
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .3s;
-    }
-  
-    .fade-enter, .fade-leave-to{
+    .modal-enter {
         opacity: 0;
+    }
+
+    .modal-leave-active {
+    opacity: 0;
+    }
+
+    .modal-enter .modal-dialog,
+    .modal-leave-active .modal-dialog {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
     }
 
     .form-control{

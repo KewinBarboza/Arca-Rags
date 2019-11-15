@@ -2265,6 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2308,8 +2309,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -7874,7 +7873,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na[data-v-1d8acfc7]{\n    color: rgb(0, 165, 80);\n}\nh3[data-v-1d8acfc7]{\n    font-size:45px;\n}\n.verde-s[data-v-1d8acfc7]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-1d8acfc7]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-1d8acfc7]{\n    color: #fff;\n}\n.color-parrafo[data-v-1d8acfc7]{\n    color:#888888;\n}\n.titulo-menu[data-v-1d8acfc7]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid rgb(0, 165, 80);\n}\n.next[data-v-1d8acfc7]{\n    position: absolute;\n    top: 45%;\n    z-index: 5;\n    cursor: pointer;\n}\n.prev[data-v-1d8acfc7]{\n    position: absolute;\n    top: 45%;\n    left: 86.5%;\n    z-index: 5;\n    cursor: pointer;\n}\n.next[data-v-1d8acfc7]:hover, .prev[data-v-1d8acfc7]:hover{\n    background: #d8d8d871;\n}\n\n", ""]);
+exports.push([module.i, "\na[data-v-1d8acfc7]{\n    color: rgb(0, 165, 80);\n}\nh3[data-v-1d8acfc7]{\n    font-size:45px;\n}\n.verde-s[data-v-1d8acfc7]{\n    background-color: rgb(0, 165, 80);\n}\n.text-verde[data-v-1d8acfc7]{\n    color: rgb(0, 165, 80);\n}\n.text-white[data-v-1d8acfc7]{\n    color: #fff;\n}\n.color-parrafo[data-v-1d8acfc7]{\n    color:#888888;\n}\n.titulo-menu[data-v-1d8acfc7]{\n    background: rgba(76, 175, 79, 0.336);\n    border-bottom: 2px solid rgb(0, 165, 80);\n}\n.next[data-v-1d8acfc7]{\n    position: absolute;\n    top: 45%;\n    z-index: 5;\n    cursor: pointer;\n}\n.prev[data-v-1d8acfc7]{\n    position: absolute;\n    top: 45%;\n    left: 86.5%;\n    z-index: 5;\n    cursor: pointer;\n}\n.next[data-v-1d8acfc7]:hover, .prev[data-v-1d8acfc7]:hover{\n    background: #d8d8d871;\n}\n.div-img img[data-v-1d8acfc7]{\n    width: 420px;\n    height: 408px;\n}\n.fade-enter-active[data-v-1d8acfc7], .fade-leave-active[data-v-1d8acfc7] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-1d8acfc7], .fade-leave-to[data-v-1d8acfc7] {\n    opacity: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -7912,7 +7911,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.verde-p[data-v-830bf870]{\n    background-color:rgb(0, 165, 80);\n}\na[data-v-830bf870]:not([href]):not([tabindex]) {\n    color: rgb(0, 165, 80);\n    text-decoration: none;\n    cursor: pointer;\n}\n.text-blanco[data-v-830bf870]{\n    color: #fff;\n}\n.modal-mask[data-v-830bf870] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-830bf870] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.fade-enter-active[data-v-830bf870], .fade-leave-active[data-v-830bf870] {\n    transition: opacity .3s;\n}\n.fade-enter[data-v-830bf870], .fade-leave-to[data-v-830bf870]{\n    opacity: 0;\n}\n.form-control[data-v-830bf870]{\n    padding: 25px;\n    border-radius: 0px;\n    border: 1px solid rgb(0, 165, 80);\n    font-size: 15px;\n}\n.form-control[data-v-830bf870]:focus {\n    box-shadow: 0 0 0 0.2rem rgba(0, 165, 80, 0.11);\n}\n", ""]);
+exports.push([module.i, "\n.verde-p[data-v-830bf870]{\n    background-color:rgb(0, 165, 80);\n}\na[data-v-830bf870]:not([href]):not([tabindex]) {\n    color: rgb(0, 165, 80);\n    text-decoration: none;\n    cursor: pointer;\n}\n.text-blanco[data-v-830bf870]{\n    color: #fff;\n}\n.modal-mask[data-v-830bf870] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-830bf870] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-enter[data-v-830bf870] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-830bf870] {\nopacity: 0;\n}\n.modal-enter .modal-dialog[data-v-830bf870],\n.modal-leave-active .modal-dialog[data-v-830bf870] {\n    transform: scale(1.1);\n}\n.form-control[data-v-830bf870]{\n    padding: 25px;\n    border-radius: 0px;\n    border: 1px solid rgb(0, 165, 80);\n    font-size: 15px;\n}\n.form-control[data-v-830bf870]:focus {\n    box-shadow: 0 0 0 0.2rem rgba(0, 165, 80, 0.11);\n}\n", ""]);
 
 // exports
 
@@ -40951,137 +40950,148 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.producto, function(item, index) {
-        return _c("div", { key: index, staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5"
-            },
-            [
-              _c(
-                "carousel",
-                {
-                  attrs: {
-                    autoplay: true,
-                    nav: false,
-                    responsive: {
-                      0: { items: 1 },
-                      600: { items: 1 },
-                      1000: { items: 1 }
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        _vm._l(_vm.producto, function(item, index) {
+          return _c("div", { key: index, staticClass: "row" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-sm-12 col-md-6 col-lg-6 border-top border-left border-bottom p-5 mb-5"
+              },
+              [
+                _c(
+                  "carousel",
+                  {
+                    attrs: {
+                      autoplay: true,
+                      nav: false,
+                      responsive: {
+                        0: { items: 1 },
+                        600: { items: 1 },
+                        1000: { items: 1 }
+                      }
                     }
-                  }
-                },
-                [
-                  _c("template", { slot: "next" }, [
-                    _c("span", { staticClass: "next" }, [
-                      _c(
-                        "svg",
-                        {
-                          staticStyle: { width: "34px", height: "44px" },
-                          attrs: { viewBox: "0 0 24 24" }
-                        },
+                  },
+                  [
+                    _c("template", { slot: "next" }, [
+                      _c("span", { staticClass: "next" }, [
+                        _c(
+                          "svg",
+                          {
+                            staticStyle: { width: "34px", height: "44px" },
+                            attrs: { viewBox: "0 0 24 24" }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                fill: "#000000",
+                                d:
+                                  "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(item.imagen, function(img, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "item div-img" },
                         [
-                          _c("path", {
-                            attrs: {
-                              fill: "#000000",
-                              d:
-                                "M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
-                            }
+                          _c("img", {
+                            staticClass: "mx-auto d-block img-fluid",
+                            attrs: { src: img.url, alt: _vm.producto.nombre }
                           })
                         ]
                       )
+                    }),
+                    _vm._v(" "),
+                    _c("template", { slot: "prev" }, [
+                      _c("span", { staticClass: "prev" }, [
+                        _c(
+                          "svg",
+                          {
+                            staticStyle: { width: "34px", height: "44px" },
+                            attrs: { viewBox: "0 0 24 24" }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                fill: "#000000",
+                                d:
+                                  "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                              }
+                            })
+                          ]
+                        )
+                      ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(item.imagen, function(img, index) {
-                    return _c("div", { key: index, staticClass: "item" }, [
-                      _c("img", {
-                        staticClass: "mx-auto d-block img-fluid",
-                        attrs: { src: img.url, alt: _vm.producto.nombre }
-                      })
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("template", { slot: "prev" }, [
-                    _c("span", { staticClass: "prev" }, [
-                      _c(
-                        "svg",
-                        {
-                          staticStyle: { width: "34px", height: "44px" },
-                          attrs: { viewBox: "0 0 24 24" }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              fill: "#000000",
-                              d:
-                                "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                            }
-                          })
-                        ]
-                      )
-                    ])
-                  ])
-                ],
-                2
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5"
-            },
-            [
-              _c("h2", { staticClass: "title text-uppercase" }, [
-                _c("b", [_vm._v(_vm._s(item.nombre))])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "border-bottom color-parrafo mt-2" }, [
-                _c("b", [_vm._v("Modelo:")]),
-                _vm._v(_vm._s(item.modelo))
-              ]),
-              _vm._v(" "),
-              _vm._m(0, true),
-              _vm._v(" "),
-              _c("p", { staticClass: "color-parrafo" }, [
-                _vm._v(_vm._s(item.descripcion))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "color-parrafo border-bottom mt-2" }, [
-                _c("b", [_vm._v("Tela:")]),
-                _vm._v(_vm._s(item.tela))
-              ]),
-              _vm._v(" "),
-              _vm._m(1, true),
-              _vm._v(" "),
-              _c("p", { staticClass: "color-parrafo" }, [
-                _vm._v(_vm._s(item.talla))
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn verde-s text-white rounded-0 mt-2",
-                  on: {
-                    click: function($event) {
-                      _vm.modal = true
+                  ],
+                  2
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-sm-12 col-md-6 col-lg-6  p-5 border-top border-right border-bottom p-5 mb-5"
+              },
+              [
+                _c("h2", { staticClass: "title text-uppercase" }, [
+                  _c("b", [_vm._v(_vm._s(item.nombre))])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "border-bottom color-parrafo mt-2" }, [
+                  _c("b", [_vm._v("Modelo:")]),
+                  _vm._v(_vm._s(item.modelo))
+                ]),
+                _vm._v(" "),
+                _c("h2", { staticClass: "title" }, [
+                  _c("b", [_vm._v("DESCRIPCIÓN")])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "color-parrafo" }, [
+                  _vm._v(_vm._s(item.descripcion))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "color-parrafo border-bottom mt-2" }, [
+                  _c("b", [_vm._v("Tela:")]),
+                  _vm._v(_vm._s(item.tela))
+                ]),
+                _vm._v(" "),
+                _c("h2", { staticClass: "title" }, [
+                  _c("b", [_vm._v("TALLAS")])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "color-parrafo" }, [
+                  _vm._v(_vm._s(item.talla))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn verde-s text-white rounded-0 mt-2",
+                    on: {
+                      click: function($event) {
+                        _vm.modal = true
+                      }
                     }
-                  }
-                },
-                [_vm._v("Consultar precio")]
-              )
-            ]
-          )
-        ])
-      }),
-      _vm._v(" "),
-      _c("otros-productos"),
+                  },
+                  [_vm._v("Consultar precio")]
+                )
+              ]
+            )
+          ])
+        }),
+        0
+      ),
       _vm._v(" "),
       _c("modal-correo", {
         attrs: { showModal: _vm.modal },
@@ -41090,27 +41100,14 @@ var render = function() {
             _vm.modal = $event
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _c("otros-productos")
     ],
-    2
+    1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", { staticClass: "title" }, [
-      _c("b", [_vm._v("DESCRIPCIÓN")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", { staticClass: "title" }, [_c("b", [_vm._v("TALLAS")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -41178,207 +41175,204 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+      _c("transition", { attrs: { name: "modal" } }, [
         _vm.showModal
-          ? _c("div", [
-              _c(
-                "form",
-                {
-                  staticClass: "modal-mask",
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.enviarCorreo($event)
-                    }
+          ? _c(
+              "form",
+              {
+                staticClass: "modal-mask",
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.enviarCorreo($event)
                   }
-                },
-                [
-                  _c("div", { staticClass: "modal-wrapper" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "modal-dialog",
-                        attrs: { role: "document" }
-                      },
-                      [
-                        _c("div", { staticClass: "modal-content" }, [
-                          _c("div", { staticClass: "modal-header" }, [
-                            _c("h5", { staticClass: "modal-title" }, [
-                              _vm._v("Consultar precio")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "close",
-                                attrs: {
-                                  type: "button",
-                                  "data-dismiss": "modal",
-                                  "aria-label": "Close"
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  {
-                                    attrs: { "aria-hidden": "true" },
-                                    on: { click: _vm.hidden }
-                                  },
-                                  [_vm._v("×")]
-                                )
-                              ]
-                            )
+                }
+              },
+              [
+                _c("div", { staticClass: "modal-wrapper" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "modal-dialog",
+                      attrs: { role: "document" }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-content" }, [
+                        _c("div", { staticClass: "modal-header" }, [
+                          _c("h5", { staticClass: "modal-title" }, [
+                            _vm._v("Consultar precio")
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "modal-body p-5" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.infoCorreo.nombre,
-                                    expression: "infoCorreo.nombre"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "text", placeholder: "nombre" },
-                                domProps: { value: _vm.infoCorreo.nombre },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.infoCorreo,
-                                      "nombre",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.infoCorreo.correo,
-                                    expression: "infoCorreo.correo"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "email", placeholder: "correo" },
-                                domProps: { value: _vm.infoCorreo.correo },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.infoCorreo,
-                                      "correo",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.infoCorreo.consulta,
-                                    expression: "infoCorreo.consulta"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  id: "exampleFormControlTextarea1",
-                                  rows: "6",
-                                  placeholder: "Tu consulta"
+                          _c(
+                            "button",
+                            {
+                              staticClass: "close",
+                              attrs: {
+                                type: "button",
+                                "data-dismiss": "modal",
+                                "aria-label": "Close"
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  attrs: { "aria-hidden": "true" },
+                                  on: { click: _vm.hidden }
                                 },
-                                domProps: { value: _vm.infoCorreo.consulta },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.infoCorreo,
-                                      "consulta",
-                                      $event.target.value
-                                    )
-                                  }
+                                [_vm._v("×")]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-body p-5" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.infoCorreo.nombre,
+                                  expression: "infoCorreo.nombre"
                                 }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _vm.sent
-                              ? _c("p", { staticClass: "text-center" }, [
-                                  _vm._v(
-                                    "Tu mensaje ha sido enviado, te contactaremos pronto."
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", placeholder: "nombre" },
+                              domProps: { value: _vm.infoCorreo.nombre },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.infoCorreo,
+                                    "nombre",
+                                    $event.target.value
                                   )
-                                ])
-                              : _vm._e()
+                                }
+                              }
+                            })
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "text-verde mr-4",
-                                on: { click: _vm.hidden }
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.infoCorreo.correo,
+                                  expression: "infoCorreo.correo"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "email", placeholder: "correo" },
+                              domProps: { value: _vm.infoCorreo.correo },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.infoCorreo,
+                                    "correo",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.infoCorreo.consulta,
+                                  expression: "infoCorreo.consulta"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                id: "exampleFormControlTextarea1",
+                                rows: "6",
+                                placeholder: "Tu consulta"
                               },
-                              [_vm._v("Cerrar")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn verde-s text-blanco rounded-0",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticStyle: {
-                                      width: "24px",
-                                      height: "24px"
-                                    },
-                                    attrs: { viewBox: "0 0 24 24" }
+                              domProps: { value: _vm.infoCorreo.consulta },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.infoCorreo,
+                                    "consulta",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _vm.sent
+                            ? _c("p", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  "Tu mensaje ha sido enviado, te contactaremos pronto."
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-verde mr-4",
+                              on: { click: _vm.hidden }
+                            },
+                            [_vm._v("Cerrar")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn verde-s text-blanco rounded-0",
+                              attrs: { type: "submit" }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticStyle: {
+                                    width: "24px",
+                                    height: "24px"
                                   },
-                                  [
-                                    _c("path", {
-                                      attrs: {
-                                        fill: "#ffffff",
-                                        d:
-                                          "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _vm.enviando
-                                  ? _c("span", [_vm._v("Enviando...")])
-                                  : _c("span", [_vm._v("Enviar Mensaje")])
-                              ]
-                            )
-                          ])
+                                  attrs: { viewBox: "0 0 24 24" }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      fill: "#ffffff",
+                                      d:
+                                        "M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.enviando
+                                ? _c("span", [_vm._v("Enviando...")])
+                                : _c("span", [_vm._v("Enviar Mensaje")])
+                            ]
+                          )
                         ])
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ])
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
           : _vm._e()
       ])
     ],

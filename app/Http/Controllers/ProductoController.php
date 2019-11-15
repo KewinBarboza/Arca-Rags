@@ -19,7 +19,7 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if (request()->wantsJson()) {
-            $productos =  Productos::latest('id')->with(['categoria','imagen'])->paginate(8);
+            $productos =  Productos::latest('id')->with(['categoria','imagen'])->paginate(15);
             return Response::json($productos);
             // return Productos::latest('id')->with(['categoria','imagen'])->get();
         }else{

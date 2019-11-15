@@ -12,7 +12,7 @@
 */
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+ 
+Route::get('/ar-admin', 'HomeController@index')->name('ar-admin');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
