@@ -33,10 +33,10 @@
                 <h2 class="title"><b>TALLAS</b></h2>
                 <p class="color-parrafo">{{item.talla}}</p>
                 
-                <bottom  @click="modal=true" class="btn verde-s text-white rounded-0 mt-2">Consultar precio</bottom>
+                <button  @click="modal=true" class="btn verde-s text-white rounded-0 mt-2">Consultar precio</button>
+
             </div>
         </div>
-        <!-- {{idUrl}} -->
         <otros-productos></otros-productos>
         
         <modal-correo :showModal="modal" @hiddenModal="modal = $event"></modal-correo> 
@@ -55,14 +55,15 @@ export default {
     data(){
         return{
             producto:[],
-            // idUrl:this.$route.params.url,
-            modal:false
+            idUrl:this.$route.params.url,
+            modal:false,
+
         }
     },
 
     methods:{
         consultarProducto(){
-            axios.get(`api/producto/${$route.params.url}`)
+            axios.get(`api/producto/${this.$route.params.url}`)
              .then(res=>{
                  this.producto = res.data;
              })
@@ -70,6 +71,8 @@ export default {
                  console.log(error);
              });
         },
+
+
     },
 
     mounted(){

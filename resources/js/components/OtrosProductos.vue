@@ -12,7 +12,7 @@
                     <div class="card-body p-2">
                         <h5 class="card-title mb-1 card-text text-uppercase"><b>{{ item.nombre }}.</b></h5>
                         <p class="card-text color-parrafo mb-1">{{ item.descripcion }}.</p>
-                        <router-link class="text-decoration-none"  :to="{name:'Producto', params:{url: item.id}}"><b>Ver mas</b></router-link>
+                        <router-link class="text-decoration-none"  :to="{name:'Producto', params:{url: item.id}}" ><b>Ver mas</b></router-link>
                     </div>
                 </div>
             </div>

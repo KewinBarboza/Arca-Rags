@@ -6,18 +6,18 @@
     </header>
 
     <section class="container producto">
-        <DetallesProductoComponent></DetallesProductoComponent>
+        <detalles-producto></detalles-producto>
     </section>
   </div>
 </template>
 
 <script>
     
-    import DetallesProductoComponent from '../components/DetallesProductoComponent'
+    import DetallesProducto from '../components/DetallesProducto'
     import jumbotrom from '../components/Jumbotrom'
 
     export default {
-        components:{DetallesProductoComponent,jumbotrom}
+        components:{DetallesProducto,jumbotrom}
     };
     
 </script>
